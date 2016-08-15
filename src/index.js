@@ -36,7 +36,7 @@ angular.module('app', [
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
   ($stateProvider, $urlRouterProvider, $locationProvider) => {
 
-    $locationProvider.html5Mode(true).hashPrefix('!');
+    // $locationProvider.html5Mode(true).hashPrefix('!');
 
     $urlRouterProvider.otherwise('/core-a');
 
