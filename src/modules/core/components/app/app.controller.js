@@ -1,13 +1,15 @@
-var AppController = function ($rootScope, MockService) {
+var AppController = function ($rootScope, $stateParams, MockService) {
   var $ctrl = this;
-  //Evaluate Async Response Within AngularJS Context i.e. RxJS / ES6(Promise) / Why Not Both?
+
+  $ctrl.title = $stateParams.name ? 'Name Param: ' + $stateParams.name : 'No Name Param';
+
   MockService.get().subscribe((response) => {
     $rootScope.$evalAsync(() => {
       $ctrl.model = response;
     })
   });
-}
+};
 
-AppController.$inject = ['$rootScope', 'MockService'];
+AppController.$inject = ['$rootScope', '$stateParams', 'MockService'];
 
 export default AppController;

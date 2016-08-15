@@ -11,8 +11,6 @@ import ngSanitize from 'angular-sanitize';
 import ngTouch from 'angular-touch';
 import rx from 'rx-angular';
 
-import { CoreStateA, CoreStateB } from './modules/core/core.states';
-
 //Load angular modules
 angular.module('app', [
   //Our Modules
@@ -34,11 +32,11 @@ angular.module('app', [
     $stateProvider
       .state('CoreStateA', {
         url: '/core-a',
-        template: CoreStateA
+        template: '<app></app>'
       })
       .state('CoreStateB', {
         url: '/core-b/:name',
-        template: CoreStateB
+        template: '<app></app>'
       });
   }
 ]);

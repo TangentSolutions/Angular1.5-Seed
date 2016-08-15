@@ -1,16 +1,8 @@
-import template from './count.template.html!text';
-import { autorun } from 'mobx';
+import CountTemplate from './count.template.html!text';
+import CountController from './count.controller';
 
 export default {
-  template: template,
-  controller: ['$scope', 'ObservableService', function ($scope, ObservableService) {
-    var $ctrl = this;
-
-    $ctrl.$onInit = function () {
-      autorun(() => {
-        $ctrl.count = ObservableService.observable.items.length;
-      })
-    };
-  }],
+  template: CountTemplate,
+  controller: CountController,
   controllerAs: '$ctrl'
 };

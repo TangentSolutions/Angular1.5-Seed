@@ -8,9 +8,6 @@ import { autorun } from 'mobx';
 
 //Components are plain objects
 export default {
-  bindings: {
-    title: '@'
-  },
   template: AppTemplate,
   controller: AppController,
   controllerAs: '$ctrl'
