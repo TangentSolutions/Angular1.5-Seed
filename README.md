@@ -1,4 +1,4 @@
-# Angular 1 to 2
+# Angular1.5-Seed
 
 This AngularJS starter project comes with Mobx and RxJS to satisfy all reactive application needs, and is made to build AngularJS applications in such a way that they can be ported to Angular2 with minimal refactoring and still be production worthy.
  The core principal applied when structuring this starter project is to minimise the amount of refactoring required while keeping a reactive component based application structure in mind.
