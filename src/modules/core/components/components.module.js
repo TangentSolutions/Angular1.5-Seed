@@ -4,7 +4,7 @@ import AppComponent from './app/app.component';
 import CountComponent from './count/count.component';
 import ListComponent from './list/list.component';
 
-export default angular.module('components',[])
+export default angular.module('CoreComponents',[])
   .component('app', AppComponent)
   .component('count', CountComponent)
   .component('list', ListComponent)
