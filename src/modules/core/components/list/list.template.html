@@ -2,6 +2,6 @@
   <input type="text" name="name" placeholder="Item" ng-model="$ctrl.input">
   <input class="btn btn-primary" type="button" name="name" value="Add" ng-click="$ctrl.addItem()">
   <div ng-repeat="item in $ctrl.items track by $index" >
-    {{item.value}}
+    <a ui-sref="CoreStateB({name: {{$index}} })">{{item.value}} </a>
   </div>
 </div>

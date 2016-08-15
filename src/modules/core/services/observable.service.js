@@ -11,6 +11,6 @@ let ObservableService = function () {
       items: []
     })
   };
-}
+};
 
 export default ObservableService;

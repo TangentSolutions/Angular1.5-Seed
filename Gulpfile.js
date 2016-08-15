@@ -8,8 +8,9 @@ var gulp_jspm = require('gulp-jspm');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var browserSync = require('browser-sync').create();
+var historyApiFallback = require('connect-history-api-fallback')
 
-gulp.task('build:js', function() {
+gulp.task('build:js', function () {
     return gulp.src('src/index.js')
         .pipe(gulp_jspm({selfExecutingBundle: true}))
         .pipe(uglify())
@@ -17,34 +18,36 @@ gulp.task('build:js', function() {
 });
 
 gulp.task('build:html', function () {
-  gulp.src('./src/index.html')
-    .pipe(htmlreplace({
-        'js': './js/index.bundle.js'
-    }))
-    .pipe(gulp.dest('./dist/'));
+    gulp.src('./src/index.html')
+        .pipe(htmlreplace({
+            'js': './js/index.bundle.js'
+        }))
+        .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('build:assets', function () {
-  gulp.src('./src/assets/**/*')
-    .pipe(gulp.dest('./dist/assets'));
+    gulp.src('./src/assets/**/*')
+        .pipe(gulp.dest('./dist/assets'));
 });
 
 gulp.task('build', ['build:js', 'build:html', 'build:assets']);
 
 gulp.task('serve:dev', function () {
-  browserSync.init({
-    files: './src/**/*',
-    injectChanges: true,
-    server: {
-      baseDir: './src'
-    }
-  });
+    browserSync.init({
+        files: './src/**/*',
+        injectChanges: true,
+        server: {
+            baseDir: './src',
+            middleware: [ historyApiFallback() ]
+        }
+    });
 });
 
 gulp.task('serve:dist', ['build'], function () {
-  browserSync.init({
-      server: {
-          baseDir: './dist'
-      }
-  });
+    browserSync.init({
+        server: {
+            baseDir: './dist',
+            middleware: [ historyApiFallback() ]
+        }
+    });
 });
