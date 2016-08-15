@@ -3,12 +3,12 @@ import angular from 'angular';
 import CoreModule from './modules/core/core.module';
 
 //Import angular modules
-import uiRouter from 'angular-ui-router';
 import ngAnimate from 'angular-animate';
 import ngAria from 'angular-aria';
 import ngCookies from 'angular-cookies';
 import ngSanitize from 'angular-sanitize';
 import ngTouch from 'angular-touch';
+import uiRouter from 'angular-ui-router';
 import rx from 'rx-angular';
 
 //Load angular modules
