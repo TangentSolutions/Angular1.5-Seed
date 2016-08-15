@@ -1,5 +1,5 @@
 {
-  "name": "angular-1-2",
+  "name": "angular1.5-seed",
   "version": "1.0.0",
   "description": "Angular 1 that is ready for Angular 2 ",
   "main": "./src/index.js",
@@ -14,7 +14,6 @@
     "ES6"
   ],
   "author": "Francois Venter <francois@tangentsolutions.co.za>",
-  "license": "MIT",
   "jspm": {
     "directories": {
       "baseURL": "src"
