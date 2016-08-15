@@ -1,0 +1,7 @@
+<div class="">
+  <input type="text" name="name" placeholder="Item" ng-model="$ctrl.input">
+  <input type="button" name="name" value="Add" ng-click="$ctrl.addItem()">
+  <div ng-repeat="item in $ctrl.items track by $index" >
+    {{item.value}}
+  </div>
+</div>

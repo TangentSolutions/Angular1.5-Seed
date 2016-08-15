@@ -1,0 +1,17 @@
+//Load Template Using Text Plugin for SystemJS
+import AppTemplate from './app.template.html!text';
+import AppController from './app.controller';
+//Load Styles Using CSS Plugin for SystemJS
+import './app.style.css!';
+
+import { autorun } from 'mobx';
+
+//Components are plain objects
+export default {
+  bindings: {
+    title: '@'
+  },
+  template: AppTemplate,
+  controller: AppController,
+  controllerAs: '$ctrl'
+};
