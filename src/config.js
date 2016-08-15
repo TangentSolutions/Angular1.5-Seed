@@ -20,11 +20,14 @@ System.config({
     "angular-cookies": "github:angular/bower-angular-cookies@1.5.8",
     "angular-sanitize": "github:angular/bower-angular-sanitize@1.5.8",
     "angular-touch": "github:angular/bower-angular-touch@1.5.8",
+    "angular-ui-bootstrap": "npm:angular-ui-bootstrap@2.0.1",
     "angular-ui-router": "github:angular-ui/angular-ui-router-bower@0.3.1",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "bootstrap": "github:twbs/bootstrap@3.3.7",
     "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.26",
+    "jquery": "npm:jquery@3.1.0",
     "json": "github:systemjs/plugin-json@0.1.2",
     "lite-server": "npm:lite-server@2.2.2",
     "mobx": "npm:mobx@2.4.2",
@@ -123,6 +126,9 @@ System.config({
     },
     "github:jspm/nodelibs-zlib@0.1.0": {
       "browserify-zlib": "npm:browserify-zlib@0.1.4"
+    },
+    "github:twbs/bootstrap@3.3.7": {
+      "jquery": "npm:jquery@2.2.4"
     },
     "npm:accepts@1.2.13": {
       "mime-types": "npm:mime-types@2.1.11",
@@ -927,6 +933,9 @@ System.config({
       "events": "github:jspm/nodelibs-events@0.1.1",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:jquery@3.1.0": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:jsonfile@2.3.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
