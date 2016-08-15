@@ -4,8 +4,6 @@ import AppController from './app.controller';
 //Load Styles Using CSS Plugin for SystemJS
 import './app.style.css!';
 
-import { autorun } from 'mobx';
-
 //Components are plain objects
 export default {
   template: AppTemplate,
