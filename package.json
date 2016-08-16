@@ -37,6 +37,7 @@
       "text": "github:systemjs/plugin-text@^0.0.8"
     },
     "devDependencies": {
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.5.8",
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
@@ -48,6 +49,13 @@
     "gulp": "^3.9.1",
     "gulp-html-replace": "^1.6.1",
     "gulp-jspm": "^0.5.13",
-    "gulp-uglify": "^2.0.0"
+    "gulp-uglify": "^2.0.0",
+    
+    "jasmine": "^2.4.1",
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-jspm": "^2.2.0",
+    "karma-phantomjs-launcher": "^1.0.1"
   }
 }

@@ -1,5 +1,4 @@
 System.config({
-  baseURL: "./",
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
@@ -18,6 +17,7 @@ System.config({
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
     "angular-aria": "github:angular/bower-angular-aria@1.5.8",
     "angular-cookies": "github:angular/bower-angular-cookies@1.5.8",
+    "angular-mocks": "github:angular/bower-angular-mocks@1.5.8",
     "angular-sanitize": "github:angular/bower-angular-sanitize@1.5.8",
     "angular-touch": "github:angular/bower-angular-touch@1.5.8",
     "angular-ui-bootstrap": "npm:angular-ui-bootstrap@2.0.1",
@@ -44,6 +44,9 @@ System.config({
       "angular": "github:angular/bower-angular@1.5.8"
     },
     "github:angular/bower-angular-cookies@1.5.8": {
+      "angular": "github:angular/bower-angular@1.5.8"
+    },
+    "github:angular/bower-angular-mocks@1.5.8": {
       "angular": "github:angular/bower-angular@1.5.8"
     },
     "github:angular/bower-angular-sanitize@1.5.8": {
