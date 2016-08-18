@@ -50,7 +50,6 @@
     "gulp-html-replace": "^1.6.1",
     "gulp-jspm": "^0.5.13",
     "gulp-uglify": "^2.0.0",
-    
     "jasmine": "^2.4.1",
     "karma": "^1.2.0",
     "karma-chrome-launcher": "^1.0.1",
