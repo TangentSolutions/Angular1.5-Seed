@@ -1,15 +1,28 @@
 <div class="">
-  <input type="text" class="form-control" name="name" placeholder="Item" ng-model="$ctrl.input"
-    async-change
-    async-debounce="1000"
-    async-service="$ctrl.beforeValidate"
-    async-resolve="$ctrl.afterValidate">
-  <br />
-  <input class="btn btn-primary btn-block" type="button" name="name" value="Add" ng-click="$ctrl.addItem()" ng-if="!$ctrl.invalid">
-  <div class="alert alert-danger" ng-if="$ctrl.invalid">
-    Invalid
+  <div class="form-group" ng-class="{'has-error': $ctrl.invalid}">
+
+    <label class="control-label" for="input">
+      <span >Enter list item:</span>
+    </label>
+    <input type="text" id="input" class="form-control" name="name" placeholder="Item"
+      ng-model="$ctrl.input"
+      async-change
+      async-debounce="1000"
+      async-before="$ctrl.beforeValidate"
+      async-service="$ctrl.onValidate"
+      async-after="$ctrl.afterValidate">
   </div>
-  <div ng-repeat="item in $ctrl.items track by $index" >
-    <a ui-sref="CoreStateB({name: {{$index}} })">{{item.value}} </a>
-  </div>
+
+
+  <input class="btn btn-primary btn-block" type="button" name="name" value="Add"
+    ng-click="$ctrl.addItem()"
+    ng-disabled="$ctrl.disable || $ctrl.invalid"
+    />
+
+  <ul>
+    <li ng-repeat="item in $ctrl.items track by $index" >
+      <a ui-sref="CoreStateB({name: {{$index}} })">{{item.value}} </a>
+    </li>
+  </ul>
+
 </div>

@@ -1,15 +1,17 @@
 <container-fluid>
   <div>
     <h1>{{$ctrl.title}}</h1>
+    <div>
+      {{$ctrl.model.text}}
+    </div>
   <div>
-  <div>
-    {{$ctrl.model.text}}
-  </div>
-  <count></count>
-  <list></list>
   <br />
-  <uib-tabset active="activePill" vertical="true" type="pills">
-      <uib-tab index="0" heading="Vertical 1">Vertical content 1</uib-tab>
-      <uib-tab index="1" heading="Vertical 2">Vertical content 2</uib-tab>
+  <uib-tabset active="active" vertical="false" type="pills">
+      <uib-tab index="0" heading="List">
+        <list></list>
+      </uib-tab>
+      <uib-tab index="1" heading="Count">
+        <count></count>
+      </uib-tab>
   </uib-tabset>
 </container-fluid>
