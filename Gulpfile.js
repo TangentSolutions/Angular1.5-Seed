@@ -8,7 +8,7 @@ var gulp_jspm = require('gulp-jspm');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var browserSync = require('browser-sync').create();
-var historyApiFallback = require('connect-history-api-fallback')
+var historyApiFallback = require('connect-history-api-fallback');
 
 gulp.task('build:js', function () {
     return gulp.src('src/index.js')

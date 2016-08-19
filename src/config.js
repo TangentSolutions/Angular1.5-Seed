@@ -27,12 +27,14 @@ System.config({
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.26",
+    "es6-module-loader": "npm:es6-module-loader@0.17.11",
     "jquery": "npm:jquery@3.1.0",
     "json": "github:systemjs/plugin-json@0.1.2",
     "lite-server": "npm:lite-server@2.2.2",
     "mobx": "npm:mobx@2.4.2",
     "rx-angular": "npm:rx-angular@1.1.3",
     "rxjs": "npm:rxjs@5.0.0-beta.11",
+    "systemjs": "npm:systemjs@0.19.36",
     "text": "github:systemjs/plugin-text@0.0.8",
     "github:angular-ui/angular-ui-router-bower@0.3.1": {
       "angular": "github:angular/bower-angular@1.5.8"
@@ -625,6 +627,13 @@ System.config({
     "npm:error-ex@1.3.0": {
       "is-arrayish": "npm:is-arrayish@0.2.1",
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:es6-module-loader@0.17.11": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2",
+      "util": "github:jspm/nodelibs-util@0.1.0",
+      "when": "npm:when@3.7.7"
     },
     "npm:etag@1.7.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -1552,6 +1561,13 @@ System.config({
     "npm:supports-color@2.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
+    "npm:systemjs@0.19.36": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2",
+      "when": "npm:when@3.7.7"
+    },
     "npm:tar-pack@3.1.4": {
       "debug": "npm:debug@2.2.0",
       "fstream": "npm:fstream@1.0.10",
@@ -1650,6 +1666,9 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "underscore": "npm:underscore@1.7.0"
+    },
+    "npm:when@3.7.7": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:wide-align@1.1.0": {
       "string-width": "npm:string-width@1.0.1"

@@ -1,4 +1,5 @@
 class AppController {
+  
   constructor($rootScope, $stateParams, MockService) {
     var $ctrl = this;
 
