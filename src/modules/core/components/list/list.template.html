@@ -6,9 +6,8 @@
     <input type="text" id="input" class="form-control" name="name" placeholder="Item"
       ng-model="$ctrl.input"
       async-change
-      async-debounce="1000"
+      async-debounce="300"
       async-before="$ctrl.beforeValidate"
-      async-service="$ctrl.onValidate"
       async-after="$ctrl.afterValidate">
   </div>
 

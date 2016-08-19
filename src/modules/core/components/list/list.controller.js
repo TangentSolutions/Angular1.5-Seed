@@ -9,7 +9,7 @@ class ListController {
     //Bind functions to current controller since they are called from somewhere else
     this.afterValidate = this.afterValidate.bind(this);
     this.beforeValidate = this.beforeValidate.bind(this);
-    this.onValidate = this.beforeValidate.bind(this);
+    this.onValidate = this.onValidate.bind(this);
   }
 
   $onInit() {
@@ -31,10 +31,10 @@ class ListController {
 
   beforeValidate(value) {
     this.disable = true;
+    this.invalid = false;
   }
 
   onValidate(value) {
-    this.invalid = false;
     return Rx.Observable.from([value]);
   }
 
