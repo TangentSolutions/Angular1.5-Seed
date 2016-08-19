@@ -20,6 +20,7 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
+          'modules/**/*.spec.js': ['babel'],
           'modules/**/!(*.spec).js': ['babel', 'coverage']
         },
 
