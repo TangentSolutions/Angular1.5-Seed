@@ -1,6 +1,7 @@
 /src/jspm_packages
 /node_modules
 /dist
+/coverage
 .idea/
 .DS_Store
 .npmignore
