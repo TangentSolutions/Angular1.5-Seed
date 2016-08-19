@@ -1,16 +1,18 @@
 import { observable } from 'mobx';
 
-let ObservableService = function () {
-  this.add = function (value) {
-    this.observable.items.push({value: value});
-  };
+class ObservableService {
+  constructor() {
+      this.observable = observable({
+        items: [],
+        length: function () {
+          return this.items.length;
+        }
+      });
+  }
 
-  return {
-    add: this.add,
-    observable: observable({
-      items: []
-    })
-  };
-};
+  add(value) {
+    this.observable.items.push({value: value});
+  }
+}
 
 export default ObservableService;

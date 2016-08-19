@@ -53,6 +53,7 @@
     "gulp": "^3.9.1",
     "gulp-html-replace": "^1.6.1",
     "gulp-jspm": "^0.5.13",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-uglify": "^2.0.0",
     "isparta": "^4.0.0",
     "istanbul": "gotwarlost/istanbul.git#source-map",

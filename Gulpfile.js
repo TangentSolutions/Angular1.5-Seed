@@ -1,18 +1,15 @@
-/**
- * core scripts: ['gulp build', 'gulp serve:dev', 'gulp serve:dist']
- * sub sripts: ['gulp build:js', 'gulp build:html', 'gulp build:assets']
- */
-
 var gulp = require('gulp');
 var gulp_jspm = require('gulp-jspm');
 var uglify = require('gulp-uglify');
 var htmlreplace = require('gulp-html-replace');
 var browserSync = require('browser-sync').create();
 var historyApiFallback = require('connect-history-api-fallback');
+var gulpNgAnnotate = require('gulp-ng-annotate');
 
 gulp.task('build:js', function () {
     return gulp.src('src/index.js')
         .pipe(gulp_jspm({selfExecutingBundle: true}))
+        .pipe(gulpNgAnnotate())
         .pipe(uglify())
         .pipe(gulp.dest('dist/js/'));
 });

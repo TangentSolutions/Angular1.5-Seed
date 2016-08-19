@@ -1,46 +1,51 @@
 import { autorun } from 'mobx';
 
-var ListController = function ($scope, ObservableService) {
-  var $ctrl = this;
+class ListController {
+  constructor(ObservableService) {
+    'ngInject';
 
-  $ctrl.$onInit = function () {
+    this.observableService = ObservableService;
+
+    //Bind functions to current controller since they are called from somewhere else
+    this.afterValidate = this.afterValidate.bind(this);
+    this.beforeValidate = this.beforeValidate.bind(this);
+    this.onValidate = this.beforeValidate.bind(this);
+  }
+
+  $onInit() {
     autorun(() => {
-      $ctrl.items = ObservableService.observable.items;
+      this.items = this.observableService.observable.items;
     });
 
-    $ctrl.invalid = false;
-    $ctrl.disable = true;
-  };
+    this.invalid = false;
+    this.disable = true;
+  }
 
-  $ctrl.addItem = function () {
-    ObservableService.add($ctrl.input);
+  addItem() {
+    this.observableService.add(this.input);
 
-    $ctrl.input = '';
-    $ctrl.invalid = false;
-    $ctrl.disable = true;
-  };
+    this.input = '';
+    this.invalid = false;
+    this.disable = true;
+  }
 
-  /* Example on async-change life cycle events before after and on change */
-  $ctrl.beforeValidate = function (value) {
-    $ctrl.disable = true;
-  };
+  beforeValidate(value) {
+    this.disable = true;
+  }
 
-  $ctrl.onValidate = function (value) {
-    $ctrl.invalid = false;
+  onValidate(value) {
+    this.invalid = false;
     return Rx.Observable.from([value]);
-  };
+  }
 
-  $ctrl.afterValidate = function (value) {
+  afterValidate(value) {
       if (value === undefined || value === '') {
-        $ctrl.invalid = true;
+        this.invalid = true;
       } else {
-        $ctrl.disable = false;
-        $ctrl.invalid = false;
+        this.disable = false;
+        this.invalid = false;
       }
-  };
-
-};
-
-ListController.$inject = ['$scope', 'ObservableService'];
+  }
+}
 
 export default ListController;

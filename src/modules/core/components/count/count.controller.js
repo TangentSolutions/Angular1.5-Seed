@@ -1,15 +1,17 @@
 import { autorun } from 'mobx';
 
-var CountController = function ($scope, ObservableService) {
-  var $ctrl = this;
+class CountController{
+  constructor($scope, ObservableService) {
+    'ngInject';
 
-  $ctrl.$onInit = function () {
+    this.observableService = ObservableService;
+  }
+
+  $onInit() {
     autorun(() => {
-      $ctrl.count = ObservableService.observable.items.length;
+      this.count = this.observableService.observable.length;
     })
-  };
-};
-
-CountController.$inject = ['$scope', 'ObservableService'];
+  }
+}
 
 export default CountController;
