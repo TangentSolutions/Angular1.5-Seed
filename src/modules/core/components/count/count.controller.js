@@ -1,7 +1,7 @@
 import { autorun } from 'mobx';
 
 class CountController{
-  constructor($scope, ObservableService) {
+  constructor(ObservableService) {
     'ngInject';
 
     this.observableService = ObservableService;
