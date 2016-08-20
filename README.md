@@ -17,6 +17,6 @@ This AngularJS starter project comes with Mobx and RxJS to satisfy all reactive 
     $ jspm install
 
 ### Gulp Tasks
-    $ gulp build //Builds a '/dist' folder.
-    $ gulp serve:dev //Serves the '/src' with "browser-sync"
-    $ gulp serve:dist //Serves the '/dist' folder
+    $ gulp build
+    $ gulp serve:dev
+    $ gulp serve:dist
