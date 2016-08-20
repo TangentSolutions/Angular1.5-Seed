@@ -1,0 +1,12 @@
+<div class="col-md-12">
+    <h4>Wiki Search</h4>
+    <div class="form-group">
+        <input type="text" id="input" class="form-control" name="name" placeholder="Search"
+               ng-model="$ctrl.input"
+               async-change
+               async-debounce="300"
+               async-on="$ctrl.onSearch"
+               async-after="$ctrl.afterSearch">
+    </div>
+    <pre ng-repeat="result in $ctrl.results track by $index"> {{ result | json }} </pre>
+</div>

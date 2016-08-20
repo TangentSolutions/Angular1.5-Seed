@@ -1,7 +1,4 @@
-import angular from 'angular';
-
 import AsyncChange from './async-change/async-change.directive';
 
 export default angular.module('core.directives', [])
-    .directive('asyncChange', AsyncChange)
-    .name;
+    .directive('asyncChange', AsyncChange);

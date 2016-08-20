@@ -26,7 +26,7 @@ module.exports = function (config) {
         coverageReporter: {
             instrumenters: {isparta: require('isparta')},
             instrumenter: {'modules/**/*.js': 'isparta'},
-            dir: '../coverage/',
+            dir: '../test/coverage/',
             reporters: [
                 {type: 'html'},
                 {type: 'json'},

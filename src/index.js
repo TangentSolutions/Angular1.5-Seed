@@ -1,11 +1,4 @@
 import angular from 'angular';
-
-import $ from 'jquery';
-import bootstrap from 'bootstrap';
-import 'bootstrap/css/bootstrap.css!';
-
-import CoreModule from './modules/core/core.module';
-
 import ngAnimate from 'angular-animate';
 import ngAria from 'angular-aria';
 import ngCookies from 'angular-cookies';
@@ -15,8 +8,16 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import rx from 'rx-angular';
 
+import $ from 'jquery';
+import bootstrap from 'bootstrap';
+import 'bootstrap/css/bootstrap.css!';
+
+import _ from 'underscore';
+
+import CoreModule from './modules/core/core.module';
+
 angular.module('app', [
-    CoreModule,
+    CoreModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -28,15 +29,15 @@ angular.module('app', [
 ]).config(($stateProvider, $urlRouterProvider) => {
     'ngInject';
 
-    $urlRouterProvider.otherwise('/core-a');
+    $urlRouterProvider.otherwise('/a');
 
     $stateProvider
         .state('CoreStateA', {
-            url: '/core-a',
+            url: '/a',
             template: '<app></app>'
         })
         .state('CoreStateB', {
-            url: '/core-b/:name',
+            url: '/b/:name',
             template: '<app></app>'
         });
 });

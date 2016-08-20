@@ -37,6 +37,7 @@ System.config({
     "rxjs": "npm:rxjs@5.0.0-beta.11",
     "systemjs": "npm:systemjs@0.19.36",
     "text": "github:systemjs/plugin-text@0.0.8",
+    "underscore": "npm:underscore@1.8.3",
     "github:angular-ui/angular-ui-router-bower@0.3.1": {
       "angular": "github:angular/bower-angular@1.5.8"
     },
