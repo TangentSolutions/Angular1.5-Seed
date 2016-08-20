@@ -3,7 +3,7 @@ import Services from './services/services.module';
 import Directives from './directives/directives.module';
 
 export default angular.module('core.module', [
-  Components,
-  Services,
-  Directives
+    Components,
+    Services,
+    Directives
 ]).name;

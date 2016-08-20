@@ -1,0 +1,35 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "modules": true,
+  "ecmaFeatures": {
+    "modules": true,
+    "forOf": true,
+    "blockBindings": true,
+    "arrowFunctions": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "generators": true,
+    "restParams": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "experimentalObjectRestSpread": true
+  },
+  "rules": {
+    "semi": 2,
+    "indent": [
+      2,
+      4
+    ]
+  },
+  "quotes": [
+    2,
+    "single"
+  ]
+}

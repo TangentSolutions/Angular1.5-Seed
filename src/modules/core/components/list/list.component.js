@@ -4,7 +4,7 @@ import ListController from './list.controller';
 import './list.style.css!';
 
 export default {
-  template: ListTemplate,
-  controller: ListController,
-  controllerAs: '$ctrl'
+    template: ListTemplate,
+    controller: ListController,
+    controllerAs: '$ctrl'
 };
