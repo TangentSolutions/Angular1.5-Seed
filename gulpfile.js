@@ -56,3 +56,5 @@ gulp.task('serve:dist', ['build'], function () {
         }
     });
 });
+
+gulp.task('default', ['serve:dev']);
