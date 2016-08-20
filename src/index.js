@@ -21,37 +21,34 @@ import rx from 'rx-angular';
 
 //Load angular modules
 angular.module('app', [
-  //Our Modules
-  CoreModule,
-  //External Modules
-  'ngAnimate',
-  'ngAria',
-  'ngCookies',
-  'ngSanitize',
-  'ngTouch',
-  'ui.bootstrap',
-  'ui.router',
-  'rx'
-])
-.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-  ($stateProvider, $urlRouterProvider, $locationProvider) => {
+        //Our Modules
+        CoreModule,
+        //External Modules
+        'ngAnimate',
+        'ngAria',
+        'ngCookies',
+        'ngSanitize',
+        'ngTouch',
+        'ui.bootstrap',
+        'ui.router',
+        'rx'
+    ])
+    .config(($stateProvider, $urlRouterProvider, $locationProvider) => {
+        'ngInject';
 
-    // $locationProvider.html5Mode(true).hashPrefix('!');
+        $urlRouterProvider.otherwise('/core-a');
 
-    $urlRouterProvider.otherwise('/core-a');
-
-    $stateProvider
-      .state('CoreStateA', {
-        url: '/core-a',
-        template: '<app></app>'
-      })
-      .state('CoreStateB', {
-        url: '/core-b/:name',
-        template: '<app></app>'
-      });
-  }
-]);
+        $stateProvider
+            .state('CoreStateA', {
+                url: '/core-a',
+                template: '<app></app>'
+            })
+            .state('CoreStateB', {
+                url: '/core-b/:name',
+                template: '<app></app>'
+            });
+    });
 
 angular.element(document).ready(() => {
-  angular.bootstrap(document, ['app']);
+    angular.bootstrap(document, ['app']);
 });
