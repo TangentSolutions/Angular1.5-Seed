@@ -1,14 +1,17 @@
 class LoginController {
-    constructor($rootScope, $stateParams, AuthenticationService) {
+    constructor(AuthenticationService, toastr, $state) {
         'ngInject';
         this.AuthenticationService = AuthenticationService;
+        this.toastr = toastr;
+        this.$state = $state;
     }
 
-    login(){
+    login() {
         this.AuthenticationService.login(this.username, this.password).then((result) => {
-            if(result.status === 200){
-                this.showSuccess = true;
-            }
+            this.$state.go('state-a');
+            this.toastr.success('Login Successful');
+        }, () => {
+            this.toastr.error('Login Failed');
         });
     }
 }

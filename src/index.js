@@ -14,6 +14,7 @@ import 'toastr/dist/angular-toastr.min.css!';
 import $ from 'jquery';
 import bootstrap from 'bootstrap';
 import 'bootstrap/css/bootstrap.css!';
+import 'font-awesome';
 
 import _ from 'underscore';
 
@@ -30,28 +31,47 @@ angular.module('app', [
     'ui.router',
     'rx',
     'toastr'
-]).config(($stateProvider, $urlRouterProvider, toastrConfig) => {
+])
+.run(($rootScope, AuthenticationService, $state) => {
+    //Force Login
+    $rootScope.$on('$locationChangeStart', (state) => {
+        if (!AuthenticationService.isLoggedIn()) {
+            $state.go('login');
+        }
+    });
+    //Redirect to default state
+    $rootScope.$on('$stateChangeSuccess', (event) => {
+        if ($state.is('login') && AuthenticationService.isLoggedIn()) {
+            $state.go('state-a');
+        }
+    });
+})
+.config(($stateProvider, $urlRouterProvider, toastrConfig) => {
     'ngInject';
 
     angular.extend(toastrConfig, {
-      autoDismiss: true,
-      containerId: 'toast-container',
-      maxOpened: 3,
-      newestOnTop: true,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: false,
-      preventOpenDuplicates: false,
-      target: 'body'
+        autoDismiss: true,
+        containerId: 'toast-container',
+        maxOpened: 3,
+        newestOnTop: true,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: false,
+        preventOpenDuplicates: false,
+        target: 'body'
     });
 
     $urlRouterProvider.otherwise('/a');
 
     $stateProvider
-        .state('CoreStateA', {
+        .state('login', {
+            url:'/login',
+            template:'<login></login>'
+        })
+        .state('state-a', {
             url: '/a',
             template: '<app></app>'
         })
-        .state('CoreStateB', {
+        .state('state-b', {
             url: '/b/:name',
             template: '<app></app>'
         });

@@ -28,8 +28,9 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "core-js": "npm:core-js@1.2.7",
-    "css": "github:systemjs/plugin-css@0.1.26",
+    "css": "github:systemjs/plugin-css@0.1.27",
     "es6-module-loader": "npm:es6-module-loader@0.17.11",
+    "font-awesome": "npm:font-awesome@4.6.3",
     "jquery": "npm:jquery@3.1.0",
     "json": "github:systemjs/plugin-json@0.1.2",
     "lite-server": "npm:lite-server@2.2.2",
@@ -691,6 +692,9 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "path-exists": "npm:path-exists@2.1.0",
       "pinkie-promise": "npm:pinkie-promise@2.0.1"
+    },
+    "npm:font-awesome@4.6.3": {
+      "css": "github:systemjs/plugin-css@0.1.27"
     },
     "npm:for-own@0.1.4": {
       "for-in": "npm:for-in@0.1.5"
