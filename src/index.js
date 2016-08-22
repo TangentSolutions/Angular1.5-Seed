@@ -7,6 +7,7 @@ import ngTouch from 'angular-touch';
 import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import rx from 'rx-angular';
+import growl from 'angular-growl/src/growl';
 
 import $ from 'jquery';
 import bootstrap from 'bootstrap';
@@ -25,7 +26,8 @@ angular.module('app', [
     'ngTouch',
     'ui.bootstrap',
     'ui.router',
-    'rx'
+    'rx',
+    'angular-growl'
 ]).config(($stateProvider, $urlRouterProvider) => {
     'ngInject';
 
