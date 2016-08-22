@@ -8,6 +8,9 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import rx from 'rx-angular';
 
+import toastr from 'toastr';
+import 'toastr/dist/angular-toastr.min.css!';
+
 import $ from 'jquery';
 import bootstrap from 'bootstrap';
 import 'bootstrap/css/bootstrap.css!';
@@ -25,9 +28,21 @@ angular.module('app', [
     'ngTouch',
     'ui.bootstrap',
     'ui.router',
-    'rx'
-]).config(($stateProvider, $urlRouterProvider) => {
+    'rx',
+    'toastr'
+]).config(($stateProvider, $urlRouterProvider, toastrConfig) => {
     'ngInject';
+
+    angular.extend(toastrConfig, {
+      autoDismiss: true,
+      containerId: 'toast-container',
+      maxOpened: 3,
+      newestOnTop: true,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+      preventOpenDuplicates: false,
+      target: 'body'
+    });
 
     $urlRouterProvider.otherwise('/a');
 
