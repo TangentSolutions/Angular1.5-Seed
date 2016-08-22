@@ -30,7 +30,6 @@ System.config({
     "core-js": "npm:core-js@1.2.7",
     "css": "github:systemjs/plugin-css@0.1.26",
     "es6-module-loader": "npm:es6-module-loader@0.17.11",
-    "growl": "npm:angular-growl@0.1.0",
     "jquery": "npm:jquery@3.1.0",
     "json": "github:systemjs/plugin-json@0.1.2",
     "lite-server": "npm:lite-server@2.2.2",
