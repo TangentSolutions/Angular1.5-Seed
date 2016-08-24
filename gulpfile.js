@@ -9,27 +9,34 @@ var ng_annotate = require('gulp-ng-annotate');
 var eslint = require('gulp-eslint');
 
 gulp.task('build:js', ['lint:fail'],  function () {
-    return gulp.src('src/index.js')
-        .pipe(jspm({selfExecutingBundle: true}))
+    return gulp.src('./src/index.js')
+        .pipe(jspm({ fileName: 'index' }))
         .pipe(ng_annotate())
         .pipe(uglify())
-        .pipe(gulp.dest('dist/js/'));
+        .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('build:html', function () {
     gulp.src('./src/index.html')
-        .pipe(html_replace({
-            'js': './js/index.bundle.js'
-        }))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('dist/'));
 });
+
+gulp.task('build:config', function () {
+  gulp.src('./build/config.js')
+      .pipe(gulp.dest('./dist'));
+})
 
 gulp.task('build:assets', function () {
     gulp.src('./src/assets/**/*')
         .pipe(gulp.dest('./dist/assets'));
 });
 
-gulp.task('build', ['build:js', 'build:html', 'build:assets']);
+gulp.task('build:deps', function () {
+    gulp.src('./src/jspm_packages/**/*')
+        .pipe(gulp.dest('./dist/jspm_packages'));
+});
+
+gulp.task('build', ['build:js', 'build:html', 'build:config', 'build:assets', 'build:deps']);
 
 gulp.task('lint:fail', function () {
     return gulp.src(['./src/modules/**/*.js','./src/index.js'])
@@ -58,7 +65,7 @@ gulp.task('serve:dev', ['lint:fail'] , function () {
     gulp.watch(['./src/modules/**/*','./src/index.js'], ['lint']);
 });
 
-gulp.task('serve:dist', ['build'], function () {
+gulp.task('serve:dist',['build'], function () {
     browser_sync.init({
         server: {
             baseDir: './dist',

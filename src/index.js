@@ -1,30 +1,28 @@
-import angular from 'angular';
+//Styles
+import 'font-awesome/css/font-awesome.css!';
+import 'bootstrap/css/bootstrap.css!';
+import 'toastr/dist/angular-toastr.min.css!';
 
-
+//Base Imports
 import $ from 'jquery';
 import _ from 'underscore';
+import bootstrap from 'bootstrap/js/bootstrap';
+import angular from 'angular';
 
-
+//External AngularJs Modules
 import ngAnimate from 'angular-animate';
 import ngAria from 'angular-aria';
 import ngCookies from 'angular-cookies';
 import ngSanitize from 'angular-sanitize';
 import ngTouch from 'angular-touch';
-
 import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
 import rx from 'rx-angular';
 import toastr from 'toastr';
-import 'toastr/dist/angular-toastr.min.css!';
 
+//Internal AngularJS Modules
+import CoreModule from './core/core.module';
 
-import bootstrap from 'bootstrap/js/bootstrap';
-import 'bootstrap/css/bootstrap.css!';
-import 'font-awesome';
-
-import CoreModule from './modules/core/core.module';
-
-console.log(CoreModule);
 angular.module('app', [
     CoreModule.name,
     'ngAnimate',
