@@ -13,6 +13,14 @@ System.config({
     "npm:*": "jspm_packages/npm/*"
   },
 
+  meta: {
+    "bootstrap": {
+      "deps": [
+        "jquery"
+      ]
+    }
+  },
+
   map: {
     "angular": "github:angular/bower-angular@1.5.8",
     "angular-animate": "github:angular/bower-angular-animate@1.5.8",
@@ -31,7 +39,7 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.27",
     "es6-module-loader": "npm:es6-module-loader@0.17.11",
     "font-awesome": "npm:font-awesome@4.6.3",
-    "jquery": "npm:jquery@3.1.0",
+    "jquery": "github:components/jquery@3.1.0",
     "json": "github:systemjs/plugin-json@0.1.2",
     "lite-server": "npm:lite-server@2.2.2",
     "mobx": "npm:mobx@2.4.2",
@@ -138,7 +146,7 @@ System.config({
       "browserify-zlib": "npm:browserify-zlib@0.1.4"
     },
     "github:twbs/bootstrap@3.3.7": {
-      "jquery": "npm:jquery@2.2.4"
+      "jquery": "npm:jquery@3.1.0"
     },
     "npm:accepts@1.2.13": {
       "mime-types": "npm:mime-types@2.1.11",
