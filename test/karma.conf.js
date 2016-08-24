@@ -8,16 +8,16 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'modules/**/*.spec.js': ['babel'],
-            'modules/**/!(*.spec).js': ['babel', 'coverage']
+            '!(*jspm_packages)/**/*.spec.js': ['babel'],
+            '!(*jspm_packages)/**/!(*.spec).js': ['babel', 'coverage']
         },
 
         babelPreprocessor: {options: {stage: 1, sourceMap: 'inline'}},
 
         jspm: {
             config: 'config.js',
-            loadFiles: ['index.js', 'modules/**/*.js'],
-            serveFiles: ['modules/**/*.+(js|html|css)'],
+            loadFiles: ['index.js', '!(*jspm_packages)/**/*.js'],
+            serveFiles: ['!(*jspm_packages)/**/*.+(js|html|css)'],
             stripExtension: true
         },
 
@@ -25,7 +25,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             instrumenters: {isparta: require('isparta')},
-            instrumenter: {'modules/**/*.js': 'isparta'},
+            instrumenter: {'!(*jspm_packages)/**/*.js': 'isparta'},
             dir: '../test/coverage/',
             reporters: [
                 {type: 'html'},

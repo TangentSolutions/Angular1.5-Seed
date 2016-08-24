@@ -7,6 +7,18 @@ var reload = browser_sync.reload;
 var history_api_fallback = require('connect-history-api-fallback');
 var ng_annotate = require('gulp-ng-annotate');
 var eslint = require('gulp-eslint');
+var protractor = require("gulp-protractor").protractor;
+
+gulp.task('e2e', ['serve:e2e'], function () {
+
+  gulp.src(["./test/e2e/**/*.js"])
+      .pipe(protractor({
+          configFile: "test/protractor.conf.js",
+           args: ['--baseUrl', `http://127.0.0.1:${browser_sync.getOption('port')}`]
+      }))
+      .on('end', () => { browser_sync.exit(); })
+      .on('error', (e) => { browser_sync.exit(); throw e;})
+});
 
 gulp.task('build:js', ['lint:fail'],  function () {
     return gulp.src('./src/index.js')
@@ -22,7 +34,7 @@ gulp.task('build:html', function () {
 });
 
 gulp.task('build:config', function () {
-  gulp.src('./build/config.js')
+  gulp.src('./gulp/dist/config.js')
       .pipe(gulp.dest('./dist'));
 })
 
@@ -71,6 +83,16 @@ gulp.task('serve:dist',['build'], function () {
             baseDir: './dist',
             middleware: [ history_api_fallback() ]
         }
+    });
+});
+
+gulp.task('serve:e2e',['build'], function () {
+    browser_sync.init({
+        server: {
+            baseDir: './dist',
+            middleware: [ history_api_fallback() ]
+        },
+        open: false
     });
 });
 
