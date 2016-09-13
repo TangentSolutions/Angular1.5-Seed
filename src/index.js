@@ -81,10 +81,6 @@ angular.module('app', [
         .state('state-b', {
             url: '/b/:name',
             template: '<app></app>'
-        })
-        .state('projects', {
-            url: '/projects',
-            template: '<project-list></project-list>'
         });
 });
 

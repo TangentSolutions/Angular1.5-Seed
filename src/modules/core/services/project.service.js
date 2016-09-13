@@ -6,26 +6,21 @@ class ProjectService {
         this.BASE_URI = PROJECT_SERVICE_BASE_URI + 'projects/';
         this.$q = $q;
         this.$cookies = $cookies;
-        this.$log = $log;
     }
 
     get() {
         var deferred = this.$q.defer();
-        var url = this.BASE_URI;
         var token = this.$cookies.get('token');
 
         this.$http({
             method: "GET",
-            url: url,
+            url: this.BASE_URI,
             headers: {
                 Authorization: 'Token ' + token
             }
         }).then((response) => {
-            this.$log.debug(response);
             deferred.resolve(response);
         }, (response) => {
-            this.$log.error("error from http");
-            this.$log.debug(response);
             deferred.reject(response);
         });
 

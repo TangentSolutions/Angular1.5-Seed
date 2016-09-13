@@ -1,5 +1,5 @@
 class ProjectListController {
-    constructor(ProjectService, toastr, $http, $cookies) {
+    constructor(ProjectService, toastr) {
         'ngInject';
 
         this.projectService = ProjectService;
@@ -14,8 +14,8 @@ class ProjectListController {
         this.projectService.get()
         .then((result) => {
             this.results = result.data;
-        }, () => {
-            this.toastr.error("errors while fetching projects");
+        }, (response) => {
+            this.toastr.error("There was an error while trying to retrieve Projects");
         });
     }
 }
