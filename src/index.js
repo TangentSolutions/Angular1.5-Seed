@@ -23,10 +23,12 @@ import 'bootstrap/css/bootstrap.css!';
 import 'font-awesome';
 
 import CoreModule from './modules/core/core.module';
+import ProjectModule from './modules/project/project.module';
 
 console.log(CoreModule);
 angular.module('app', [
     CoreModule.name,
+    ProjectModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -79,6 +81,10 @@ angular.module('app', [
         .state('state-b', {
             url: '/b/:name',
             template: '<app></app>'
+        })
+        .state('projects', {
+            url: '/projects',
+            template: '<project-list></project-list>'
         });
 });
 
