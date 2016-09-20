@@ -23,8 +23,8 @@
             <td>{{ result.description }}</td>
             <td>{{ result.start_date }}</td>
             <td>{{ result.end_date }}</td>
-            <td>{{ result.is_active }}</td>
-            <td>{{ result.is_billable }}</td>
+            <td><i class="glyphicon ng-class: result.is_active ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger';"></i></td>
+            <td><i class="glyphicon" ng-class="{'glyphicon-ok text-success': result.is_billable, 'glyphicon-remove  text-danger': !result.is_billable}"></i></td>
             <td>
                 <button ui-sref="project:update({id: result.pk})" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-pencil"></i> Edit</button>
                 <button ng-click="$ctrl.delete(result.pk)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
