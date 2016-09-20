@@ -1,6 +1,7 @@
 <container-fluid>
   <logout class="pull-right"></logout>
   <div>
+    <button class="btn btn-primary" ui-sref="project:list">Project Crud</button>
     <h1>{{$ctrl.title}}</h1>
     <div>
       {{$ctrl.model.text}}
@@ -16,9 +17,6 @@
       </uib-tab>
       <uib-tab index="2" heading="Wiki">
         <wiki-search></wiki-search>
-      </uib-tab>
-      <uib-tab index="3" heading="Projects">
-          <project-list></project-list>
       </uib-tab>
   </uib-tabset>
 </container-fluid>

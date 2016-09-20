@@ -19,6 +19,7 @@ import 'toastr/dist/angular-toastr.min.css!';
 
 
 import bootstrap from 'bootstrap/js/bootstrap';
+import uiMask from 'angular-ui-mask';
 import 'bootstrap/css/bootstrap.css!';
 import 'font-awesome';
 
@@ -37,7 +38,8 @@ angular.module('app', [
     'ui.bootstrap',
     'ui.router',
     'rx',
-    'toastr'
+    'toastr',
+    uiMask
 ])
 .run(($rootScope, AuthenticationService, $state) => {
     //Force Login
@@ -81,6 +83,18 @@ angular.module('app', [
         .state('state-b', {
             url: '/b/:name',
             template: '<app></app>'
+        })
+        .state('project:list', {
+            url: '/projects',
+            template: '<project-list></project-list>'
+        })
+        .state('project:update', {
+            url: '/projects/update/:id',
+            template: '<project-crud></project-crud>'
+        })
+        .state('project:create', {
+            url: '/projects/create',
+            template: '<project-crud></project-crud>'
         });
 });
 

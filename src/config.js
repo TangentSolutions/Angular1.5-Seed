@@ -31,6 +31,7 @@ System.config({
     "angular-sanitize": "github:angular/bower-angular-sanitize@1.5.8",
     "angular-touch": "github:angular/bower-angular-touch@1.5.8",
     "angular-ui-bootstrap": "npm:angular-ui-bootstrap@2.0.1",
+    "angular-ui-mask": "npm:angular-ui-mask@1.8.7",
     "angular-ui-router": "github:angular-ui/angular-ui-router-bower@0.3.1",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
@@ -155,6 +156,11 @@ System.config({
     "npm:accepts@1.3.1": {
       "mime-types": "npm:mime-types@2.1.11",
       "negotiator": "npm:negotiator@0.6.0"
+    },
+    "npm:angular-ui-mask@1.8.7": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.2"
     },
     "npm:anymatch@1.3.0": {
       "arrify": "npm:arrify@1.0.1",
