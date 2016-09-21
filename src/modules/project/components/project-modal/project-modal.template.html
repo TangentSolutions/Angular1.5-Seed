@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{$ctrl.modalTitle}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <form>
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.title}]">
+      <label class="control-label">Title</label>
+      <input class="form-control" ng-model="$ctrl.project.title" />
+      <span class="help-block" ng-repeat="error in $ctrl.validation.title">{{ error }}</span>
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.description}]">
+      <label class="control-label">Description</label>
+      <textarea class="form-control" ng-model="$ctrl.project.description"></textarea>
+      <span class="help-block" ng-repeat="error in $ctrl.validation.description">{{ error }}</span>
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
+      <label class="control-label">Start Date</label>
+      <input class="form-control" placeholder="yyyy-mm-dd" model-view-value="true" ng-model="$ctrl.project.start_date" ui-mask="9999-99-99"></input>
+      <span class="help-block" ng-repeat="error in $ctrl.validation.start_date">{{ error }}</span>
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
+      <label class="control-label">End Date</label>
+      <input class="form-control" placeholder="yyyy-mm-dd" model-view-value="true" ng-model="$ctrl.project.end_date" ui-mask="9999-99-99"></input>
+      <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.is_active}]">
+      <label class="control-label">Active</label>
+      <div class="input-group">
+        <div class="btn-group">
+          <label class="btn btn-default" ng-model="$ctrl.project.is_active" uib-btn-radio="false">False</label>
+          <label class="btn btn-default" ng-model="$ctrl.project.is_active" uib-btn-radio="true">True</label>
+        </div>
+      </div>
+      <span class="help-block" ng-repeat="error in $ctrl.validation.is_active">{{ error }}</span>
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.is_billable}]">
+      <label class="control-label">Billable</label>
+      <div class="input-group">
+        <div class="btn-group">
+          <label class="btn btn-default" ng-model="$ctrl.project.is_billable" uib-btn-radio="false">False</label>
+          <label class="btn btn-default" ng-model="$ctrl.project.is_billable" uib-btn-radio="true">True</label>
+        </div>
+      </div>
+      <span class="help-block" ng-repeat="error in $ctrl.validation.is_billable">{{ error }}</span>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="$ctrl.save()">Save</button>
+  <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+</div>

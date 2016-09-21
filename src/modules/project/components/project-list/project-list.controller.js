@@ -1,10 +1,15 @@
+import ProjectModalTemplate from '../project-modal/project-modal.template.html!text';
+import ProjectModalController from '../project-modal/project-modal.controller';
+
 class ProjectListController {
 
-    constructor(ProjectService, toastr) {
+    constructor(ProjectService, toastr, $uibModal, $q) {
         'ngInject';
 
         this.projectService = ProjectService;
         this.toastr = toastr;
+        this.$uibModal = $uibModal;
+        this.$q = $q;
     }
 
     $onInit() {
@@ -30,6 +35,32 @@ class ProjectListController {
         });
     }
 
+    create() {
+        this.$$openModal();
+    };
+
+    update(project_id) {
+        this.$$openModal(project_id);
+    }
+
+    $$openModal(projectId = null) {
+        var $ctrl = this;
+        this.$uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            template: ProjectModalTemplate,
+            controller: ProjectModalController,
+            controllerAs: '$ctrl',
+            size: 'lg',
+            resolve: {
+                projectId: () => {
+                    return projectId;
+                },
+                refreshGrid: () => $ctrl.get.bind($ctrl)
+            }
+        });
+    }
 }
 
 export default ProjectListController;
