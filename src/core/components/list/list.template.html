@@ -1,0 +1,27 @@
+<div class="col-md-12">
+  <h4>List Items</h4>
+  <div class="form-group" ng-class="{'has-error': $ctrl.invalid}">
+    <label class="control-label" for="input">
+      <span >Enter list item:</span>
+    </label>
+    <input type="text" id="input" class="form-control" name="name" placeholder="Item"
+      ng-model="$ctrl.input"
+      async-change
+      async-debounce="300"
+      async-before="$ctrl.beforeValidate"
+      async-after="$ctrl.afterValidate">
+  </div>
+
+
+  <input class="btn btn-primary btn-block" type="button" name="name" value="Add"
+    ng-click="$ctrl.addItem()"
+    ng-disabled="$ctrl.disable || $ctrl.invalid"
+    />
+
+  <ul>
+    <li ng-repeat="item in $ctrl.items track by $index" >
+      <a ui-sref="state-b({name: {{$index}} })">{{item.value}} </a>
+    </li>
+  </ul>
+
+</div>
