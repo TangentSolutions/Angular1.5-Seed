@@ -19,7 +19,6 @@ import 'toastr/dist/angular-toastr.min.css!';
 
 
 import bootstrap from 'bootstrap/js/bootstrap';
-import uiMask from 'angular-ui-mask';
 import 'bootstrap/css/bootstrap.css!';
 import 'font-awesome';
 
@@ -38,8 +37,7 @@ angular.module('app', [
     'ui.bootstrap',
     'ui.router',
     'rx',
-    'toastr',
-    uiMask
+    'toastr'
 ])
 .run(($rootScope, AuthenticationService, $state) => {
     //Force Login

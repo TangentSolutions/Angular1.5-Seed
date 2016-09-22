@@ -29,8 +29,8 @@
             <td>{{ result.pk }}</td>
             <td>{{ result.title }}</td>
             <td>{{ result.description }}</td>
-            <td>{{ result.start_date }}</td>
-            <td>{{ result.end_date }}</td>
+            <td>{{ result.start_date | date : 'yyyy-MM-dd' }}</td>
+            <td>{{ result.end_date | date : 'yyyy-MM-dd' }}</td>
             <td><i class="glyphicon ng-class: result.is_active ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger';"></i></td>
             <td><i class="glyphicon" ng-class="{'glyphicon-ok text-success': result.is_billable, 'glyphicon-remove  text-danger': !result.is_billable}"></i></td>
             <td>
