@@ -1,12 +1,9 @@
 <container-fluid>
-  <logout class="pull-right"></logout>
-  <div>
-    <h1>{{$ctrl.title}}</h1>
-    <div>
-      {{$ctrl.model.text}}
+  <div class="row">
+    <div class="col-md-12">
+      <logout class="pull-right"></logout>
     </div>
-  <div>
-  <br />
+  </div>
   <uib-tabset active="active" vertical="false">
       <uib-tab index="0" heading="List">
         <list></list>

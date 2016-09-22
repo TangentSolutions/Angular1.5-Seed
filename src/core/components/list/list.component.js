@@ -1,7 +1,7 @@
-import ListTemplate from './list.template.html!text';
+import ListTemplate from './list.template.html';
 import ListController from './list.controller';
 
-import './list.style.css!';
+import './list.style.scss';
 
 export default {
     template: ListTemplate,

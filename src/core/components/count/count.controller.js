@@ -8,7 +8,7 @@ class CountController {
 
     $onInit() {
         autorun(() => {
-            this.count = this.mobxServiceExample.length;
+            this.count = this.mobxServiceExample.items.length;
         });
     }
 }

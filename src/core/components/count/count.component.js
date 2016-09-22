@@ -1,4 +1,4 @@
-import CountTemplate from './count.template.html!text';
+import CountTemplate from './count.template.html';
 import CountController from './count.controller';
 
 export default {

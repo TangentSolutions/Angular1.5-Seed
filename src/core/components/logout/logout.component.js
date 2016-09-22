@@ -1,4 +1,4 @@
-import LogoutTemplate from './logout.template.html!text';
+import LogoutTemplate from './logout.template.html';
 import LogoutController from './logout.controller';
 
 export default {
