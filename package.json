@@ -8,7 +8,7 @@
     "copy-files": "cpy src/index.html src/favicon.ico dist",
     "clean-and-copy": "npm run clean-dist && npm run copy-files",
     "prestart": "npm run clean-and-copy",
-    "start": "set NODE_ENV=dev && webpack-dev-server --history-api-fallback --content-base dist",
+    "start": "set NODE_ENV=dev && webpack-dev-server --open --history-api-fallback --content-base dist",
     "prebuild": "npm run clean-and-copy",
     "build": "set NODE_ENV=dev && webpack",
     "prebuild:prod": "npm run clean-and-copy",
