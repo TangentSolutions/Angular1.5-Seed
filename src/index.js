@@ -1,15 +1,12 @@
-//Styles
-import 'font-awesome/css/font-awesome.css!';
-import 'bootstrap/css/bootstrap.css!';
-import 'toastr/dist/angular-toastr.min.css!';
+import './index.scss';
 
-//Base Imports
-import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'angular-toastr/dist/angular-toastr.css';
+
 import _ from 'underscore';
-import bootstrap from 'bootstrap/js/bootstrap';
+import bootstrap from 'bootstrap';
 import angular from 'angular';
 
-//External AngularJs Modules
 import ngAnimate from 'angular-animate';
 import ngAria from 'angular-aria';
 import ngCookies from 'angular-cookies';
@@ -17,10 +14,9 @@ import ngSanitize from 'angular-sanitize';
 import ngTouch from 'angular-touch';
 import uiBootstrap from 'angular-ui-bootstrap';
 import uiRouter from 'angular-ui-router';
+import toastr from 'angular-toastr';
 import rx from 'rx-angular';
-import toastr from 'toastr';
 
-//Internal AngularJS Modules
 import CoreModule from './core/core.module';
 
 angular.module('app', [
@@ -36,6 +32,7 @@ angular.module('app', [
     'toastr'
 ])
 .run(($rootScope, AuthenticationService, $state) => {
+    'ngInject';
     //Force Login
     $rootScope.$on('$locationChangeStart', (state) => {
         if (!AuthenticationService.isLoggedIn()) {
@@ -68,7 +65,12 @@ angular.module('app', [
     $stateProvider
         .state('login', {
             url:'/login',
-            template:'<login></login>'
+            template:'<login resolve="$resolve"></login>',
+            resolve: {
+                test: function () {
+                    return 'Something Else';
+                }
+            }
         })
         .state('state-a', {
             url: '/a',
