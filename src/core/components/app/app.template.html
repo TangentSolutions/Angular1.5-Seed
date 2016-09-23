@@ -1,0 +1,19 @@
+<container-fluid>
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary" ui-sref="project:list">Project CRUD</button>
+      <logout class="pull-right"></logout>
+    </div>
+  </div>
+  <uib-tabset active="active" vertical="false">
+      <uib-tab index="0" heading="List">
+        <list></list>
+      </uib-tab>
+      <uib-tab index="1" heading="Count">
+        <count></count>
+      </uib-tab>
+      <uib-tab index="2" heading="Wiki">
+        <wiki-search></wiki-search>
+      </uib-tab>
+  </uib-tabset>
+</container-fluid>

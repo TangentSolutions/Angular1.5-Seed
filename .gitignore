@@ -6,4 +6,4 @@
 .idea/
 .DS_Store
 .npmignore
-.editorconfig
+/test/e2e/screenshots
