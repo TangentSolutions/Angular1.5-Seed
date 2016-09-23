@@ -1,0 +1,51 @@
+<div class="col-md-12">
+    <button ui-sref="state-a" class="btn btn-primary">Original Screen</button>
+    <h4>Projects</h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Active</th>
+            <th>Billable</th>
+            <th>
+                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                  <button id="new-project-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                    <i class="glyphicon glyphicon-plus"></i> New <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="new-project-button">
+                    <li role="menuitem"><a ng-click="$ctrl.create()">In Modal</a></li>
+                    <li role="menuitem"><a ui-sref="project:create">In Form</a></li>
+                  </ul>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="result in $ctrl.results" id="result_row_{{result.pk}}">
+            <td>{{ result.pk }}</td>
+            <td>{{ result.title }}</td>
+            <td>{{ result.description }}</td>
+            <td>{{ result.start_date | date : 'yyyy-MM-dd' }}</td>
+            <td>{{ result.end_date | date : 'yyyy-MM-dd' }}</td>
+            <td><i class="glyphicon ng-class: result.is_active ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger';"></i></td>
+            <td><i class="glyphicon" ng-class="{'glyphicon-ok text-success': result.is_billable, 'glyphicon-remove  text-danger': !result.is_billable}"></i></td>
+            <td>
+                <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.pk}}">
+                  <button id="{{result.pk}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                    <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.pk}}-update-button">
+                    <li role="menuitem"><a ng-click="$ctrl.update(result.pk)">In Modal</a></li>
+                    <li role="menuitem"><a ui-sref="project:update({id: result.pk})">In Form</a></li>
+                  </ul>
+                </div>
+                <button ng-click="$ctrl.delete(result.pk)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -18,9 +18,11 @@ import toastr from 'angular-toastr';
 import rx from 'rx-angular';
 
 import CoreModule from './core/core.module';
+import ProjectModule from './project/project.module';
 
 angular.module('app', [
     CoreModule.name,
+    ProjectModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -79,6 +81,18 @@ angular.module('app', [
         .state('state-b', {
             url: '/b/:name',
             template: '<app></app>'
+        })
+        .state('project:list', {
+            url: '/projects',
+            template: '<project-list></project-list>'
+        })
+        .state('project:update', {
+            url: '/projects/update/:id',
+            template: '<project-crud></project-crud>'
+        })
+        .state('project:create', {
+            url: '/projects/create',
+            template: '<project-crud></project-crud>'
         });
 });
 
