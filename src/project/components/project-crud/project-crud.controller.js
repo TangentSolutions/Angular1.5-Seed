@@ -1,6 +1,6 @@
 class ProjectCreateController {
 
-    constructor(ProjectService, toastr, $state, $q, $stateParams) {
+    constructor(ProjectService, toastr, $q, $state, $stateParams) {
         'ngInject';
 
         this.projectService = ProjectService;
@@ -61,7 +61,8 @@ class ProjectCreateController {
         } 
         // Otherwise create a new instance
         else {
-            this._setCurrentProject(this._newProject());
+            let newProject = this._newProject();
+            this._setCurrentProject(newProject);
         }
     }
 
@@ -88,8 +89,7 @@ class ProjectCreateController {
 
         this.projectService.fetch(projectId)
             .then((response) => {
-                let project = response.data;
-                defer.resolve(project);
+                defer.resolve(response.data);
             }, () => {
                 defer.reject();
             });
@@ -127,12 +127,14 @@ class ProjectCreateController {
 
     _setValidation(fieldErrors) {
         this.validation = {};
-        angular.forEach(fieldErrors, (errors, field) => {
-            this.validation[field] = [];
-            angular.forEach(errors, (validationError) => {
-                this.validation[field].push(validationError);
+        if( fieldErrors instanceof Array === false) {
+            angular.forEach(fieldErrors, (errors, field) => {
+                this.validation[field] = [];
+                angular.forEach(errors, (validationError) => {
+                    this.validation[field].push(validationError);
+                });
             });
-        });
+        }
     }
 
 }

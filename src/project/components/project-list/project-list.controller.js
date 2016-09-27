@@ -29,21 +29,25 @@ class ProjectListController {
         this.projectService.delete(id)
         .then(() => {
             this.toastr.success('Project Deleted');
-            angular.element('#result_row_' + id).remove();
+            this.removeRow(id);
         }, () => {
             this.toastr.error('There was an error while trying to delete project');
         });
     }
 
+    removeRow(projectId) {
+        angular.element(document).find('#result_row_' + projectId).remove();
+    } 
+
     create() {
-        this.$$openModal();
+        this._openModal();
     };
 
     update(project_id) {
-        this.$$openModal(project_id);
+        this._openModal(project_id);
     }
 
-    $$openModal(projectId = null) {
+    _openModal(projectId = null) {
         var $ctrl = this;
         this.$uibModal.open({
             animation: true,
@@ -53,13 +57,17 @@ class ProjectListController {
             controller: ProjectModalController,
             controllerAs: '$ctrl',
             size: 'lg',
-            resolve: {
-                projectId: () => {
-                    return projectId;
-                },
-                refreshGrid: () => $ctrl.get.bind($ctrl)
-            }
+            resolve: this.modalResolve(projectId)
         });
+    }
+
+    modalResolve(projectId) {
+        return {
+            projectId: () => {
+                return projectId;
+            },
+            refreshGrid: () => this.get.bind(this)
+        }
     }
 }
 
