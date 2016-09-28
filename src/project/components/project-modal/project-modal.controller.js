@@ -1,6 +1,6 @@
 class ProjectModalController {
 
-    constructor($uibModalInstance, projectId, $filter, $q, refreshGrid, ProjectService, toastr) {
+    constructor($uibModalInstance, projectId, $q, refreshGrid, ProjectService, toastr) {
         'ngInject';
 
         // The modal instance opened from Project List

@@ -1,5 +1,5 @@
 class ProjectService {
-    constructor($http, $log, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
+    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
         'ngInject';
 
         this.$http = $http;
@@ -123,20 +123,24 @@ class ProjectService {
     }
 
     _dateStringsToObjects(object) {
-        angular.forEach(this.apiDates, (dateProperty) => {
-            if(typeof object[dateProperty] === 'string' && object[dateProperty].trim()) {
-                object[dateProperty] = new Date(object[dateProperty]);
-            }
-        });
+        if(typeof object !== 'undefined'){
+            angular.forEach(this.apiDates, (dateProperty) => {
+                if(typeof object[dateProperty] === 'string' && object[dateProperty].trim()) {
+                    object[dateProperty] = new Date(object[dateProperty]);
+                }
+            });
+        }
         return object;
     }
 
     _dateObjectsToStrings(object) {
-        angular.forEach(this.apiDates, (dateProperty) => {
-            if(typeof object[dateProperty] === 'object' && object[dateProperty].constructor.name === 'Date') {
-                object[dateProperty] = this.$filter('date')(object[dateProperty], this.apiDateFormat);
-            }
-        });
+        if(typeof object !== 'undefined'){
+            angular.forEach(this.apiDates, (dateProperty) => {
+                if(typeof object[dateProperty] === 'object' && object[dateProperty].constructor.name === 'Date') {
+                    object[dateProperty] = this.$filter('date')(object[dateProperty], this.apiDateFormat);
+                }
+            });
+        }
         return object;
     }
 

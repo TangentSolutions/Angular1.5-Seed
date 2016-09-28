@@ -4,15 +4,14 @@ describe('Project Crud Controller', () => {
 
     beforeEach(angular.mock.module('app'));
 
-    var $uibModalInstance, projectId, $filter, $q, refreshGrid, projectService, toastr, controller, $scope;
+    var $uibModalInstance, projectId, $q, refreshGrid, projectService, toastr, controller, $scope;
 
-    beforeEach(angular.mock.inject(( _$filter_, _$q_, _ProjectService_, _toastr_, _$rootScope_) => {
+    beforeEach(angular.mock.inject(( _$q_, _ProjectService_, _toastr_, _$rootScope_) => {
         $uibModalInstance = {
             close: () => {},
             dismiss: (reason) => {}
         };
         projectId = null;
-        $filter = _$filter_;
         $q = _$q_;
         projectService = _ProjectService_;
         toastr = _toastr_;
@@ -21,8 +20,8 @@ describe('Project Crud Controller', () => {
         controller = createController();
     }));
 
-    function createController(_$uibModalInstance = $uibModalInstance, _projectId = projectId, _$filter = $filter, _$q = $q, _refreshGrid = refreshGrid, _projectService = projectService, _toastr = toastr) {
-        let controller = new ProjectModalController(_$uibModalInstance, _projectId, _$filter, _$q, _refreshGrid, _projectService, _toastr);
+    function createController(_$uibModalInstance = $uibModalInstance, _projectId = projectId, _$q = $q, _refreshGrid = refreshGrid, _projectService = projectService, _toastr = toastr) {
+        let controller = new ProjectModalController(_$uibModalInstance, _projectId, _$q, _refreshGrid, _projectService, _toastr);
         return controller;
     }
 
