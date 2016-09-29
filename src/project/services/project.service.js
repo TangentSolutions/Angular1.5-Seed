@@ -18,7 +18,7 @@ class ProjectService {
         this.apiDateFormat = 'yyyy-MM-dd';
     }
 
-    get() {
+    get(query = undefined) {
         let defer = this.$q.defer();
         
         this.$http({
@@ -26,7 +26,8 @@ class ProjectService {
             url: this.BASE_URI,
             headers: {
                 Authorization: 'Token ' + this._getAuthToken()
-            }
+            },
+            params: query
         }).then((response) => {
             let responseClone = angular.copy(response);
             angular.forEach(responseClone.data, (project, key) => {
