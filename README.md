@@ -1,5 +1,10 @@
 # Angular1.5-Seed
 
+[![Code Climate](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/badges/ba75b0b2dd3c8f920403/gpa.svg)](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/feed)
+[![Test Coverage](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/badges/ba75b0b2dd3c8f920403/coverage.svg)](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/coverage)
+[![Issue Count](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/badges/ba75b0b2dd3c8f920403/issue_count.svg)](https://codeclimate.com/repos/57e13dbf6807c8777f0033a6/feed)
+[![Build Status](https://travis-ci.org/TangentSolutions/Angular1.5-Seed.svg?branch=master)](https://travis-ci.org/TangentSolutions/Angular1.5-Seed)
+
 This AngularJS starter project comes with Mobx and RxJS to satisfy all reactive application needs, and is made to build AngularJS applications in such a way that they can be ported to Angular2 with minimal refactoring and still be production worthy.
 The core principal applied when structuring this starter project is to minimise the amount of refactoring required while keeping a reactive component based application structure in mind.
 
