@@ -67,7 +67,7 @@ class ProjectListController {
                 return projectId;
             },
             refreshGrid: () => this.get.bind(this)
-        }
+        };
     }
 }
 
