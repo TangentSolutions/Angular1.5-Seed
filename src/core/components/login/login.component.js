@@ -4,7 +4,7 @@ import LoginController from './login.controller';
 export default {
     template: LoginTemplate,
     bindings: {
-      resolve: '='
+        resolve: '='
     },
     controller: LoginController,
     controllerAs: '$ctrl'

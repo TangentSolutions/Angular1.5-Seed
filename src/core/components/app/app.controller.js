@@ -4,7 +4,7 @@ class AppController {
     }
 
     test() {
-      this.member = 'Test';
+        this.member = 'Test';
     }
 }
 

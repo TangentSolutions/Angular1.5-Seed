@@ -18,15 +18,19 @@ class ProjectService {
         this.apiDateFormat = 'yyyy-MM-dd';
     }
 
+    __getHeaders() {
+        return {
+            Authorization: 'Token ' + this._getAuthToken()
+        };
+    }
+
     get() {
         let defer = this.$q.defer();
         
         this.$http({
             method: "GET",
             url: this.BASE_URI,
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            }
+            headers: this.__getHeaders()
         }).then((response) => {
             let responseClone = angular.copy(response);
             angular.forEach(responseClone.data, (project, key) => {
@@ -46,9 +50,7 @@ class ProjectService {
         this.$http({
             method: "GET",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            }
+            headers: this.__getHeaders()
         }).then((response) => {
             let responseClone = angular.copy(response);
             responseClone.data = this._dateStringsToObjects(response.data);
@@ -67,9 +69,7 @@ class ProjectService {
         this.$http({
             method: "PUT",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            },
+            headers: this.__getHeaders(),
             data: formattedAttributes
         }).then((response) => {
             let responseClone = angular.copy(response);
@@ -89,9 +89,7 @@ class ProjectService {
         this.$http({
             method: "POST",
             url: this.BASE_URI,
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            },
+            headers: this.__getHeaders(),
             data: formattedAttributes
         }).then((response) => {
             let responseClone = angular.copy(response);
@@ -110,9 +108,7 @@ class ProjectService {
         this.$http({
             method: "DELETE",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            }
+            headers: this.__getHeaders()
         }).then((response) => {
             defer.resolve(response);
         }, (response) => {
