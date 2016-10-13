@@ -7,7 +7,7 @@ describe('some test', () => {
 
     beforeEach(angular.mock.inject((_$q_) => {
         $q = _$q_;
-    }))
+    }));
 
     it('should expect something', function () {
         let app = new App();

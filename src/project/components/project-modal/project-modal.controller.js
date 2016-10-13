@@ -1,6 +1,6 @@
 class ProjectModalController {
 
-    constructor($uibModalInstance, projectId, $filter, $q, refreshGrid, ProjectService, toastr) {
+    constructor($uibModalInstance, projectId, $q, refreshGrid, ProjectService, toastr) {
         'ngInject';
 
         // The modal instance opened from Project List
@@ -75,7 +75,8 @@ class ProjectModalController {
         // Otherwise create a new instance
         else {
             this._setModalTitle('New Project ...');
-            this._setCurrentProject(this._newProject());
+            let newProject = this._newProject();
+            this._setCurrentProject(newProject);
         }
     }
 
@@ -145,12 +146,14 @@ class ProjectModalController {
 
     _setValidation(fieldErrors) {
         this.validation = {};
-        angular.forEach(fieldErrors, (errors, field) => {
-            this.validation[field] = [];
-            angular.forEach(errors, (validationError) => {
-                this.validation[field].push(validationError);
+        if( fieldErrors instanceof Array === false) {
+            angular.forEach(fieldErrors, (errors, field) => {
+                this.validation[field] = [];
+                angular.forEach(errors, (validationError) => {
+                    this.validation[field].push(validationError);
+                });
             });
-        });
+        }
     }
 }
 

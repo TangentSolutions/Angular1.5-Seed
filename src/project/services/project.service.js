@@ -1,5 +1,5 @@
 class ProjectService {
-    constructor($http, $log, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
+    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
         'ngInject';
 
         this.$http = $http;
@@ -18,15 +18,19 @@ class ProjectService {
         this.apiDateFormat = 'yyyy-MM-dd';
     }
 
+    __getHeaders() {
+        return {
+            Authorization: 'Token ' + this._getAuthToken()
+        };
+    }
+
     get(query = undefined) {
         let defer = this.$q.defer();
         
         this.$http({
             method: "GET",
             url: this.BASE_URI,
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            },
+            headers: this.__getHeaders(),
             params: query
         }).then((response) => {
             let responseClone = angular.copy(response);
@@ -47,9 +51,7 @@ class ProjectService {
         this.$http({
             method: "GET",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            }
+            headers: this.__getHeaders()
         }).then((response) => {
             let responseClone = angular.copy(response);
             responseClone.data = this._dateStringsToObjects(response.data);
@@ -68,9 +70,7 @@ class ProjectService {
         this.$http({
             method: "PUT",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            },
+            headers: this.__getHeaders(),
             data: formattedAttributes
         }).then((response) => {
             let responseClone = angular.copy(response);
@@ -90,9 +90,7 @@ class ProjectService {
         this.$http({
             method: "POST",
             url: this.BASE_URI,
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            },
+            headers: this.__getHeaders(),
             data: formattedAttributes
         }).then((response) => {
             let responseClone = angular.copy(response);
@@ -111,9 +109,7 @@ class ProjectService {
         this.$http({
             method: "DELETE",
             url: this.BASE_URI + id + '/',
-            headers: {
-                Authorization: 'Token ' + this._getAuthToken()
-            }
+            headers: this.__getHeaders()
         }).then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -124,20 +120,24 @@ class ProjectService {
     }
 
     _dateStringsToObjects(object) {
-        angular.forEach(this.apiDates, (dateProperty) => {
-            if(typeof object[dateProperty] === 'string' && object[dateProperty].trim()) {
-                object[dateProperty] = new Date(object[dateProperty]);
-            }
-        });
+        if(typeof object !== 'undefined'){
+            angular.forEach(this.apiDates, (dateProperty) => {
+                if(typeof object[dateProperty] === 'string' && object[dateProperty].trim()) {
+                    object[dateProperty] = new Date(object[dateProperty]);
+                }
+            });
+        }
         return object;
     }
 
     _dateObjectsToStrings(object) {
-        angular.forEach(this.apiDates, (dateProperty) => {
-            if(typeof object[dateProperty] === 'object' && object[dateProperty].constructor.name === 'Date') {
-                object[dateProperty] = this.$filter('date')(object[dateProperty], this.apiDateFormat);
-            }
-        });
+        if(typeof object !== 'undefined'){
+            angular.forEach(this.apiDates, (dateProperty) => {
+                if(typeof object[dateProperty] === 'object' && object[dateProperty].constructor.name === 'Date') {
+                    object[dateProperty] = this.$filter('date')(object[dateProperty], this.apiDateFormat);
+                }
+            });
+        }
         return object;
     }
 
