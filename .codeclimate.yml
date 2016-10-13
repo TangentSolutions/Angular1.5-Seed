@@ -15,4 +15,5 @@ ratings:
   - "**.js"
 exclude_paths:
 - test/
+- *.spec.js
 - webpack.config.js
