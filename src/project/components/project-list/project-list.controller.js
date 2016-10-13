@@ -10,14 +10,20 @@ class ProjectListController {
         this.toastr = toastr;
         this.$uibModal = $uibModal;
         this.$q = $q;
+        this.searchQuery = {};
     }
 
     $onInit() {
         this.get();
     }
 
+    order($orderBy) {
+        this.searchQuery.ordering = $orderBy;
+        this.get();
+    }
+
     get() {
-        this.projectService.get()
+        this.projectService.get(this.searchQuery)
         .then((response) => {
             this.results = response.data;
         }, () => {

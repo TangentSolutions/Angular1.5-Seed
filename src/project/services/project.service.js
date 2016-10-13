@@ -24,13 +24,14 @@ class ProjectService {
         };
     }
 
-    get() {
+    get(query = undefined) {
         let defer = this.$q.defer();
         
         this.$http({
             method: "GET",
             url: this.BASE_URI,
-            headers: this.__getHeaders()
+            headers: this.__getHeaders(),
+            params: query
         }).then((response) => {
             let responseClone = angular.copy(response);
             angular.forEach(responseClone.data, (project, key) => {
