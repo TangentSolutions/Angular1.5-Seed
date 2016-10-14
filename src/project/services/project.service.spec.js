@@ -41,7 +41,24 @@ describe('Class ProjectService', () => {
     })
   });
 
+  describe('getNewProjectDefaults', () => {
+    it('returns a promise', () => {
+      let promise = projectService.getNewProjectDefaults();
+      expect(promise.constructor.name).toBe('Promise');
+    });
+  });
+
   describe('get()', () => {
+
+    it('should pass searchQuery to $http call', () => {
+      let defer = $q.defer();
+      spyOn(projectService, '$http').and.returnValue(defer.promise);
+      projectService.get({some: 'query'});
+      expect(projectService.$http).toHaveBeenCalledWith(jasmine.objectContaining({
+        params: {some: 'query'}
+      }));
+    });
+
     it('should return a promise', () => {
       $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200);
       let response = projectService.get();
