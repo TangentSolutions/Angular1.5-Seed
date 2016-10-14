@@ -36,6 +36,34 @@ describe('Project List Controller', () => {
     });
 
     describe('get', () => {
+        it('should call _setLoading with true when get is called', () => {
+            let defer = $q.defer();
+            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller, '_setLoading');
+            controller.get();
+            expect(controller._setLoading).toHaveBeenCalledWith(true);
+        });
+
+        it('should call _setLoading with false when get resolves', () => {
+            let defer = $q.defer();
+            defer.resolve([{}]);
+            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            controller.get();
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('should call _setLoading with false when get rejects', () => {
+            let defer = $q.defer();
+            defer.reject([{}]);
+            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            controller.get();
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
         it('should call project service get', () => {
             let defer = $q.defer();
             spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
@@ -133,6 +161,17 @@ describe('Project List Controller', () => {
             spyOn(controller.$uibModal, 'open').and.returnValue(true);
             controller._openModal();
             expect(controller.$uibModal.open).toHaveBeenCalled();
+        });
+    });
+
+    describe('_setLoading', () => {
+        it('changes loading parameter', () => {
+            controller._setLoading(false);
+            expect(controller.loading).toBeFalsy();
+            controller._setLoading(true);
+            expect(controller.loading).toBeTruthy();
+            controller._setLoading(false);
+            expect(controller.loading).toBeFalsy();
         });
     });
 

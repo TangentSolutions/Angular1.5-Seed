@@ -11,7 +11,7 @@ class ProjectListController {
         this.$uibModal = $uibModal;
         this.$q = $q;
         this.searchQuery = {};
-        this.loadingResults = true;
+        this._setLoading(true);
     }
 
     $onInit() {
@@ -24,13 +24,13 @@ class ProjectListController {
     }
 
     get() {
-        this.loadingResults = true;
+        this._setLoading(true);
         this.projectService.get(this.searchQuery)
         .then((response) => {
-            this.loadingResults = false;
+            this._setLoading(false);
             this.results = response.data;
         }, () => {
-            this.loadingResults = false;
+            this._setLoading(false);
             this.toastr.error("There was an error while trying to retrieve Projects");
         });
     }
@@ -69,6 +69,10 @@ class ProjectListController {
             size: 'lg',
             resolve: this.modalResolve(projectId)
         });
+    }
+
+    _setLoading($value) {
+        this.loading = $value;
     }
 
     modalResolve(projectId) {

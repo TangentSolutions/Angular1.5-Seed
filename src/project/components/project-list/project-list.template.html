@@ -59,12 +59,12 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-if="$ctrl.loadingResults">
+            <tr ng-if="$ctrl.loading">
                 <td colspan="8">
-                    <loader active="$ctrl.loadingResults"></loader>
+                    <loader active="$ctrl.loading"></loader>
                 </td>
             </tr>
-            <tr ng-if="!$ctrl.loadingResults" ng-repeat="result in $ctrl.results" id="result_row_{{result.pk}}">
+            <tr ng-if="!$ctrl.loading" ng-repeat="result in $ctrl.results" id="result_row_{{result.pk}}">
                 <td>{{ result.pk }}</td>
                 <td>{{ result.title }}</td>
                 <td>{{ result.description }}</td>
