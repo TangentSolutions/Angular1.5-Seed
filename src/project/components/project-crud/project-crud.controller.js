@@ -10,6 +10,7 @@ class ProjectCreateController {
         this.$q = $q;
 
         let projectId = $stateParams.id;
+        this.loading = true;
         this.loadProject(projectId);
     }
 
@@ -29,18 +30,21 @@ class ProjectCreateController {
     }
 
     save() {
+        this.loading = true;
         // Create a clone of the current project as to not mess with user input
         let project = angular.copy(this._getCurrentProject());
 
         if(typeof project.pk === 'undefined') {
             this._create(project)
                 .then(() => {
+                    this.loading = false;
                     this.toastr.success('Project Created');
                     this.$state.go('project:list');
                 });
         } else {
             this._update(project)
                 .then(() => {
+                    this.loading = false;
                     this.toastr.success('Project Updated');
                     this.$state.go('project:list');
                 });
@@ -48,13 +52,16 @@ class ProjectCreateController {
     }
 
     loadProject(projectId = null) {
+        this.loading = true;
         // If there is a primary key, Fetch from database
         if(projectId) {
             this._fetchProject(projectId)
                 // Set Project and Modal Title
                 .then((project) => {
                     this._setCurrentProject(project);
+                    this.loading = false;
                 },() => {
+                    this.loading = false;
                     this.toastr.error('Failed to load Project');
                     this.$state.go('project:list');
                 });
@@ -63,6 +70,7 @@ class ProjectCreateController {
         else {
             let newProject = this._newProject();
             this._setCurrentProject(newProject);
+            this.loading = false;
         }
     }
 

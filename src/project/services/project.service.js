@@ -1,5 +1,5 @@
 class ProjectService {
-    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
+    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
         'ngInject';
 
         this.$http = $http;
@@ -7,6 +7,8 @@ class ProjectService {
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
+
+        this.$timeout = $timeout;
 
         // Dates that need to be converted for API
         this.apiDates = [
@@ -59,7 +61,7 @@ class ProjectService {
         }, (response) => {
             defer.reject(response);
         });
-
+        
         return defer.promise;
     }
 

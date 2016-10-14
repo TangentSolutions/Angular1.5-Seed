@@ -11,6 +11,7 @@ class ProjectListController {
         this.$uibModal = $uibModal;
         this.$q = $q;
         this.searchQuery = {};
+        this.loadingResults = true;
     }
 
     $onInit() {
@@ -23,10 +24,13 @@ class ProjectListController {
     }
 
     get() {
+        this.loadingResults = true;
         this.projectService.get(this.searchQuery)
         .then((response) => {
+            this.loadingResults = false;
             this.results = response.data;
         }, () => {
+            this.loadingResults = false;
             this.toastr.error("There was an error while trying to retrieve Projects");
         });
     }

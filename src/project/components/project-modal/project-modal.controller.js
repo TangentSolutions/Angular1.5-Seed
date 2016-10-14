@@ -11,6 +11,7 @@ class ProjectModalController {
         // refreshGrid -> ProjectListController.get()
         this.refreshGrid = refreshGrid;
         this.$q = $q;
+        this.loading = true;
 
         // Load the project referenced into local variables
         this.loadProject(projectId);
@@ -57,6 +58,7 @@ class ProjectModalController {
     }
 
     loadProject(projectId = null) {
+        this.loading = true;
         // If there is a primary key, Fetch from database
         if(projectId) {
             // Set Preliminary Modal Title
@@ -67,9 +69,11 @@ class ProjectModalController {
                 .then((project) => {
                     this._setModalTitle(`Update Project : ${project.title}`);
                     this._setCurrentProject(project);
+                    this.loading = false;
                 },() => {
                     this.toastr.error('We where unable to load this project at the current time');
                     this.modal.dismiss('error');
+                    this.loading = false;
                 });
         } 
         // Otherwise create a new instance
@@ -77,6 +81,7 @@ class ProjectModalController {
             this._setModalTitle('New Project ...');
             let newProject = this._newProject();
             this._setCurrentProject(newProject);
+            this.loading = false;
         }
     }
 
@@ -103,13 +108,16 @@ class ProjectModalController {
     }
 
     _fetchProject(projectId) {
+        this.loading = true;
         let defer = this.$q.defer();
 
         this.projectService.fetch(projectId)
             .then((response) => {
                 let project = response.data;
+                this.loading = false;
                 defer.resolve(project);
             }, () => {
+                this.loading = false;
                 defer.reject();
             });
 
@@ -117,28 +125,34 @@ class ProjectModalController {
     }
 
     _create(project) {
+        this.loading = true;
         let defer = this.$q.defer();
         this.projectService.create(project)
         .then((response) => {
+            this.loading = false;
             defer.resolve(response);
         }, (response) => {
             if(response.status === 400) {
                 this._setValidation(response.data);
             }
+            this.loading = false;
             defer.reject(response);
         });
         return defer.promise;
     }
 
     _update(project) {
+        this.loading = true;
         let defer = this.$q.defer();
         this.projectService.update(project.pk, project)
         .then((response) => {
+            this.loading = false;
             defer.resolve(response);
         }, (response) => {
             if(response.status === 400) {
                 this._setValidation(response.data);
             }
+            this.loading = false;
             defer.reject(response);
         });
         return defer.promise;
