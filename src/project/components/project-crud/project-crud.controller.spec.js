@@ -27,6 +27,14 @@ describe('Project Crud Controller', () => {
         return controller;
     }
 
+    describe('Construct', () => {
+        it('sets loading to tre on construct', () => {
+            $stateParams.id = 1;
+            controller = createController();
+            expect(controller.loading).toBeTruthy();
+        });
+    });
+
     describe('Date Picker Objects', () => {
         it('should have date pickers defined', () => {
             expect(controller.datePickers).toBeDefined();
@@ -62,6 +70,41 @@ describe('Project Crud Controller', () => {
     });
 
     describe('save', () => {
+
+        it('sets loading to true before calling http', () => {
+            let project = {title: 'asd'};
+            controller._setCurrentProject(project);
+            controller._setLoading(false);
+            expect(controller.loading).toBeFalsy();
+            spyOn(controller, '_setLoading');
+            controller.save();
+            expect(controller._setLoading).toHaveBeenCalledWith(true);
+        });
+
+        it('sets loading to false after create promise resolves', () => {
+            let project = {title: 'asd'};
+            controller._setCurrentProject(project);
+            let defer = $q.defer();
+            defer.resolve(project);
+            spyOn(controller, '_create').and.returnValue(defer.promise);
+            controller.save();
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('sets loading to false after update promise resolves', () => {
+            let project = {pk: 3, title: 'asd'};
+            controller._setCurrentProject(project);
+            let defer = $q.defer();
+            defer.resolve(project);
+            spyOn(controller, '_update').and.returnValue(defer.promise);
+            controller.save();
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
         it('calls _update() when pk is defined', () => {
             let project = {pk: 3, title: 'title saved'};
             let defer = $q.defer();
@@ -98,10 +141,50 @@ describe('Project Crud Controller', () => {
     });
 
     describe('loadProject', () => {
-        it('should load a new project with _setCurrentProject method', () => {
-            let newProject = controller._newProject();
+        it('sets loading true when called', () => {
+            spyOn(controller, '_setLoading');
             controller.loadProject();
-            expect(controller.project).toEqual(newProject);
+            expect(controller._setLoading).toHaveBeenCalledWith(true);
+        });
+
+        it('sets loading to false once new project promise resolves', () => {
+            let defer = $q.defer();
+            defer.resolve({});
+            spyOn(controller, '_newProject').and.returnValue(defer.promise);
+            controller.loadProject();
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('sets loading to false once  fetch promise resolves', () => {
+            let defer = $q.defer();
+            defer.resolve({});
+            spyOn(controller, '_fetchProject').and.returnValue(defer.promise);
+            controller.loadProject(1);
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('sets loading to false once  fetch promise rejects', () => {
+            let defer = $q.defer();
+            defer.reject({});
+            spyOn(controller, '_fetchProject').and.returnValue(defer.promise);
+            controller.loadProject(1);
+            spyOn(controller, '_setLoading');
+            $scope.$apply();
+            expect(controller._setLoading).toHaveBeenCalledWith(false);
+        });
+
+        it('should load a new project with _setCurrentProject method', () => {
+            let defer = $q.defer();
+            defer.resolve({test: 'test'});
+            spyOn(controller, '_newProject').and.returnValue(defer.promise);
+            spyOn(controller, '_setCurrentProject');
+            controller.loadProject();
+            $scope.$apply();
+            expect(controller._setCurrentProject).toHaveBeenCalled();
         });
 
         it('should call fetch project when project id is passed', () => {
@@ -145,16 +228,18 @@ describe('Project Crud Controller', () => {
     describe('_setCurrentProject', () => {
         it('should set the project on the controller', () => {
             let project = {'project': 'should be set'};
-            expect(controller.project).toEqual(controller._newProject());
+            expect(controller.project).not.toEqual(project);
             controller._setCurrentProject(project);
             expect(controller.project).toEqual(project);
         });
     });
 
     describe('_newProject', () => {
-        it('should return a default object', () => {
-            let project = controller._newProject();
-            expect(typeof project).toBe('object');
+        it('should return a promise', () => {
+            let defer = $q.defer();
+            spyOn(controller.projectService, 'getNewProjectDefaults').and.returnValue(defer.promise);
+            let promise = controller._newProject();
+            expect(promise.constructor.name).toBe('Promise');
         });
     });
 
@@ -340,4 +425,15 @@ describe('Project Crud Controller', () => {
             expect(controller.validation).toEqual({});
         });
     }); 
+
+    describe('_setLoading', () => {
+        it('should change loading value', () => {
+            controller._setLoading(true);
+            expect(controller.loading).toBeTruthy();
+            controller._setLoading(false);
+            expect(controller.loading).toBeFalsy();
+            controller._setLoading(true);
+            expect(controller.loading).toBeTruthy();
+        });
+    });
 });

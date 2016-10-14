@@ -10,7 +10,7 @@ class ProjectCreateController {
         this.$q = $q;
 
         let projectId = $stateParams.id;
-        this.loading = true;
+        this._setLoading(true);
         this.loadProject(projectId);
     }
 
@@ -30,21 +30,21 @@ class ProjectCreateController {
     }
 
     save() {
-        this.loading = true;
+        this._setLoading(true);
         // Create a clone of the current project as to not mess with user input
         let project = angular.copy(this._getCurrentProject());
 
         if(typeof project.pk === 'undefined') {
             this._create(project)
                 .then(() => {
-                    this.loading = false;
+                    this._setLoading(false);
                     this.toastr.success('Project Created');
                     this.$state.go('project:list');
                 });
         } else {
             this._update(project)
                 .then(() => {
-                    this.loading = false;
+                    this._setLoading(false);
                     this.toastr.success('Project Updated');
                     this.$state.go('project:list');
                 });
@@ -52,25 +52,27 @@ class ProjectCreateController {
     }
 
     loadProject(projectId = null) {
-        this.loading = true;
+        this._setLoading(true);
         // If there is a primary key, Fetch from database
         if(projectId) {
             this._fetchProject(projectId)
                 // Set Project and Modal Title
                 .then((project) => {
                     this._setCurrentProject(project);
-                    this.loading = false;
+                    this._setLoading(false);
                 },() => {
-                    this.loading = false;
+                    this._setLoading(false);
                     this.toastr.error('Failed to load Project');
                     this.$state.go('project:list');
                 });
         } 
         // Otherwise create a new instance
         else {
-            let newProject = this._newProject();
-            this._setCurrentProject(newProject);
-            this.loading = false;
+            this._newProject()
+                .then((response) => {
+                    this._setCurrentProject(response);
+                    this._setLoading(false);
+                });
         }
     }
 
@@ -83,13 +85,20 @@ class ProjectCreateController {
     }
 
     _newProject() {
-        // Set some default values for Project
-        let project = {
-            is_active:true,
-            is_billable: true
-        };
+        let defer = this.$q.defer();
 
-        return project;
+        this.projectService.getNewProjectDefaults()
+            .then((response) => {
+                defer.resolve(response);
+            }, (response) => {
+                defer.reject(response);
+            });
+        // Set some default values for Project
+        // TODO
+        // Do this in the project service
+        
+
+        return defer.promise;
     }
 
     _fetchProject(projectId) {
@@ -143,6 +152,10 @@ class ProjectCreateController {
                 });
             });
         }
+    }
+
+    _setLoading($value) {
+        this.loading = $value;
     }
 
 }
