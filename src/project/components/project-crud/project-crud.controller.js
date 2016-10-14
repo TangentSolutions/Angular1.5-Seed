@@ -93,10 +93,6 @@ class ProjectCreateController {
             }, (response) => {
                 defer.reject(response);
             });
-        // Set some default values for Project
-        // TODO
-        // Do this in the project service
-        
 
         return defer.promise;
     }
