@@ -1,5 +1,5 @@
 class ProjectService {
-    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter) {
+    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
         'ngInject';
 
         this.$http = $http;
@@ -7,6 +7,8 @@ class ProjectService {
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
+
+        this.$timeout = $timeout;
 
         // Dates that need to be converted for API
         this.apiDates = [
@@ -22,6 +24,25 @@ class ProjectService {
         return {
             Authorization: 'Token ' + this._getAuthToken()
         };
+    }
+
+    /**
+     * Return A defaults object in a promise.
+     * This will help if we want to use the web service to get these defaults
+     */
+    getNewProjectDefaults() {
+
+        let defer = this.$q.defer();
+
+        let project = {
+            is_active:true,
+            is_billable: true
+        };
+
+        defer.resolve(project);
+        
+
+        return defer.promise;
     }
 
     get(query = undefined) {
@@ -59,7 +80,7 @@ class ProjectService {
         }, (response) => {
             defer.reject(response);
         });
-
+        
         return defer.promise;
     }
 
