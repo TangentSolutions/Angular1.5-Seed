@@ -50,6 +50,13 @@ describe('Project List Controller', () => {
     });
 
     describe('get', () => {
+        it('should pass searchQuery to projectServiceGet', () => {
+            let defer = $q.defer();
+            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            controller.searchQuery = {random: 'search query'};
+            controller.get();
+            expect(controller.projectService.get).toHaveBeenCalledWith(controller.searchQuery);
+        });
 
         it('should call _setLoading with true when get is called', () => {
             let defer = $q.defer();
