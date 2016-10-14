@@ -175,7 +175,7 @@ describe('Project Crud Controller', () => {
             expect(controller._setLoading).toHaveBeenCalledWith(false);
         });
 
-        it('sets loading to false once  fetch promise resolves', () => {
+        it('sets loading to false once  fetch promise rejects', () => {
             let defer = $q.defer();
             defer.reject({});
             spyOn(controller, '_fetchProject').and.returnValue(defer.promise);
