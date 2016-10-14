@@ -35,7 +35,22 @@ describe('Project List Controller', () => {
         });
     });
 
+    describe('order', () => {
+        it('should set searchQuery.ordering', () => {
+            spyOn(controller, 'get').and.returnValue(true);
+            controller.order('test');
+            expect(controller.searchQuery.ordering).toBe('test');
+        });
+
+        it('should call get', () => {
+            spyOn(controller, 'get').and.returnValue(true);
+            controller.order('test');
+            expect(controller.get).toHaveBeenCalled();
+        });
+    });
+
     describe('get', () => {
+
         it('should call _setLoading with true when get is called', () => {
             let defer = $q.defer();
             spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
