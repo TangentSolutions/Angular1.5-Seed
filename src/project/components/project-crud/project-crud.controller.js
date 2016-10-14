@@ -90,8 +90,6 @@ class ProjectCreateController {
         this.projectService.getNewProjectDefaults()
             .then((response) => {
                 defer.resolve(response);
-            }, (response) => {
-                defer.reject(response);
             });
 
         return defer.promise;
