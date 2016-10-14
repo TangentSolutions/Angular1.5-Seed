@@ -26,6 +26,25 @@ class ProjectService {
         };
     }
 
+    /**
+     * Return A defaults object in a promise.
+     * This will help if we want to use the web service to get these defaults
+     */
+    getNewProjectDefaults() {
+
+        let defer = this.$q.defer();
+
+        let project = {
+            is_active:true,
+            is_billable: true
+        };
+
+        defer.resolve(project);
+        
+
+        return defer.promise;
+    }
+
     get(query = undefined) {
         let defer = this.$q.defer();
         
