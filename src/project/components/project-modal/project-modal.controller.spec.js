@@ -6,7 +6,7 @@ describe('Project Crud Controller', () => {
 
     var $uibModalInstance, projectId, $q, refreshGrid, projectService, toastr, controller, $scope;
 
-    beforeEach(angular.mock.inject(( _$q_, _ProjectService_, _toastr_, _$rootScope_) => {
+    beforeEach(angular.mock.inject((_$q_, _ProjectService_, _toastr_, _$rootScope_) => {
         $uibModalInstance = {
             close: () => {},
             dismiss: (reason) => {}
@@ -76,7 +76,9 @@ describe('Project Crud Controller', () => {
 
     describe('save', () => {
         it('sets loading to true before calling http', () => {
-            let project = {title: 'asd'};
+            let project = {
+                title: 'asd'
+            };
             controller._setCurrentProject(project);
             controller._setLoading(false);
             expect(controller.loading).toBeFalsy();
@@ -86,7 +88,9 @@ describe('Project Crud Controller', () => {
         });
 
         it('sets loading to false after create promise resolves', () => {
-            let project = {title: 'asd'};
+            let project = {
+                title: 'asd'
+            };
             controller._setCurrentProject(project);
             let defer = $q.defer();
             defer.resolve(project);
@@ -98,7 +102,10 @@ describe('Project Crud Controller', () => {
         });
 
         it('sets loading to false after update promise resolves', () => {
-            let project = {pk: 3, title: 'asd'};
+            let project = {
+                pk: 3,
+                title: 'asd'
+            };
             controller._setCurrentProject(project);
             let defer = $q.defer();
             defer.resolve(project);
@@ -110,7 +117,10 @@ describe('Project Crud Controller', () => {
         });
 
         it('calls _update() when pk is defined', () => {
-            let project = {pk: 3, title: 'title saved'};
+            let project = {
+                pk: 3,
+                title: 'title saved'
+            };
             let defer = $q.defer();
             defer.resolve(project);
 
@@ -129,7 +139,9 @@ describe('Project Crud Controller', () => {
         });
 
         it('calls _create() when pk is undefined', () => {
-            let project = {title: 'title saved'};
+            let project = {
+                title: 'title saved'
+            };
             let defer = $q.defer();
             defer.resolve(project);
 
@@ -187,7 +199,9 @@ describe('Project Crud Controller', () => {
 
         it('should load a new project with _setCurrentProject method', () => {
             let defer = $q.defer();
-            defer.resolve({test: 'test'});
+            defer.resolve({
+                test: 'test'
+            });
             spyOn(controller, '_newProject').and.returnValue(defer.promise);
             spyOn(controller, '_setCurrentProject');
             controller.loadProject();
@@ -204,7 +218,9 @@ describe('Project Crud Controller', () => {
 
         it('should set project if service resolves successfully', () => {
             let defer = $q.defer();
-            defer.resolve({title: 'title'});
+            defer.resolve({
+                title: 'title'
+            });
             spyOn(controller, '_fetchProject').and.returnValue(defer.promise);
             spyOn(controller, '_setCurrentProject');
             spyOn(controller, '_setModalTitle');
@@ -229,7 +245,9 @@ describe('Project Crud Controller', () => {
 
     describe('_getCurrentProject', () => {
         it('should return the controller project object', () => {
-            let project = {title: 'current title'};
+            let project = {
+                title: 'current title'
+            };
             controller.project = project;
             expect(controller._getCurrentProject()).toEqual(project);
         });
@@ -237,7 +255,9 @@ describe('Project Crud Controller', () => {
 
     describe('_setCurrentProject', () => {
         it('should set the project on the controller', () => {
-            let project = {'project': 'should be set'};
+            let project = {
+                'project': 'should be set'
+            };
             expect(controller.project).not.toEqual(project);
             controller._setCurrentProject(project);
             expect(controller.project).toEqual(project);
@@ -270,8 +290,12 @@ describe('Project Crud Controller', () => {
 
         it('should return service data when resolves', () => {
             let fetchPromise = $q.defer();
-            let project = {title: 'fetched title'};
-            fetchPromise.resolve({data: project});
+            let project = {
+                title: 'fetched title'
+            };
+            fetchPromise.resolve({
+                data: project
+            });
 
             spyOn(controller.projectService, 'fetch').and.returnValue(fetchPromise.promise);
             let controllerReturn = controller._fetchProject(3);
@@ -306,7 +330,9 @@ describe('Project Crud Controller', () => {
 
     describe('_create', () => {
         it('should return a promise', () => {
-            let defer = controller._create({title: 'title'});
+            let defer = controller._create({
+                title: 'title'
+            });
             expect(defer.constructor.name).toBe("Promise");
         });
 
@@ -314,41 +340,58 @@ describe('Project Crud Controller', () => {
             let serviceDeferred = $q.defer();
             spyOn(controller.projectService, 'create').and.returnValue(serviceDeferred.promise);
 
-            serviceDeferred.resolve({pk: '1', title: 'title'});
-            controller._create({title: 'tester'});
+            serviceDeferred.resolve({
+                pk: '1',
+                title: 'title'
+            });
+            controller._create({
+                title: 'tester'
+            });
 
             expect(controller.projectService.create).toHaveBeenCalled();
         });
 
         it('should resolve once project service create resolves', () => {
-            let serviceReturn = {pk: 2, title: 'title from service'};
+            let serviceReturn = {
+                pk: 2,
+                title: 'title from service'
+            };
             let createDeferred = $q.defer();
             spyOn(controller.projectService, 'create').and.returnValue(createDeferred.promise);
-            
+
             createDeferred.resolve(serviceReturn);
-            let promise = controller._create({title: 'title to controller'});
+            let promise = controller._create({
+                title: 'title to controller'
+            });
 
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+                expect(returnValue).toEqual(serviceReturn);
             });
             $scope.$apply();
 
         });
 
         it('should set validation when service create rejects', () => {
-            let serviceReturn = {status: 400, data: {title: 'title is required'}};
+            let serviceReturn = {
+                status: 400,
+                data: {
+                    title: 'title is required'
+                }
+            };
             let createDeferred = $q.defer();
             spyOn(controller.projectService, 'create').and.returnValue(createDeferred.promise);
             spyOn(controller, '_setValidation');
 
             createDeferred.reject(serviceReturn);
-            let promise = controller._create({title: 'title to controller'});
+            let promise = controller._create({
+                title: 'title to controller'
+            });
 
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
-               expect(controller._setValidation).toHaveBeenCalled();
+                expect(returnValue).toEqual(serviceReturn);
+                expect(controller._setValidation).toHaveBeenCalled();
             });
 
             $scope.$apply();
@@ -358,29 +401,44 @@ describe('Project Crud Controller', () => {
     describe('_update', () => {
 
         it('should return a promise', () => {
-            let defer = controller._update({pk: 1, title: 'test title'});
+            let defer = controller._update({
+                pk: 1,
+                title: 'test title'
+            });
             expect(defer.constructor.name).toBe("Promise");
         });
 
         it('should call project service update', () => {
             let defer = $q.defer();
             let updateDeferred = $q.defer();
-            updateDeferred.resolve({pk: '1', title: 'title'});
+            updateDeferred.resolve({
+                pk: '1',
+                title: 'title'
+            });
             spyOn(controller.projectService, 'update').and.returnValue(updateDeferred.promise);
-            controller._update({pk: 2, title: 'tester'});
+            controller._update({
+                pk: 2,
+                title: 'tester'
+            });
             expect(controller.projectService.update).toHaveBeenCalled();
         });
 
         it('should resolve once project service update resolves', () => {
-            let serviceReturn = {pk: 2, title: 'title from service'};
+            let serviceReturn = {
+                pk: 2,
+                title: 'title from service'
+            };
             let updateDeferred = $q.defer();
             updateDeferred.resolve(serviceReturn);
             spyOn(controller.projectService, 'update').and.returnValue(updateDeferred.promise);
 
-            let promise = controller._update({pk: 2, title: 'title to controller'});
+            let promise = controller._update({
+                pk: 2,
+                title: 'title to controller'
+            });
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+                expect(returnValue).toEqual(serviceReturn);
             });
             $scope.$apply();
 
@@ -388,16 +446,24 @@ describe('Project Crud Controller', () => {
 
         it('should set validation when service rejects', () => {
             let defer = $q.defer();
-            let serviceReturn = {status: 400, data: {title: 'title is required'}};
+            let serviceReturn = {
+                status: 400,
+                data: {
+                    title: 'title is required'
+                }
+            };
             let updateDeferred = $q.defer();
             updateDeferred.reject(serviceReturn);
             spyOn(controller.projectService, 'update').and.returnValue(updateDeferred.promise);
             spyOn(controller, '_setValidation');
 
-            let promise = controller._update({pk: 2, title: 'title to controller'});
+            let promise = controller._update({
+                pk: 2,
+                title: 'title to controller'
+            });
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+                expect(returnValue).toEqual(serviceReturn);
             });
             $scope.$apply();
             expect(controller._setValidation).toHaveBeenCalled();
