@@ -1,7 +1,11 @@
 class LoginController {
+<<<<<<< HEAD
 
     constructor(AuthenticationService, toastr, $state) {
 
+=======
+    constructor(AuthenticationService, toastr, $state) {
+>>>>>>> c4a54b8c763cc0927669beffe2df7ca7eea176a0
         'ngInject';
         console.log(this.resolve);
         this.AuthenticationService = AuthenticationService;

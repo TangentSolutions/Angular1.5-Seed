@@ -12,10 +12,15 @@ class AuthenticationService {
 
     login(username, password) {
         var url = this.BASE_URI + '/api-token-auth/';
+<<<<<<< HEAD
 
         console.log(url);
 
 
+=======
+        console.log(url);
+
+>>>>>>> c4a54b8c763cc0927669beffe2df7ca7eea176a0
         return this.$http.post(url, {
             username: username,
             password: password
