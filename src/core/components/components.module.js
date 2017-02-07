@@ -6,6 +6,7 @@ import ContainerFluidComponent from './container-fluid/container-fluid.component
 import LoginComponent from './login/login.component';
 import LogoutComponent from './logout/logout.component';
 import LoaderComponent from './loader/loader.component';
+import EmployeeComponent from './Employee/Employee.component';
 
 export default angular.module('core.components', [])
     .component('app', AppComponent)
@@ -15,4 +16,4 @@ export default angular.module('core.components', [])
     .component('containerFluid', ContainerFluidComponent)
     .component('login', LoginComponent)
     .component('logout', LogoutComponent)
-    .component('loader', LoaderComponent);
+    .component('loader', LoaderComponent)
