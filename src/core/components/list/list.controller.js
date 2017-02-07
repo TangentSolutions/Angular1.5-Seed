@@ -1,4 +1,6 @@
-import { autorun } from 'mobx';
+import {
+    autorun
+} from 'mobx';
 
 class ListController {
     constructor(MobxServiceExample) {

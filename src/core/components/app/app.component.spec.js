@@ -9,7 +9,7 @@ describe('some test', () => {
         $q = _$q_;
     }));
 
-    it('should expect something', function () {
+    it('should expect something', function() {
         let app = new App();
 
         expect(app.member).toBe('Test');

@@ -1,6 +1,6 @@
 import link from './async-change.link';
 
-var asyncChange = function () {
+var asyncChange = function() {
     return {
         restrict: 'A',
         scope: {

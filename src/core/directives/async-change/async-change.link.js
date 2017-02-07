@@ -4,8 +4,7 @@ export default (scope, elem, attrs, ngModel) => {
     }
 
     if (!angular.isDefined(scope.asyncBefore)) {
-        scope.asyncBefore = () => {
-        };
+        scope.asyncBefore = () => {};
     }
 
     if (!angular.isDefined(scope.asyncOn)) {
@@ -15,8 +14,7 @@ export default (scope, elem, attrs, ngModel) => {
     }
 
     if (!angular.isDefined(scope.asyncAfter)) {
-        scope.asyncAfter = () => {
-        };
+        scope.asyncAfter = () => {};
     }
 
     Rx.Observable.$ngModelChange = (ngModelCtrl) => {

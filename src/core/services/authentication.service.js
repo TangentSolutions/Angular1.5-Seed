@@ -3,7 +3,7 @@
  */
 class AuthenticationService {
     constructor($http, $cookies,
-                AUTH_SERVICE_BASE_URI) {
+        AUTH_SERVICE_BASE_URI) {
         'ngInject';
         this.$http = $http;
         this.$cookies = $cookies;
@@ -11,10 +11,12 @@ class AuthenticationService {
     }
 
     login(username, password) {
-        var url = this.BASE_URI + 'api-token-auth/';
+        var url = this.BASE_URI + '/api-token-auth/';
+        console.log(url);
 
         return this.$http.post(url, {
-            username: username, password: password
+            username: username,
+            password: password
         }).then((response) => {
             if (response.data.token) {
                 this.$cookies.put('token', response.data.token);
@@ -27,7 +29,7 @@ class AuthenticationService {
     }
 
     isLoggedIn() {
-        return this.$cookies.get('token') !== '' &&  this.$cookies.get('token') !== undefined ? true : false;
+        return this.$cookies.get('token') !== '' && this.$cookies.get('token') !== undefined ? true : false;
     }
 
 
