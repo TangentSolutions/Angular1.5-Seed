@@ -1,9 +1,9 @@
-class ProjectService {
+class EmployeeService {
     constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = PROJECT_SERVICE_BASE_URI + 'projects/';
+        this.BASE_URI = PROJECT_SERVICE_BASE_URI + 'employees/';
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
@@ -30,24 +30,24 @@ class ProjectService {
      * Return A defaults object in a promise.
      * This will help if we want to use the web service to get these defaults
      */
-    getNewProjectDefaults() {
+    getNewEmployeeDefaults() {
 
         let defer = this.$q.defer();
 
-        let project = {
+        let employee = {
             is_active:true,
             is_billable: true
         };
 
-        defer.resolve(project);
-        
+        defer.resolve(employee);
+
 
         return defer.promise;
     }
 
     get(query = undefined) {
         let defer = this.$q.defer();
-        
+
         this.$http({
             method: "GET",
             url: this.BASE_URI,
@@ -55,8 +55,8 @@ class ProjectService {
             params: query
         }).then((response) => {
             let responseClone = angular.copy(response);
-            angular.forEach(responseClone.data, (project, key) => {
-                responseClone[key] = this._dateStringsToObjects(project);
+            angular.forEach(responseClone.data, (employee, key) => {
+                responseClone[key] = this._dateStringsToObjects(employee);
             });
             defer.resolve(responseClone);
         }, (response) => {
@@ -80,7 +80,7 @@ class ProjectService {
         }, (response) => {
             defer.reject(response);
         });
-        
+
         return defer.promise;
     }
 
@@ -167,4 +167,4 @@ class ProjectService {
     }
 }
 
-export default ProjectService;
+export default EmployeeService;

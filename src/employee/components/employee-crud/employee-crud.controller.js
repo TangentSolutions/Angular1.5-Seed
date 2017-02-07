@@ -1,17 +1,17 @@
-class ProjectCreateController {
+class EmployeeCreateController {
 
-    constructor(ProjectService, toastr, $q, $state, $stateParams) {
+    constructor(EmployeeService, toastr, $q, $state, $stateParams) {
         'ngInject';
 
-        this.projectService = ProjectService;
+        this.employeeService = EmployeeService;
         this.toastr = toastr;
         this.validation = {};
         this.$state = $state;
         this.$q = $q;
 
-        let projectId = $stateParams.id;
+        let employeeId = $stateParams.id;
         this._setLoading(true);
-        this.loadProject(projectId);
+        this.loadEmployee(employeeId);
     }
 
     datePickers = {
@@ -31,63 +31,63 @@ class ProjectCreateController {
 
     save() {
         this._setLoading(true);
-        // Create a clone of the current project as to not mess with user input
-        let project = angular.copy(this._getCurrentProject());
+        // Create a clone of the current employee as to not mess with user input
+        let employee = angular.copy(this._getCurrentEmployee());
 
-        if(typeof project.pk === 'undefined') {
-            this._create(project)
+        if(typeof employee.pk === 'undefined') {
+            this._create(employee)
                 .then(() => {
                     this._setLoading(false);
-                    this.toastr.success('Project Created');
-                    this.$state.go('project:list');
+                    this.toastr.success('Employee Created');
+                    this.$state.go('employee:list');
                 });
         } else {
-            this._update(project)
+            this._update(employee)
                 .then(() => {
                     this._setLoading(false);
-                    this.toastr.success('Project Updated');
-                    this.$state.go('project:list');
+                    this.toastr.success('Employee Updated');
+                    this.$state.go('employee:list');
                 });
         }
     }
 
-    loadProject(projectId = null) {
+    loadEmployee(employeeId = null) {
         this._setLoading(true);
         // If there is a primary key, Fetch from database
-        if(projectId) {
-            this._fetchProject(projectId)
-                // Set Project and Modal Title
-                .then((project) => {
-                    this._setCurrentProject(project);
+        if(employeeId) {
+            this._fetchEmployee(employeeId)
+                // Set Employee and Modal Title
+                .then((employee) => {
+                    this._setCurrentEmployee(employee);
                     this._setLoading(false);
                 },() => {
                     this._setLoading(false);
-                    this.toastr.error('Failed to load Project');
-                    this.$state.go('project:list');
+                    this.toastr.error('Failed to load Employee');
+                    this.$state.go('employee:list');
                 });
-        } 
+        }
         // Otherwise create a new instance
         else {
-            this._newProject()
+            this._newEmployee()
                 .then((response) => {
-                    this._setCurrentProject(response);
+                    this._setCurrentEmployee(response);
                     this._setLoading(false);
                 });
         }
     }
 
-    _getCurrentProject() {
-        return this.project;
+    _getCurrentEmployee() {
+        return this.employee;
     }
 
-    _setCurrentProject(project) {
-        this.project = project;
+    _setCurrentEmployee(employee) {
+        this.employee = employee;
     }
 
-    _newProject() {
+    _newEmployee() {
         let defer = this.$q.defer();
 
-        this.projectService.getNewProjectDefaults()
+        this.employeeService.getNewEmployeeDefaults()
             .then((response) => {
                 defer.resolve(response);
             });
@@ -95,10 +95,10 @@ class ProjectCreateController {
         return defer.promise;
     }
 
-    _fetchProject(projectId) {
+    _fetchEmployee(employeeId) {
         let defer = this.$q.defer();
 
-        this.projectService.fetch(projectId)
+        this.employeeService.fetch(employeeId)
             .then((response) => {
                 defer.resolve(response.data);
             }, () => {
@@ -108,9 +108,9 @@ class ProjectCreateController {
         return defer.promise;
     }
 
-    _create(project) {
+    _create(employee) {
         let defer = this.$q.defer();
-        this.projectService.create(project)
+        this.employeeService.create(employee)
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -122,9 +122,9 @@ class ProjectCreateController {
         return defer.promise;
     }
 
-    _update(project) {
+    _update(employee) {
         let defer = this.$q.defer();
-        this.projectService.update(project.pk, project)
+        this.employeeService.update(employee.pk, employee)
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -154,4 +154,4 @@ class ProjectCreateController {
 
 }
 
-export default ProjectCreateController;
+export default EmployeeCreateController;

@@ -1,1 +1,1 @@
-export default angular.module('project.directives', []);
+export default angular.module('employee.directives', []);

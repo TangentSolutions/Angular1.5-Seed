@@ -1,18 +1,18 @@
-import ProjectListController from './project-list.controller';
+import EmployeeListController from './employee-list.controller';
 
-describe('Project List Controller', () => {
+describe('Employee List Controller', () => {
 
     beforeEach(angular.mock.module('app'));
 
-    var projectService;
+    var employeeService;
     var toastr;
     var $uibModal;
     var $q;
     var controller;
     var $scope;
 
-    beforeEach(angular.mock.inject(( _ProjectService_, _toastr_, _$uibModal_, _$q_, _$rootScope_) => {
-        projectService = _ProjectService_;
+    beforeEach(angular.mock.inject(( _EmployeeService_, _toastr_, _$uibModal_, _$q_, _$rootScope_) => {
+        employeeService = _EmployeeService_;
         toastr = _toastr_;
         $uibModal = _$uibModal_;
         $q = _$q_;
@@ -21,16 +21,16 @@ describe('Project List Controller', () => {
     }));
 
     function createController() {
-        let controller = new ProjectListController(projectService, toastr, $uibModal, $q);
+        let controller = new EmployeeListController(employeeService, toastr, $uibModal, $q);
         return controller;
     }
 
     describe('onInit', () => {
         it('should call get()', () => {
             let defer = $q.defer();
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.$onInit();
-            expect(controller.projectService.get).toHaveBeenCalled();
+            expect(controller.employeeService.get).toHaveBeenCalled();
             // controller.get();
         });
     });
@@ -50,17 +50,17 @@ describe('Project List Controller', () => {
     });
 
     describe('get', () => {
-        it('should pass searchQuery to projectServiceGet', () => {
+        it('should pass searchQuery to employeeServiceGet', () => {
             let defer = $q.defer();
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.searchQuery = {random: 'search query'};
             controller.get();
-            expect(controller.projectService.get).toHaveBeenCalledWith(controller.searchQuery);
+            expect(controller.employeeService.get).toHaveBeenCalledWith(controller.searchQuery);
         });
 
         it('should call _setLoading with true when get is called', () => {
             let defer = $q.defer();
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             spyOn(controller, '_setLoading');
             controller.get();
             expect(controller._setLoading).toHaveBeenCalledWith(true);
@@ -69,7 +69,7 @@ describe('Project List Controller', () => {
         it('should call _setLoading with false when get resolves', () => {
             let defer = $q.defer();
             defer.resolve([{}]);
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.get();
             spyOn(controller, '_setLoading');
             $scope.$apply();
@@ -79,22 +79,22 @@ describe('Project List Controller', () => {
         it('should call _setLoading with false when get rejects', () => {
             let defer = $q.defer();
             defer.reject([{}]);
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.get();
             spyOn(controller, '_setLoading');
             $scope.$apply();
             expect(controller._setLoading).toHaveBeenCalledWith(false);
         });
 
-        it('should call project service get', () => {
+        it('should call employee service get', () => {
             let defer = $q.defer();
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.get()
-            expect(controller.projectService.get).toHaveBeenCalled();
+            expect(controller.employeeService.get).toHaveBeenCalled();
         });
 
-        it('should set the results array once project service resolves', () => {
-            let projectList = [
+        it('should set the results array once employee service resolves', () => {
+            let employeeList = [
                 {
                     pk: 3,
                     title: 'third title'
@@ -105,17 +105,17 @@ describe('Project List Controller', () => {
                 }
             ];
             let defer = $q.defer();
-            defer.resolve({data: projectList});
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            defer.resolve({data: employeeList});
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             controller.get();
             $scope.$apply();
-            controller.results = projectList;
+            controller.results = employeeList;
         });
 
-        it('should throw toastr error when project service does not resolve', () => {
+        it('should throw toastr error when employee service does not resolve', () => {
             let defer = $q.defer();
             defer.reject();
-            spyOn(controller.projectService, 'get').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'get').and.returnValue(defer.promise);
             spyOn(controller.toastr, 'error');
             controller.get();
             $scope.$apply();
@@ -124,17 +124,17 @@ describe('Project List Controller', () => {
     });
 
     describe('delete', () => {
-        it('calls project service delete() with id', () => {
+        it('calls employee service delete() with id', () => {
             let defer = $q.defer();
-            spyOn(controller.projectService, 'delete').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'delete').and.returnValue(defer.promise);
             controller.delete(2);
-            expect(controller.projectService.delete).toHaveBeenCalledWith(2);
+            expect(controller.employeeService.delete).toHaveBeenCalledWith(2);
         });
 
         it('throws toast success if promise resolves', () => {
             let defer = $q.defer();
             defer.resolve();
-            spyOn(controller.projectService, 'delete').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'delete').and.returnValue(defer.promise);
             controller.delete(3);
             spyOn(controller.toastr, 'success');
             spyOn(controller, 'removeRow').and.returnValue(true);
@@ -146,7 +146,7 @@ describe('Project List Controller', () => {
         it('throws toast error if promise rejects', () => {
             let defer = $q.defer();
             defer.reject();
-            spyOn(controller.projectService, 'delete').and.returnValue(defer.promise);
+            spyOn(controller.employeeService, 'delete').and.returnValue(defer.promise);
             spyOn(controller.toastr, 'error');
             controller.delete(3);
             $scope.$apply();
@@ -200,7 +200,7 @@ describe('Project List Controller', () => {
     describe('modalResolve', () => {
         it('returns an object for modal resolve', () => {
             let object = controller.modalResolve(3);
-            expect(object.projectId()).toBe(3);
+            expect(object.employeeId()).toBe(3);
 
             spyOn(controller, 'get').and.returnValue("Just some return value that will validate function binding");
             expect(object.refreshGrid()()).toEqual(controller.get());

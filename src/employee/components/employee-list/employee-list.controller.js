@@ -1,12 +1,12 @@
-import ProjectModalTemplate from '../project-modal/project-modal.template.html';
-import ProjectModalController from '../project-modal/project-modal.controller';
+import EmployeeModalTemplate from '../employee-modal/employee-modal.template.html';
+import EmployeeModalController from '../employee-modal/employee-modal.controller';
 
-class ProjectListController {
+class EmployeeListController {
 
-    constructor(ProjectService, toastr, $uibModal, $q) {
+    constructor(EmployeeService, toastr, $uibModal, $q) {
         'ngInject';
 
-        this.projectService = ProjectService;
+        this.employeeService = EmployeeService;
         this.toastr = toastr;
         this.$uibModal = $uibModal;
         this.$q = $q;
@@ -25,49 +25,49 @@ class ProjectListController {
 
     get() {
         this._setLoading(true);
-        this.projectService.get(this.searchQuery)
+        this.employeeService.get(this.searchQuery)
         .then((response) => {
             this._setLoading(false);
             this.results = response.data;
         }, () => {
             this._setLoading(false);
-            this.toastr.error("There was an error while trying to retrieve Projects");
+            this.toastr.error("There was an error while trying to retrieve Employees");
         });
     }
 
     delete(id) {
-        this.projectService.delete(id)
+        this.employeeService.delete(id)
         .then(() => {
-            this.toastr.success('Project Deleted');
+            this.toastr.success('Employee Deleted');
             this.removeRow(id);
         }, () => {
-            this.toastr.error('There was an error while trying to delete project');
+            this.toastr.error('There was an error while trying to delete employee');
         });
     }
 
-    removeRow(projectId) {
-        angular.element(document).find('#result_row_' + projectId).remove();
-    } 
+    removeRow(employeeId) {
+        angular.element(document).find('#result_row_' + employeeId).remove();
+    }
 
     create() {
         this._openModal();
     };
 
-    update(project_id) {
-        this._openModal(project_id);
+    update(employee_id) {
+        this._openModal(employee_id);
     }
 
-    _openModal(projectId = null) {
+    _openModal(employeeId = null) {
         var $ctrl = this;
         this.$uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            template: ProjectModalTemplate,
-            controller: ProjectModalController,
+            template: EmployeeModalTemplate,
+            controller: EmployeeModalController,
             controllerAs: '$ctrl',
             size: 'lg',
-            resolve: this.modalResolve(projectId)
+            resolve: this.modalResolve(employeeId)
         });
     }
 
@@ -75,14 +75,14 @@ class ProjectListController {
         this.loading = $value;
     }
 
-    modalResolve(projectId) {
+    modalResolve(employeeId) {
         return {
-            projectId: () => {
-                return projectId;
+            employeeId: () => {
+                return employeeId;
             },
             refreshGrid: () => this.get.bind(this)
         };
     }
 }
 
-export default ProjectListController;
+export default EmployeeListController;

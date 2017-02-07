@@ -1,20 +1,20 @@
-class ProjectModalController {
+class EmployeeModalController {
 
-    constructor($uibModalInstance, projectId, $q, refreshGrid, ProjectService, toastr) {
+    constructor($uibModalInstance, employeeId, $q, refreshGrid, EmployeeService, toastr) {
         'ngInject';
 
-        // The modal instance opened from Project List
+        // The modal instance opened from Employee List
         this.modal = $uibModalInstance;
         this.toastr = toastr;
-        this.projectService = ProjectService;
+        this.employeeService = EmployeeService;
 
-        // refreshGrid -> ProjectListController.get()
+        // refreshGrid -> EmployeeListController.get()
         this.refreshGrid = refreshGrid;
         this.$q = $q;
         this._setLoading(true);
 
-        // Load the project referenced into local variables
-        this.loadProject(projectId);
+        // Load the employee referenced into local variables
+        this.loadEmployee(employeeId);
     }
 
     datePickers = {
@@ -38,21 +38,21 @@ class ProjectModalController {
 
     save() {
         this._setLoading(true);
-        // Create a clone of current project as to not mess with user input.
-        let project = angular.copy(this._getCurrentProject());
+        // Create a clone of current employee as to not mess with user input.
+        let employee = angular.copy(this._getCurrentEmployee());
 
-        if(typeof project.pk === 'undefined') {
-            this._create(project)
+        if(typeof employee.pk === 'undefined') {
+            this._create(employee)
                 .then(() => {
-                    this.toastr.success('Project Created');
+                    this.toastr.success('Employee Created');
                     this.modal.close();
                     this.refreshGrid();
                     this._setLoading(false);
                 });
         } else {
-            this._update(project)
+            this._update(employee)
                 .then(() => {
-                    this.toastr.success('Project Updated');
+                    this.toastr.success('Employee Updated');
                     this.modal.close();
                     this.refreshGrid();
                     this._setLoading(false);
@@ -60,52 +60,52 @@ class ProjectModalController {
         }
     }
 
-    loadProject(projectId = null) {
+    loadEmployee(employeeId = null) {
         this._setLoading(true);
         // If there is a primary key, Fetch from database
-        if(projectId) {
+        if(employeeId) {
             // Set Preliminary Modal Title
-            this._setModalTitle('Update Project : ...');
+            this._setModalTitle('Update Employee : ...');
 
-            this._fetchProject(projectId)
-                // Set Project and Modal Title
-                .then((project) => {
-                    this._setModalTitle(`Update Project : ${project.title}`);
-                    this._setCurrentProject(project);
+            this._fetchEmployee(employeeId)
+                // Set Employee and Modal Title
+                .then((employee) => {
+                    this._setModalTitle(`Update Employee : ${employee.title}`);
+                    this._setCurrentEmployee(employee);
                     this._setLoading(false);
                 },() => {
-                    this.toastr.error('We where unable to load this project at the current time');
+                    this.toastr.error('We where unable to load this employee at the current time');
                     this.modal.dismiss('error');
                     this._setLoading(false);
                 });
-        } 
+        }
         // Otherwise create a new instance
         else {
-            this._setModalTitle('New Project ...');
-            this._newProject()
+            this._setModalTitle('New Employee ...');
+            this._newEmployee()
                 .then((response) => {
-                    this._setCurrentProject(response);
+                    this._setCurrentEmployee(response);
                     this._setLoading(false);
                 });
         }
     }
 
-    _getCurrentProject(project) {
-        return this.project;
+    _getCurrentEmployee(employee) {
+        return this.employee;
     }
 
-    _setCurrentProject(project) {
-        this.project = project;
+    _setCurrentEmployee(employee) {
+        this.employee = employee;
     }
 
     _setModalTitle(title) {
         this.modalTitle = title;
     }
 
-    _newProject() {
+    _newEmployee() {
         let defer = this.$q.defer();
 
-        this.projectService.getNewProjectDefaults()
+        this.employeeService.getNewEmployeeDefaults()
             .then((response) => {
                 defer.resolve(response);
             });
@@ -113,13 +113,13 @@ class ProjectModalController {
         return defer.promise;
     }
 
-    _fetchProject(projectId) {
+    _fetchEmployee(employeeId) {
         let defer = this.$q.defer();
 
-        this.projectService.fetch(projectId)
+        this.employeeService.fetch(employeeId)
             .then((response) => {
-                let project = response.data;
-                defer.resolve(project);
+                let employee = response.data;
+                defer.resolve(employee);
             }, () => {
                 defer.reject();
             });
@@ -127,9 +127,9 @@ class ProjectModalController {
         return defer.promise;
     }
 
-    _create(project) {
+    _create(employee) {
         let defer = this.$q.defer();
-        this.projectService.create(project)
+        this.employeeService.create(employee)
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -141,9 +141,9 @@ class ProjectModalController {
         return defer.promise;
     }
 
-    _update(project) {
+    _update(employee) {
         let defer = this.$q.defer();
-        this.projectService.update(project.pk, project)
+        this.employeeService.update(employee.pk, employee)
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -172,4 +172,4 @@ class ProjectModalController {
     }
 }
 
-export default ProjectModalController;
+export default EmployeeModalController;

@@ -1,4 +1,4 @@
-import ProjectService from './project.service';
+import EmployeeService from './employee.service';
 
-export default angular.module('project.services', [])
-    .service('ProjectService', ProjectService);
+export default angular.module('employee.services', [])
+    .service('EmployeeService', EmployeeService);
