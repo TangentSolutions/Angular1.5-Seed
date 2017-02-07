@@ -16,5 +16,5 @@ class EmployeeModalController {
         // Load the employee referenced into local variables
         this.loadEmployee(employeeId);
     }
-
-    export default EmployeeModalController;
+}
+export default EmployeeModalController;
