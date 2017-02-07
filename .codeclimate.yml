@@ -1,0 +1,26 @@
+languages:
+  JavaScript: true
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+    exclude_fingerprints:
+    - 5739ed17d29c37f0a33caabbac61dedf
+    - 60c252a325c133ac78663632807f4765
+    - b99e9d84be7e8cbb5ee7ac04650d4594
+    - c81eac505cfc985126d02d88c4f792ad
+    - 587c870cb0183796036e8e5879530b76
+    - ba0e117d5aaedabb4835e7c3ae82e104
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
+exclude_paths:
+- test/
+- "**.spec.js"
+- webpack.config.js
