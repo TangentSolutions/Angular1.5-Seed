@@ -1,9 +1,9 @@
 class EmployeeService {
-    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
+    constructor($http, EMPLOYEE_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = PROJECT_SERVICE_BASE_URI + 'employees/';
+        this.BASE_URI = EMPLOYEE_SERVICE_BASE_URI + 'employees/';
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
