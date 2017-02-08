@@ -12,11 +12,8 @@ describe('Project Crud Controller', () => {
     var $q;
     var controller;
 
-<<<<<<< HEAD
+
     beforeEach(angular.mock.inject(( _ProjectService_, _toastr_, _$state_, _$stateParams_, _$q_, _$rootScope_) => {
-=======
-    beforeEach(angular.mock.inject((_ProjectService_, _toastr_, _$state_, _$stateParams_, _$q_, _$rootScope_) => {
->>>>>>> c4a54b8c763cc0927669beffe2df7ca7eea176a0
         $scope = _$rootScope_.$new();
         toastr = _toastr_;
         $state = _$state_;
@@ -406,13 +403,13 @@ describe('Project Crud Controller', () => {
             let serviceReturn = {pk: 2, title: 'title from service'};
             let createDeferred = $q.defer();
             spyOn(controller.projectService, 'create').and.returnValue(createDeferred.promise);
-            
+
             createDeferred.resolve(serviceReturn);
             let promise = controller._create({title: 'title to controller'});
 
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+               expect(returnValue).toEqual(serviceReturn);
 =======
             let serviceReturn = {
                 pk: 2,
@@ -456,7 +453,7 @@ describe('Project Crud Controller', () => {
 
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+               expect(returnValue).toEqual(serviceReturn);
                expect(controller._setValidation).toHaveBeenCalled();
 =======
             let promise = controller._create({
@@ -526,7 +523,7 @@ describe('Project Crud Controller', () => {
             let promise = controller._update({pk: 2, title: 'title to controller'});
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+               expect(returnValue).toEqual(serviceReturn);
 =======
             let promise = controller._update({
                 pk: 2,
@@ -562,7 +559,7 @@ describe('Project Crud Controller', () => {
             let promise = controller._update({pk: 2, title: 'title to controller'});
             expect(promise.constructor.name).toBe('Promise');
             promise.then((returnValue) => {
-               expect(returnValue).toEqual(serviceReturn); 
+               expect(returnValue).toEqual(serviceReturn);
 =======
             let promise = controller._update({
                 pk: 2,
@@ -607,7 +604,7 @@ describe('Project Crud Controller', () => {
             expect(controller.validation).toEqual({});
         });
 <<<<<<< HEAD
-    }); 
+    });
 =======
     });
 >>>>>>> c4a54b8c763cc0927669beffe2df7ca7eea176a0

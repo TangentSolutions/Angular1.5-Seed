@@ -4,7 +4,7 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>#</th>
+           <th>#</th>
             <th>
                 Title <a ng-class="$ctrl.searchQuery.ordering === 'title' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('title')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'title') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
@@ -23,6 +23,18 @@
             </th>
             <th>Active</th>
             <th>Billable</th>
+
+            <th>
+                ID <a ng-class="$ctrl.searchQuery.ordering === 'id' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('id')">
+                    <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'title') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                </a>
+            </th>
+
+            <th>
+                Salary <a ng-class="$ctrl.searchQuery.ordering === 'salary' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('salary')">
+                    <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'title') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                </a>
+            </th>
             <th>
                 <div class="btn-group" uib-dropdown is-open="status.isopen">
                   <button id="new-employee-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
