@@ -6,10 +6,7 @@ import ContainerFluidComponent from './container-fluid/container-fluid.component
 import LoginComponent from './login/login.component';
 import LogoutComponent from './logout/logout.component';
 import LoaderComponent from './loader/loader.component';
-<<<<<<< HEAD
 
-=======
->>>>>>> e33b2039199a00dea53f1d1293d18684695c1b7a
 
 export default angular.module('core.components', [])
     .component('app', AppComponent)
