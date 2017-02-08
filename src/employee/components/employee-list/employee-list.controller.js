@@ -11,29 +11,20 @@ class EmployeeListController {
         this.$uibModal = $uibModal;
         this.$q = $q;
         this.searchQuery = {};
-        this._setLoading(true);
+        //this._setLoading(true);
     }
-<<<<<<< HEAD
-=======
-
     $onInit() {
         this.get();
     }
-
->>>>>>> 40be10e78bc111c13d2676fdf025bd340437a470
     get() {
-        this._setLoading(true);
+        //this._setLoading(true);
         this.employeeService.get(this.searchQuery)
         .then((response) => {
-            this._setLoading(false);
+            //this._setLoading(false);
             this.results = response.data;
         }, () => {
-            this._setLoading(false);
-<<<<<<< HEAD
+            //this._setLoading(false);
             this.toastr.error("There was an error while trying to retrieve Employees");
-=======
-            this.toastr.error("There was an error while trying to retrieve Projects");
->>>>>>> 40be10e78bc111c13d2676fdf025bd340437a470
         });
     }
   }

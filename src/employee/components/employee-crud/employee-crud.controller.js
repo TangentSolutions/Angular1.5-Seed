@@ -10,7 +10,7 @@ class EmployeeCreateController {
         this.$q = $q;
 
         let employeeId = $stateParams.id;
-        this._setLoading(true);
+        //this._setLoading(true);
         this.loadEmployee(employeeId);
     }
 

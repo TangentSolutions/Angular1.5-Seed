@@ -3,7 +3,7 @@ class EmployeeService {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = EMPLOYEE_SERVICE_BASE_URI + 'employees/';
+        this.BASE_URI = EMPLOYEE_SERVICE_BASE_URI;
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
