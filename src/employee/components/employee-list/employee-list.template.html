@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <button ui-sref="state-a" class="btn btn-primary">Original Screen</button>
+    <button ui-sref="state-a" class="btn btn-primary">Back</button>
     <h4>Employees</h4>
     <table class="table table-bordered table-striped">
         <thead>
@@ -92,12 +92,12 @@
                       <button id="{{result.user.id}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
                       <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
                     </button>
-                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.pk}}-update-button">
+                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.user.id}}-update-button">
                           <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Modal</sup></li>
                           <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Form</a></li>
                       </ul>
                   </div>
-                  <button ng-click="$ctrl.delete(result.pk)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                  <button ng-click="$ctrl.delete(result.user.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
                 </td>
             </tr>
 
