@@ -6,12 +6,19 @@
 
 
     <loader active="$ctrl.loading">
+<<<<<<< HEAD
       <form>
       <label>Employee</label>
     <div ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
         <label class="control-label">ID</label>
         <input class="form-control" ng-model="$ctrl.employee.id" />
         <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
+=======
+      <div ng-class="['form-group', {'has-error': $ctrl.validation.title}]">
+        <label class="control-label"></label>Title</label>
+        <input class="form-control" ng-model="$ctrl.employee.title" />
+        <span class="help-block" ng-repeat="error in $ctrl.validation.title"></span>{{ error }}</span>
+>>>>>>> 84761259e41bcc926ec8032a9e6e31cc70b6a9c9
       </div>
 
       <div ng-class="['form-group', {'has-error': $ctrl.validation.username}]">
