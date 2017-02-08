@@ -18,11 +18,11 @@ import toastr from 'angular-toastr';
 import rx from 'rx-angular';
 
 import CoreModule from './core/core.module';
-import ProjectModule from './project/project.module';
+import EmployeeModule from './employee/employee.module';
 
 angular.module('app', [
     CoreModule.name,
-    ProjectModule.name,
+    EmployeeModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -82,17 +82,17 @@ angular.module('app', [
             url: '/b/:name',
             template: '<app></app>'
         })
-        .state('project:list', {
-            url: '/projects',
-            template: '<project-list></project-list>'
+        .state('employee:list', {
+            url: '/employees',
+            template: '<employee-list></employee-list>'
         })
-        .state('project:update', {
-            url: '/projects/update/:id',
-            template: '<project-crud></project-crud>'
+        .state('employee:update', {
+            url: '/employees/update/:id',
+            template: '<employee-crud></employee-crud>'
         })
-        .state('project:create', {
-            url: '/projects/create',
-            template: '<project-crud></project-crud>'
+        .state('employee:create', {
+            url: '/employees/create',
+            template: '<employee-crud></employee-crud>'
         });
 });
 

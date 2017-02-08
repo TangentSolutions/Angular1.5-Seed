@@ -1,8 +1,8 @@
-import ProjectListTemplate from './project-list.template.html';
-import ProjectListController from './project-list.controller';
+import EmployeeListTemplate from './employee-list.template.html';
+import EmployeeListController from './employee-list.controller.js';
 
 export default {
-    template: ProjectListTemplate,
-    controller: ProjectListController,
+    template: EmployeeListTemplate,
+    controller: EmployeeListController,
     controllerAs: '$ctrl'
 };

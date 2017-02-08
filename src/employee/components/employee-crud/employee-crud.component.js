@@ -1,8 +1,8 @@
-import ProjectCrudTemplate from './project-crud.template.html';
-import ProjectCrudController from './project-crud.controller';
+import EmployeeCrudTemplate from './employee-crud.template.html';
+import EmployeeCrudController from './employee-crud.controller';
 
 export default {
-    template: ProjectCrudTemplate,
-    controller: ProjectCrudController,
+    template: EmployeeCrudTemplate,
+    controller: EmployeeCrudController,
     controllerAs: '$ctrl'
 };

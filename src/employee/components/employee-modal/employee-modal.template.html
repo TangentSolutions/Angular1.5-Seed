@@ -6,20 +6,20 @@
     <loader active="$ctrl.loading">
       <div ng-class="['form-group', {'has-error': $ctrl.validation.title}]">
         <label class="control-label">Title</label>
-        <input class="form-control" ng-model="$ctrl.project.title" />
+        <input class="form-control" ng-model="$ctrl.employee.title" />
         <span class="help-block" ng-repeat="error in $ctrl.validation.title">{{ error }}</span>
       </div>
 
       <div ng-class="['form-group', {'has-error': $ctrl.validation.description}]">
         <label class="control-label">Description</label>
-        <textarea class="form-control" ng-model="$ctrl.project.description"></textarea>
+        <textarea class="form-control" ng-model="$ctrl.employee.description"></textarea>
         <span class="help-block" ng-repeat="error in $ctrl.validation.description">{{ error }}</span>
       </div>
 
       <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
         <label class="control-label">Start Date</label>
         <p class="input-group">
-          <input type="text" class="form-control" ng-model="$ctrl.project.start_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.startDate.opened" close-text="Close" />
+          <input type="text" class="form-control" ng-model="$ctrl.employee.start_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.startDate.opened" close-text="Close" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.startDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -30,7 +30,7 @@
       <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
         <label class="control-label">End Date</label>
         <p class="input-group">
-          <input type="text" class="form-control" ng-model="$ctrl.project.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
+          <input type="text" class="form-control" ng-model="$ctrl.employee.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
           <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.endDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
@@ -42,8 +42,8 @@
         <label class="control-label">Active</label>
         <div class="input-group">
           <div class="btn-group">
-            <label class="btn btn-default" ng-model="$ctrl.project.is_active" uib-btn-radio="false">False</label>
-            <label class="btn btn-default" ng-model="$ctrl.project.is_active" uib-btn-radio="true">True</label>
+            <label class="btn btn-default" ng-model="$ctrl.employee.is_active" uib-btn-radio="false">False</label>
+            <label class="btn btn-default" ng-model="$ctrl.employee.is_active" uib-btn-radio="true">True</label>
           </div>
         </div>
         <span class="help-block" ng-repeat="error in $ctrl.validation.is_active">{{ error }}</span>
@@ -53,8 +53,8 @@
         <label class="control-label">Billable</label>
         <div class="input-group">
           <div class="btn-group">
-            <label class="btn btn-default" ng-model="$ctrl.project.is_billable" uib-btn-radio="false">False</label>
-            <label class="btn btn-default" ng-model="$ctrl.project.is_billable" uib-btn-radio="true">True</label>
+            <label class="btn btn-default" ng-model="$ctrl.employee.is_billable" uib-btn-radio="false">False</label>
+            <label class="btn btn-default" ng-model="$ctrl.employee.is_billable" uib-btn-radio="true">True</label>
           </div>
         </div>
         <span class="help-block" ng-repeat="error in $ctrl.validation.is_billable">{{ error }}</span>

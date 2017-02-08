@@ -1,11 +1,11 @@
-import ProjectService from './project.service';
+import EmployeeService from './employee.service';
 
-describe('Class ProjectService', () => {
+describe('Class EmployeeService', () => {
 
 <<<<<<< HEAD
   beforeEach(angular.mock.module('app'));
 
-  var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, projectService, $scope;
+  var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, employeeService, $scope;
 
   beforeEach(angular.mock.inject(( _$http_, _$httpBackend_, _PROJECT_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
     $httpBackend = _$httpBackend_;
@@ -15,7 +15,7 @@ describe('Class ProjectService', () => {
     $q = _$q_;
     $cookies = _$cookies_;
     $filter = _$filter_;
-    projectService = createService();
+    employeeService = createService();
   }));
 
   afterEach(() => {
@@ -28,23 +28,23 @@ describe('Class ProjectService', () => {
   }
 
   function createService(_$http = $http, _PROJECT_SERVICE_BASE_URI = PROJECT_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
-    let service = new ProjectService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
+    let service = new EmployeeService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
     return service;
   }
 
   describe('Constructor', () => {
     it('defines apiDates property', () => {
-      expect(projectService.apiDates).toBeDefined();
+      expect(employeeService.apiDates).toBeDefined();
     });
 
     it('defines apiDateFormat property', () => {
-      expect(projectService.apiDateFormat).toBeDefined();
+      expect(employeeService.apiDateFormat).toBeDefined();
     })
   });
 
-  describe('getNewProjectDefaults', () => {
+  describe('getNewEmployeeDefaults', () => {
     it('returns a promise', () => {
-      let promise = projectService.getNewProjectDefaults();
+      let promise = employeeService.getNewEmployeeDefaults();
       expect(promise.constructor.name).toBe('Promise');
     });
   });
@@ -53,41 +53,41 @@ describe('Class ProjectService', () => {
 
     it('should pass searchQuery to $http call', () => {
       let defer = $q.defer();
-      spyOn(projectService, '$http').and.returnValue(defer.promise);
-      projectService.get({some: 'query'});
-      expect(projectService.$http).toHaveBeenCalledWith(jasmine.objectContaining({
+      spyOn(employeeService, '$http').and.returnValue(defer.promise);
+      employeeService.get({some: 'query'});
+      expect(employeeService.$http).toHaveBeenCalledWith(jasmine.objectContaining({
         params: {some: 'query'}
       }));
     });
 
     it('should return a promise', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200);
-      let response = projectService.get();
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200);
+      let response = employeeService.get();
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, (headers) => {
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200);
-      projectService.get();
+      employeeService.get();
       $httpBackend.flush();
     });
 
     it('should use cookie token aith authentication headers', () => {
       let token = getRandomToken();
-      projectService.$cookies.put('token', token);
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, (headers) => {
+      employeeService.$cookies.put('token', token);
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200);
-      projectService.get();
+      employeeService.get();
       $httpBackend.flush();
     });
 
     it('should return full response when promise resolves', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
-      projectService.get()
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
+      employeeService.get()
       .then((response) => {
         expect(response.data).toEqual([{pk: 1, title: 'test title 1'},{pk: 2, title: 'test title 2'}]);
       }, () => {
@@ -97,8 +97,8 @@ describe('Class ProjectService', () => {
     });
 
     it('should return full response when promise rejects', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(500, 'server error');
-      projectService.get()
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(500, 'server error');
+      employeeService.get()
       .then(() => {
         fail()
       }, (response) => {
@@ -109,51 +109,51 @@ describe('Class ProjectService', () => {
     });
 
     it('should loop objects for passing to _dateStringsToObjects', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
       spyOn(angular, 'forEach');
-      projectService.get();
+      employeeService.get();
       $httpBackend.flush();
       expect(angular.forEach).toHaveBeenCalled();
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
-      spyOn(projectService, '_dateStringsToObjects');
-      projectService.get();
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+      spyOn(employeeService, '_dateStringsToObjects');
+      employeeService.get();
       $httpBackend.flush();
-      expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({pk: 3, start_date: '2015-05-20'});
+      expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({pk: 3, start_date: '2015-05-20'});
     });
   });
 
   describe('fetch()', () => {
     it('should return a promise', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200);
-      let response = projectService.fetch(2);
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200);
+      let response = employeeService.fetch(2);
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should use authentication headers', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200, '');
-      projectService.fetch(2);
+      employeeService.fetch(2);
       $httpBackend.flush();
     });
 
     it('should use cookie token in authentication header', () => {
       let token = getRandomToken();
-      projectService.$cookies.put('token', token);
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+      employeeService.$cookies.put('token', token);
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200, '');
-      projectService.fetch(2);
+      employeeService.fetch(2);
       $httpBackend.flush();
     });
 
     it('should return full response on success', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "title": "test title"}');
-      projectService.fetch(2)
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "title": "test title"}');
+      employeeService.fetch(2)
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.data).toEqual({pk: 2, title: 'test title'});
@@ -164,8 +164,8 @@ describe('Class ProjectService', () => {
     });
 
     it('should return full HTTP response on failure', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(500, 'failure on server');
-      projectService.fetch(2)
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(500, 'failure on server');
+      employeeService.fetch(2)
       .then(() => {
         fail();
       }, (response) => {
@@ -176,43 +176,43 @@ describe('Class ProjectService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
-      spyOn(projectService, '_dateStringsToObjects');
-      projectService.fetch(2);
+      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
+      spyOn(employeeService, '_dateStringsToObjects');
+      employeeService.fetch(2);
       $httpBackend.flush();
-      expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
+      expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
     });
   });
 
   describe('update()', () => {
     it('should return a promise', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 3, "title": "test title"}');
-      let response = projectService.update(2, {title: 'test title'});
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 3, "title": "test title"}');
+      let response = employeeService.update(2, {title: 'test title'});
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should use authentication headers', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200, '{"pk": 3, "title": "test title"}');
-      projectService.update(2, {title: 'test title'});
+      employeeService.update(2, {title: 'test title'});
       $httpBackend.flush();
     })
 
     it('should use token cookie in authentication headers', () => {
       let token = Math.random().toString(36).substring(7);
-      projectService.$cookies.put('token', token);
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+      employeeService.$cookies.put('token', token);
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200, '{"pk": 3, "title": "test title"}');
-      projectService.update(2, {title: 'test title'});
+      employeeService.update(2, {title: 'test title'});
       $httpBackend.flush();
     });
 
     it('should resolve and return full response on 2xx http response', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "title": "test title"}');
-      projectService.update(2, {title: "test title"})
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "title": "test title"}');
+      employeeService.update(2, {title: "test title"})
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.data).toEqual({pk: 2, title: 'test title'});
@@ -223,8 +223,8 @@ describe('Class ProjectService', () => {
     });
 
     it('should reject and return full response on 4xx http response', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(404, 'not found');
-      projectService.update(2, {title: "test title"})
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(404, 'not found');
+      employeeService.update(2, {title: "test title"})
       .then(() => {
         fail();
       }, (response) => {
@@ -235,55 +235,55 @@ describe('Class ProjectService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-      spyOn(projectService, '_dateStringsToObjects');
-      projectService.update(2, {title: 'test title'});
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      spyOn(employeeService, '_dateStringsToObjects');
+      employeeService.update(2, {title: 'test title'});
       $httpBackend.flush();
-      expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
+      expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
     });
 
     it('should convert date objects to strings before http request ', () => {
-      spyOn(projectService, '_dateObjectsToStrings');
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-      projectService.update(2, {start_date: new Date('2015-05-20')});
-      expect(projectService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
+      spyOn(employeeService, '_dateObjectsToStrings');
+      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      employeeService.update(2, {start_date: new Date('2015-05-20')});
+      expect(employeeService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
       $httpBackend.flush();
     });
   });
 
   describe('create()', () => {
     it('returns a promise', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200);
-      let promise = projectService.create({title: 'the title'});
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200);
+      let promise = employeeService.create({title: 'the title'});
       expect(promise.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, function(headers) {
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(201, '');
-      projectService.create({title: "test title"});
+      employeeService.create({title: "test title"});
       $httpBackend.flush();
     });
 
     it('should use cookie token in auth header', () => {
       let token = Math.random().toString(36).substring(7);
-      projectService.$cookies.put('token', token);
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, function(headers) {
+      employeeService.$cookies.put('token', token);
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return headers['Authorization'] === 'Token ' + token;
       }).respond(201, '');
-      projectService.create({title: "test title"});
+      employeeService.create({title: "test title"});
       $httpBackend.flush();
     });
 
     it('resolves if 201 status is returned', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(201, '{"pk": 3,"title": "test title"}');
-      projectService.create({title: "test title"})
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(201, '{"pk": 3,"title": "test title"}');
+      employeeService.create({title: "test title"})
       .then((response) => {
         expect(response.status).toBe(201);
         expect(response.data).toEqual({pk: 3,title: "test title"});
@@ -294,8 +294,8 @@ describe('Class ProjectService', () => {
     });
 
     it('rejects if 500 status is returned', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(500, 'erronous create');
-      projectService.create({title: "test title"})
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(500, 'erronous create');
+      employeeService.create({title: "test title"})
       .then(() => {
         fail();
       }, (response) => {
@@ -306,55 +306,55 @@ describe('Class ProjectService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-      spyOn(projectService, '_dateStringsToObjects');
-      projectService.create({title: 'test title'});
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      spyOn(employeeService, '_dateStringsToObjects');
+      employeeService.create({title: 'test title'});
       $httpBackend.flush();
-      expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
+      expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({pk: 2, start_date: '2015-05-20'});
     });
 
     it('should convert date objects to strings before http request ', () => {
-      spyOn(projectService, '_dateObjectsToStrings');
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-      projectService.create({start_date: new Date('2015-05-20')});
-      expect(projectService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
+      spyOn(employeeService, '_dateObjectsToStrings');
+      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      employeeService.create({start_date: new Date('2015-05-20')});
+      expect(employeeService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
       $httpBackend.flush();
     });
   });
 
   describe('delete()', () => {
     it('returns a promise', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200);
-      let promise = projectService.delete(2);
+      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200);
+      let promise = employeeService.delete(2);
       expect(promise.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, function(headers) {
+      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(201, '');
-      projectService.delete(2);
+      employeeService.delete(2);
       $httpBackend.flush();
     });
 
     it('should use cookie token in auth header', () => {
       let token = Math.random().toString(36).substring(7);
-      projectService.$cookies.put('token', token);
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, function(headers) {
+      employeeService.$cookies.put('token', token);
+      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return headers['Authorization'] === 'Token ' + token;
       }).respond(201, '');
-      projectService.delete(2);
+      employeeService.delete(2);
       $httpBackend.flush();
     });
 
     it('should do a request to delete route', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, 'created response');
-      projectService.delete(2).then((response) => {
+      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, 'created response');
+      employeeService.delete(2).then((response) => {
         expect(response.status).toBe(200);
         expect(response.data).toBe('created response');
       }, () => {
@@ -364,8 +364,8 @@ describe('Class ProjectService', () => {
     });
 
     it('should reject on 400 statusses', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(404, 'failed response');
-      projectService.delete(2).then(() => {
+      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(404, 'failed response');
+      employeeService.delete(2).then(() => {
         fail();
       }, (response) => {
         expect(response.status).toBe(404);
@@ -381,8 +381,8 @@ describe('Class ProjectService', () => {
       let objectContainingDates = {
         start_date: '2015-05-20'
       };
-      projectService.apiDates = ['start_date'];
-      let converted = projectService._dateStringsToObjects(objectContainingDates);
+      employeeService.apiDates = ['start_date'];
+      let converted = employeeService._dateStringsToObjects(objectContainingDates);
       expect(converted.start_date).toEqual(new Date('2015-05-20'));
     });
 
@@ -391,8 +391,8 @@ describe('Class ProjectService', () => {
         start_date: '2015-05-20',
         end_date: '2015-04-03'
       };
-      projectService.apiDates = ['start_date'];
-      let converted = projectService._dateStringsToObjects(objectContainingDates);
+      employeeService.apiDates = ['start_date'];
+      let converted = employeeService._dateStringsToObjects(objectContainingDates);
       expect(typeof converted.end_date).toBe('string');
       expect(converted.end_date).toBe('2015-04-03');
       expect(converted.start_date).toEqual(new Date('2015-05-20'));
@@ -402,8 +402,8 @@ describe('Class ProjectService', () => {
       let objectContainingDates = {
         start_date: '2015-05-20'
       };
-      projectService.apiDates = ['end_date'];
-      let converted = projectService._dateStringsToObjects(objectContainingDates);
+      employeeService.apiDates = ['end_date'];
+      let converted = employeeService._dateStringsToObjects(objectContainingDates);
       expect(converted.end_date).toBeUndefined();
       expect(typeof converted.start_date).toBe('string');
       expect(converted.start_date).toBe('2015-05-20');
@@ -413,10 +413,10 @@ describe('Class ProjectService', () => {
   describe('_dateObjectsToStrings()', () => {
     it('should convert dates to strings', () => {
       let dateContainingObject = {};
-      angular.forEach(projectService.apiDates, (dateProperty) => {
+      angular.forEach(employeeService.apiDates, (dateProperty) => {
         dateContainingObject[dateProperty] = new Date('2015-05-20');
       });
-      let converted = projectService._dateObjectsToStrings(dateContainingObject);
+      let converted = employeeService._dateObjectsToStrings(dateContainingObject);
       angular.forEach(converted, (stringValue) => {
         expect(stringValue).toBe('2015-05-20');
         expect(typeof stringValue).toBe('string');
@@ -425,10 +425,10 @@ describe('Class ProjectService', () => {
 
     it('should not convert strings', () => {
       let dateContainingObject = {};
-      angular.forEach(projectService.apiDates, (dateProperty) => {
+      angular.forEach(employeeService.apiDates, (dateProperty) => {
         dateContainingObject[dateProperty] = 'unconverted string';
       });
-      let converted = projectService._dateObjectsToStrings(dateContainingObject);
+      let converted = employeeService._dateObjectsToStrings(dateContainingObject);
       angular.forEach(converted, (stringValue) => {
         expect(stringValue).toBe('unconverted string');
         expect(typeof stringValue).toBe('string');
@@ -440,10 +440,10 @@ describe('Class ProjectService', () => {
         'start_date': new Date('2015-05-20'),
         'end_date': new Date('2015-05-20')
       };
-      projectService.apiDates = ['end_date'];
+      employeeService.apiDates = ['end_date'];
 
-      let converted = projectService._dateObjectsToStrings(dateContainingObject);
-      
+      let converted = employeeService._dateObjectsToStrings(dateContainingObject);
+
       expect(converted.start_date).toEqual(new Date('2015-05-20'));
       expect(converted.start_date.constructor.name).toBe('Date');
       expect(converted.end_date).toBe('2015-05-20');
@@ -455,10 +455,10 @@ describe('Class ProjectService', () => {
         'start_date': new Date('2015-05-20'),
         'end_date': new Date('2015-05-20')
       };
-      projectService.apiDates = [];
+      employeeService.apiDates = [];
 
-      let converted = projectService._dateObjectsToStrings(dateContainingObject);
-      
+      let converted = employeeService._dateObjectsToStrings(dateContainingObject);
+
       expect(converted).toEqual(dateContainingObject);
     });
 
@@ -466,9 +466,9 @@ describe('Class ProjectService', () => {
       let objectContainingDates = {
         start_date: new Date('2015-05-20')
       };
-      projectService.apiDates = ['end_date'];
+      employeeService.apiDates = ['end_date'];
 
-      let converted = projectService._dateObjectsToStrings(objectContainingDates);
+      let converted = employeeService._dateObjectsToStrings(objectContainingDates);
       expect(converted).toEqual(objectContainingDates);
     });
 
@@ -477,34 +477,34 @@ describe('Class ProjectService', () => {
       let dateContainingObject = {
         start_date: new Date(date)
       };
-      projectService.apiDates = ['start_date'];
-      projectService.apiDateFormat = 'dd-MM-yyyy';
+      employeeService.apiDates = ['start_date'];
+      employeeService.apiDateFormat = 'dd-MM-yyyy';
 
-      let converted = projectService._dateObjectsToStrings(dateContainingObject);
+      let converted = employeeService._dateObjectsToStrings(dateContainingObject);
       expect(converted.start_date).toBe('20-05-2015');
 
       dateContainingObject = {
         start_date: new Date(date)
       };
-      projectService.apiDateFormat = 'MM-dd-yyyy';
-      converted = projectService._dateObjectsToStrings(dateContainingObject);
+      employeeService.apiDateFormat = 'MM-dd-yyyy';
+      converted = employeeService._dateObjectsToStrings(dateContainingObject);
       expect(converted.start_date).toBe('05-20-2015');
     });
   });
 
   describe('_getAuthToken', () => {
     it('uses cookies to get current token', () => {
-      spyOn(projectService.$cookies, 'get').and.returnValue('123abc');
-      let token = projectService._getAuthToken();
+      spyOn(employeeService.$cookies, 'get').and.returnValue('123abc');
+      let token = employeeService._getAuthToken();
       expect(token).toBe('123abc');
-      expect(projectService.$cookies.get).toHaveBeenCalledWith('token');
+      expect(employeeService.$cookies.get).toHaveBeenCalledWith('token');
     });
   })
 });
 =======
     beforeEach(angular.mock.module('app'));
 
-    var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, projectService, $scope;
+    var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, employeeService, $scope;
 
     beforeEach(angular.mock.inject((_$http_, _$httpBackend_, _PROJECT_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
         $httpBackend = _$httpBackend_;
@@ -514,7 +514,7 @@ describe('Class ProjectService', () => {
         $q = _$q_;
         $cookies = _$cookies_;
         $filter = _$filter_;
-        projectService = createService();
+        employeeService = createService();
     }));
 
     afterEach(() => {
@@ -527,23 +527,23 @@ describe('Class ProjectService', () => {
     }
 
     function createService(_$http = $http, _PROJECT_SERVICE_BASE_URI = PROJECT_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
-        let service = new ProjectService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
+        let service = new EmployeeService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
         return service;
     }
 
     describe('Constructor', () => {
         it('defines apiDates property', () => {
-            expect(projectService.apiDates).toBeDefined();
+            expect(employeeService.apiDates).toBeDefined();
         });
 
         it('defines apiDateFormat property', () => {
-            expect(projectService.apiDateFormat).toBeDefined();
+            expect(employeeService.apiDateFormat).toBeDefined();
         })
     });
 
-    describe('getNewProjectDefaults', () => {
+    describe('getNewEmployeeDefaults', () => {
         it('returns a promise', () => {
-            let promise = projectService.getNewProjectDefaults();
+            let promise = employeeService.getNewEmployeeDefaults();
             expect(promise.constructor.name).toBe('Promise');
         });
     });
@@ -552,11 +552,11 @@ describe('Class ProjectService', () => {
 
         it('should pass searchQuery to $http call', () => {
             let defer = $q.defer();
-            spyOn(projectService, '$http').and.returnValue(defer.promise);
-            projectService.get({
+            spyOn(employeeService, '$http').and.returnValue(defer.promise);
+            employeeService.get({
                 some: 'query'
             });
-            expect(projectService.$http).toHaveBeenCalledWith(jasmine.objectContaining({
+            expect(employeeService.$http).toHaveBeenCalledWith(jasmine.objectContaining({
                 params: {
                     some: 'query'
                 }
@@ -564,33 +564,33 @@ describe('Class ProjectService', () => {
         });
 
         it('should return a promise', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200);
-            let response = projectService.get();
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200);
+            let response = employeeService.get();
             expect(response.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, (headers) => {
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200);
-            projectService.get();
+            employeeService.get();
             $httpBackend.flush();
         });
 
         it('should use cookie token aith authentication headers', () => {
             let token = getRandomToken();
-            projectService.$cookies.put('token', token);
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, (headers) => {
+            employeeService.$cookies.put('token', token);
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200);
-            projectService.get();
+            employeeService.get();
             $httpBackend.flush();
         });
 
         it('should return full response when promise resolves', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
-            projectService.get()
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
+            employeeService.get()
                 .then((response) => {
                     expect(response.data).toEqual([{
                         pk: 1,
@@ -606,8 +606,8 @@ describe('Class ProjectService', () => {
         });
 
         it('should return full response when promise rejects', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(500, 'server error');
-            projectService.get()
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(500, 'server error');
+            employeeService.get()
                 .then(() => {
                     fail()
                 }, (response) => {
@@ -618,19 +618,19 @@ describe('Class ProjectService', () => {
         });
 
         it('should loop objects for passing to _dateStringsToObjects', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
             spyOn(angular, 'forEach');
-            projectService.get();
+            employeeService.get();
             $httpBackend.flush();
             expect(angular.forEach).toHaveBeenCalled();
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
-            spyOn(projectService, '_dateStringsToObjects');
-            projectService.get();
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+            spyOn(employeeService, '_dateStringsToObjects');
+            employeeService.get();
             $httpBackend.flush();
-            expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({
+            expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({
                 pk: 3,
                 start_date: '2015-05-20'
             });
@@ -639,33 +639,33 @@ describe('Class ProjectService', () => {
 
     describe('fetch()', () => {
         it('should return a promise', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200);
-            let response = projectService.fetch(2);
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200);
+            let response = employeeService.fetch(2);
             expect(response.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should use authentication headers', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200, '');
-            projectService.fetch(2);
+            employeeService.fetch(2);
             $httpBackend.flush();
         });
 
         it('should use cookie token in authentication header', () => {
             let token = getRandomToken();
-            projectService.$cookies.put('token', token);
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+            employeeService.$cookies.put('token', token);
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200, '');
-            projectService.fetch(2);
+            employeeService.fetch(2);
             $httpBackend.flush();
         });
 
         it('should return full response on success', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "title": "test title"}');
-            projectService.fetch(2)
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "title": "test title"}');
+            employeeService.fetch(2)
                 .then((response) => {
                     expect(response.status).toBe(200);
                     expect(response.data).toEqual({
@@ -679,8 +679,8 @@ describe('Class ProjectService', () => {
         });
 
         it('should return full HTTP response on failure', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(500, 'failure on server');
-            projectService.fetch(2)
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(500, 'failure on server');
+            employeeService.fetch(2)
                 .then(() => {
                     fail();
                 }, (response) => {
@@ -691,11 +691,11 @@ describe('Class ProjectService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
-            spyOn(projectService, '_dateStringsToObjects');
-            projectService.fetch(2);
+            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
+            spyOn(employeeService, '_dateStringsToObjects');
+            employeeService.fetch(2);
             $httpBackend.flush();
-            expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({
+            expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({
                 pk: 2,
                 start_date: '2015-05-20'
             });
@@ -704,8 +704,8 @@ describe('Class ProjectService', () => {
 
     describe('update()', () => {
         it('should return a promise', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 3, "title": "test title"}');
-            let response = projectService.update(2, {
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 3, "title": "test title"}');
+            let response = employeeService.update(2, {
                 title: 'test title'
             });
             expect(response.constructor.name).toBe('Promise');
@@ -713,10 +713,10 @@ describe('Class ProjectService', () => {
         });
 
         it('should use authentication headers', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200, '{"pk": 3, "title": "test title"}');
-            projectService.update(2, {
+            employeeService.update(2, {
                 title: 'test title'
             });
             $httpBackend.flush();
@@ -724,19 +724,19 @@ describe('Class ProjectService', () => {
 
         it('should use token cookie in authentication headers', () => {
             let token = Math.random().toString(36).substring(7);
-            projectService.$cookies.put('token', token);
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, (headers) => {
+            employeeService.$cookies.put('token', token);
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200, '{"pk": 3, "title": "test title"}');
-            projectService.update(2, {
+            employeeService.update(2, {
                 title: 'test title'
             });
             $httpBackend.flush();
         });
 
         it('should resolve and return full response on 2xx http response', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "title": "test title"}');
-            projectService.update(2, {
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "title": "test title"}');
+            employeeService.update(2, {
                     title: "test title"
                 })
                 .then((response) => {
@@ -752,8 +752,8 @@ describe('Class ProjectService', () => {
         });
 
         it('should reject and return full response on 4xx http response', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(404, 'not found');
-            projectService.update(2, {
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(404, 'not found');
+            employeeService.update(2, {
                     title: "test title"
                 })
                 .then(() => {
@@ -766,25 +766,25 @@ describe('Class ProjectService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-            spyOn(projectService, '_dateStringsToObjects');
-            projectService.update(2, {
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            spyOn(employeeService, '_dateStringsToObjects');
+            employeeService.update(2, {
                 title: 'test title'
             });
             $httpBackend.flush();
-            expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({
+            expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({
                 pk: 2,
                 start_date: '2015-05-20'
             });
         });
 
         it('should convert date objects to strings before http request ', () => {
-            spyOn(projectService, '_dateObjectsToStrings');
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-            projectService.update(2, {
+            spyOn(employeeService, '_dateObjectsToStrings');
+            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            employeeService.update(2, {
                 start_date: new Date('2015-05-20')
             });
-            expect(projectService._dateObjectsToStrings).toHaveBeenCalledWith({
+            expect(employeeService._dateObjectsToStrings).toHaveBeenCalledWith({
                 start_date: new Date('2015-05-20')
             });
             $httpBackend.flush();
@@ -793,8 +793,8 @@ describe('Class ProjectService', () => {
 
     describe('create()', () => {
         it('returns a promise', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200);
-            let promise = projectService.create({
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200);
+            let promise = employeeService.create({
                 title: 'the title'
             });
             expect(promise.constructor.name).toBe('Promise');
@@ -802,12 +802,12 @@ describe('Class ProjectService', () => {
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, function(headers) {
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(201, '');
-            projectService.create({
+            employeeService.create({
                 title: "test title"
             });
             $httpBackend.flush();
@@ -815,21 +815,21 @@ describe('Class ProjectService', () => {
 
         it('should use cookie token in auth header', () => {
             let token = Math.random().toString(36).substring(7);
-            projectService.$cookies.put('token', token);
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/', undefined, function(headers) {
+            employeeService.$cookies.put('token', token);
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(201, '');
-            projectService.create({
+            employeeService.create({
                 title: "test title"
             });
             $httpBackend.flush();
         });
 
         it('resolves if 201 status is returned', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(201, '{"pk": 3,"title": "test title"}');
-            projectService.create({
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(201, '{"pk": 3,"title": "test title"}');
+            employeeService.create({
                     title: "test title"
                 })
                 .then((response) => {
@@ -845,8 +845,8 @@ describe('Class ProjectService', () => {
         });
 
         it('rejects if 500 status is returned', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(500, 'erronous create');
-            projectService.create({
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(500, 'erronous create');
+            employeeService.create({
                     title: "test title"
                 })
                 .then(() => {
@@ -859,25 +859,25 @@ describe('Class ProjectService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-            spyOn(projectService, '_dateStringsToObjects');
-            projectService.create({
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            spyOn(employeeService, '_dateStringsToObjects');
+            employeeService.create({
                 title: 'test title'
             });
             $httpBackend.flush();
-            expect(projectService._dateStringsToObjects).toHaveBeenCalledWith({
+            expect(employeeService._dateStringsToObjects).toHaveBeenCalledWith({
                 pk: 2,
                 start_date: '2015-05-20'
             });
         });
 
         it('should convert date objects to strings before http request ', () => {
-            spyOn(projectService, '_dateObjectsToStrings');
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'projects/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
-            projectService.create({
+            spyOn(employeeService, '_dateObjectsToStrings');
+            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'employees/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            employeeService.create({
                 start_date: new Date('2015-05-20')
             });
-            expect(projectService._dateObjectsToStrings).toHaveBeenCalledWith({
+            expect(employeeService._dateObjectsToStrings).toHaveBeenCalledWith({
                 start_date: new Date('2015-05-20')
             });
             $httpBackend.flush();
@@ -886,37 +886,37 @@ describe('Class ProjectService', () => {
 
     describe('delete()', () => {
         it('returns a promise', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200);
-            let promise = projectService.delete(2);
+            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200);
+            let promise = employeeService.delete(2);
             expect(promise.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, function(headers) {
+            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(201, '');
-            projectService.delete(2);
+            employeeService.delete(2);
             $httpBackend.flush();
         });
 
         it('should use cookie token in auth header', () => {
             let token = Math.random().toString(36).substring(7);
-            projectService.$cookies.put('token', token);
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/', undefined, function(headers) {
+            employeeService.$cookies.put('token', token);
+            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(201, '');
-            projectService.delete(2);
+            employeeService.delete(2);
             $httpBackend.flush();
         });
 
         it('should do a request to delete route', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(200, 'created response');
-            projectService.delete(2).then((response) => {
+            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(200, 'created response');
+            employeeService.delete(2).then((response) => {
                 expect(response.status).toBe(200);
                 expect(response.data).toBe('created response');
             }, () => {
@@ -926,8 +926,8 @@ describe('Class ProjectService', () => {
         });
 
         it('should reject on 400 statusses', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'projects/2/').respond(404, 'failed response');
-            projectService.delete(2).then(() => {
+            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'employees/2/').respond(404, 'failed response');
+            employeeService.delete(2).then(() => {
                 fail();
             }, (response) => {
                 expect(response.status).toBe(404);
@@ -943,8 +943,8 @@ describe('Class ProjectService', () => {
             let objectContainingDates = {
                 start_date: '2015-05-20'
             };
-            projectService.apiDates = ['start_date'];
-            let converted = projectService._dateStringsToObjects(objectContainingDates);
+            employeeService.apiDates = ['start_date'];
+            let converted = employeeService._dateStringsToObjects(objectContainingDates);
             expect(converted.start_date).toEqual(new Date('2015-05-20'));
         });
 
@@ -953,8 +953,8 @@ describe('Class ProjectService', () => {
                 start_date: '2015-05-20',
                 end_date: '2015-04-03'
             };
-            projectService.apiDates = ['start_date'];
-            let converted = projectService._dateStringsToObjects(objectContainingDates);
+            employeeService.apiDates = ['start_date'];
+            let converted = employeeService._dateStringsToObjects(objectContainingDates);
             expect(typeof converted.end_date).toBe('string');
             expect(converted.end_date).toBe('2015-04-03');
             expect(converted.start_date).toEqual(new Date('2015-05-20'));
@@ -964,8 +964,8 @@ describe('Class ProjectService', () => {
             let objectContainingDates = {
                 start_date: '2015-05-20'
             };
-            projectService.apiDates = ['end_date'];
-            let converted = projectService._dateStringsToObjects(objectContainingDates);
+            employeeService.apiDates = ['end_date'];
+            let converted = employeeService._dateStringsToObjects(objectContainingDates);
             expect(converted.end_date).toBeUndefined();
             expect(typeof converted.start_date).toBe('string');
             expect(converted.start_date).toBe('2015-05-20');
@@ -975,10 +975,10 @@ describe('Class ProjectService', () => {
     describe('_dateObjectsToStrings()', () => {
         it('should convert dates to strings', () => {
             let dateContainingObject = {};
-            angular.forEach(projectService.apiDates, (dateProperty) => {
+            angular.forEach(employeeService.apiDates, (dateProperty) => {
                 dateContainingObject[dateProperty] = new Date('2015-05-20');
             });
-            let converted = projectService._dateObjectsToStrings(dateContainingObject);
+            let converted = employeeService._dateObjectsToStrings(dateContainingObject);
             angular.forEach(converted, (stringValue) => {
                 expect(stringValue).toBe('2015-05-20');
                 expect(typeof stringValue).toBe('string');
@@ -987,10 +987,10 @@ describe('Class ProjectService', () => {
 
         it('should not convert strings', () => {
             let dateContainingObject = {};
-            angular.forEach(projectService.apiDates, (dateProperty) => {
+            angular.forEach(employeeService.apiDates, (dateProperty) => {
                 dateContainingObject[dateProperty] = 'unconverted string';
             });
-            let converted = projectService._dateObjectsToStrings(dateContainingObject);
+            let converted = employeeService._dateObjectsToStrings(dateContainingObject);
             angular.forEach(converted, (stringValue) => {
                 expect(stringValue).toBe('unconverted string');
                 expect(typeof stringValue).toBe('string');
@@ -1002,9 +1002,9 @@ describe('Class ProjectService', () => {
                 'start_date': new Date('2015-05-20'),
                 'end_date': new Date('2015-05-20')
             };
-            projectService.apiDates = ['end_date'];
+            employeeService.apiDates = ['end_date'];
 
-            let converted = projectService._dateObjectsToStrings(dateContainingObject);
+            let converted = employeeService._dateObjectsToStrings(dateContainingObject);
 
             expect(converted.start_date).toEqual(new Date('2015-05-20'));
             expect(converted.start_date.constructor.name).toBe('Date');
@@ -1017,9 +1017,9 @@ describe('Class ProjectService', () => {
                 'start_date': new Date('2015-05-20'),
                 'end_date': new Date('2015-05-20')
             };
-            projectService.apiDates = [];
+            employeeService.apiDates = [];
 
-            let converted = projectService._dateObjectsToStrings(dateContainingObject);
+            let converted = employeeService._dateObjectsToStrings(dateContainingObject);
 
             expect(converted).toEqual(dateContainingObject);
         });
@@ -1028,9 +1028,9 @@ describe('Class ProjectService', () => {
             let objectContainingDates = {
                 start_date: new Date('2015-05-20')
             };
-            projectService.apiDates = ['end_date'];
+            employeeService.apiDates = ['end_date'];
 
-            let converted = projectService._dateObjectsToStrings(objectContainingDates);
+            let converted = employeeService._dateObjectsToStrings(objectContainingDates);
             expect(converted).toEqual(objectContainingDates);
         });
 
@@ -1039,27 +1039,27 @@ describe('Class ProjectService', () => {
             let dateContainingObject = {
                 start_date: new Date(date)
             };
-            projectService.apiDates = ['start_date'];
-            projectService.apiDateFormat = 'dd-MM-yyyy';
+            employeeService.apiDates = ['start_date'];
+            employeeService.apiDateFormat = 'dd-MM-yyyy';
 
-            let converted = projectService._dateObjectsToStrings(dateContainingObject);
+            let converted = employeeService._dateObjectsToStrings(dateContainingObject);
             expect(converted.start_date).toBe('20-05-2015');
 
             dateContainingObject = {
                 start_date: new Date(date)
             };
-            projectService.apiDateFormat = 'MM-dd-yyyy';
-            converted = projectService._dateObjectsToStrings(dateContainingObject);
+            employeeService.apiDateFormat = 'MM-dd-yyyy';
+            converted = employeeService._dateObjectsToStrings(dateContainingObject);
             expect(converted.start_date).toBe('05-20-2015');
         });
     });
 
     describe('_getAuthToken', () => {
         it('uses cookies to get current token', () => {
-            spyOn(projectService.$cookies, 'get').and.returnValue('123abc');
-            let token = projectService._getAuthToken();
+            spyOn(employeeService.$cookies, 'get').and.returnValue('123abc');
+            let token = employeeService._getAuthToken();
             expect(token).toBe('123abc');
-            expect(projectService.$cookies.get).toHaveBeenCalledWith('token');
+            expect(employeeService.$cookies.get).toHaveBeenCalledWith('token');
         });
     })
 });
