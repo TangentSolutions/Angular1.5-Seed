@@ -13,5 +13,16 @@ class EmployeeListController {
         this.searchQuery = {};
         this._setLoading(true);
     }
+    get() {
+        this._setLoading(true);
+        this.employeeService.get(this.searchQuery)
+        .then((response) => {
+            this._setLoading(false);
+            this.results = response.data;
+        }, () => {
+            this._setLoading(false);
+            this.toastr.error("There was an error while trying to retrieve Employees");
+        });
+    }
   }
 export default EmployeeListController;
