@@ -13,6 +13,7 @@ class EmployeeListController {
         this.searchQuery = {};
         this._setLoading(true);
     }
+
     $onInit() {
         this.get();
     }
