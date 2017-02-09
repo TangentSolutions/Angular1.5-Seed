@@ -40,32 +40,20 @@ class EmployeeCreateController {
             }
         },
         review_date: {
-<<<<<<< HEAD
           opened: false,
           open: () => {
             this.datePickers.review_date.opened = true;
           }
 
-=======
-            opened: false,
-            open: () => {
-                this.datePickers.review_date.opened = true;
-            }
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
         }
-    }
+      }
 
     save() {
         this._setLoading(true);
         // Create a clone of the current employee as to not mess with user input
         let employee = angular.copy(this._getCurrentEmployee());
 
-<<<<<<< HEAD
-
         if(typeof employee.pk === 'undefined') {
-=======
-        if (typeof employee.pk === 'undefined') {
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
             this._create(employee)
                 .then(() => {
                     this._setLoading(false);
@@ -85,24 +73,13 @@ class EmployeeCreateController {
     loadEmployee(employeeId = null) {
         this._setLoading(true);
         // If there is a primary key, Fetch from database
-<<<<<<< HEAD
-
         if(employeeId) {
-
-=======
-        if (employeeId) {
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
             this._fetchEmployee(employeeId)
                 // Set Employee and Modal Title
                 .then((employee) => {
                     this._setCurrentEmployee(employee);
                     this._setLoading(false);
-<<<<<<< HEAD
-
                 },() => {
-=======
-                }, () => {
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
                     this._setLoading(false);
                     this.toastr.error('Failed to load Employee');
                     this.$state.go('employee:list');
@@ -153,7 +130,6 @@ class EmployeeCreateController {
     _create(employee) {
         let defer = this.$q.defer();
         this.employeeService.create(employee)
-<<<<<<< HEAD
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -162,24 +138,12 @@ class EmployeeCreateController {
             }
             defer.reject(response);
         });
-=======
-            .then((response) => {
-                defer.resolve(response);
-            }, (response) => {
-                if (response.status === 400) {
-                    this._setValidation(response.data);
-                }
-                defer.reject(response);
-            });
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
         return defer.promise;
     }
 
     _update(employee) {
         let defer = this.$q.defer();
         this.employeeService.update(employee.pk, employee)
-<<<<<<< HEAD
-
         .then((response) => {
             defer.resolve(response);
         }, (response) => {
@@ -188,27 +152,12 @@ class EmployeeCreateController {
             }
             defer.reject(response);
         });
-=======
-            .then((response) => {
-                defer.resolve(response);
-            }, (response) => {
-                if (response.status === 400) {
-                    this._setValidation(response.data);
-                }
-                defer.reject(response);
-            });
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
         return defer.promise;
     }
 
     _setValidation(fieldErrors) {
         this.validation = {};
-<<<<<<< HEAD
-
         if( fieldErrors instanceof Array === false) {
-=======
-        if (fieldErrors instanceof Array === false) {
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
             angular.forEach(fieldErrors, (errors, field) => {
                 this.validation[field] = [];
                 angular.forEach(errors, (validationError) => {
