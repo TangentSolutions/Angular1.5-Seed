@@ -1,14 +1,14 @@
 class EmployeeService {
-    constructor($http, EMPLOYEE_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
+    constructor($http, $q, $cookies, $filter, $timeout, EMPLOYEE_SERVICE_BASE_URI) {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = EMPLOYEE_SERVICE_BASE_URI;
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
-
         this.$timeout = $timeout;
+
+        this.BASE_URI = EMPLOYEE_SERVICE_BASE_URI;
 
         // Dates that need to be converted for API
         this.apiDates = [
@@ -54,16 +54,16 @@ class EmployeeService {
             headers: this.__getHeaders(),
             params: query
         }).then((response) => {
-            let responseClone = angular.copy(response);
-            angular.forEach(responseClone.data, (employee, key) => {
-                responseClone[key] = this._dateStringsToObjects(employee);
-            });
-            defer.resolve(responseClone);
+            defer.resolve(response);
         }, (response) => {
             defer.reject(response);
         });
 
         return defer.promise;
+    }
+
+    isSuperUser(){
+        return this.$cookies.get('is_superuser') === 'true';
     }
 
     fetch(id) {

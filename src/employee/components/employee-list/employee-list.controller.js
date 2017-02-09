@@ -16,6 +16,7 @@ class EmployeeListController {
 
     $onInit() {
         this.get();
+        this.isSuperUser = this.employeeService.isSuperUser();
     }
 
     order($orderBy) {

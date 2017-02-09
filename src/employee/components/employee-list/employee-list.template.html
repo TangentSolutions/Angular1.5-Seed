@@ -40,6 +40,18 @@
                         <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'days_to_birthday') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                     </a>
                 </th>
+                <th ng-if="$ctrl.isSuperUser">
+                    Next Review
+                    <a ng-class="$ctrl.searchQuery.ordering === 'next_review' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('next_review')">
+                        <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'next_review') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                    </a>
+                </th>
+                <th ng-if="$ctrl.isSuperUser">
+                    Salary
+                    <a ng-class="$ctrl.searchQuery.ordering === 'latest_salary' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('latest_salary')">
+                        <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'latest_salary') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                    </a>
+                </th>
                 <th>
                     <div class="btn-group" uib-dropdown is-open="status.isopen">
                         <button id="new-employee-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
@@ -87,6 +99,12 @@
                 <td>{{ result.email }}</td>
                 <td>{{ result.years_worked }}</td>
                 <td>{{ result.days_to_birthday }}</td>
+                <td ng-if="$ctrl.isSuperUser">
+                  {{result.next_review}}
+                </td>
+                <td ng-if="$ctrl.isSuperUser">
+                  {{result.latest_salary}}
+                </td>
                 <td>
                     <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.user.id}}">
                         <button id="{{result.user.id}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
