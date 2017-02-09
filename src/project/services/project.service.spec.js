@@ -2,7 +2,7 @@ import ProjectService from './project.service';
 
 describe('Class ProjectService', () => {
 
-<<<<<<< HEAD
+
   beforeEach(angular.mock.module('app'));
 
   var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, projectService, $scope;
@@ -443,7 +443,7 @@ describe('Class ProjectService', () => {
       projectService.apiDates = ['end_date'];
 
       let converted = projectService._dateObjectsToStrings(dateContainingObject);
-      
+
       expect(converted.start_date).toEqual(new Date('2015-05-20'));
       expect(converted.start_date.constructor.name).toBe('Date');
       expect(converted.end_date).toBe('2015-05-20');
@@ -458,7 +458,7 @@ describe('Class ProjectService', () => {
       projectService.apiDates = [];
 
       let converted = projectService._dateObjectsToStrings(dateContainingObject);
-      
+
       expect(converted).toEqual(dateContainingObject);
     });
 
@@ -501,7 +501,7 @@ describe('Class ProjectService', () => {
     });
   })
 });
-=======
+
     beforeEach(angular.mock.module('app'));
 
     var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, projectService, $scope;
