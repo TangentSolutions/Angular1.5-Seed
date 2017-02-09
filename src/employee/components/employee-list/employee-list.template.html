@@ -43,7 +43,10 @@
                 <th>
                     <div class="btn-group" uib-dropdown is-open="status.isopen">
                         <button id="new-employee-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
                     <i class="glyphicon glyphicon-plus"></i> New <span class="caret"></span>
                   </button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="new-employee-button">
@@ -85,20 +88,20 @@
                 <td>{{ result.user.first_name }} {{ result.user.last_name }} </td>
                 <td>{{ result.position.name }}</td>
                 <td>{{ result.phone_number }}</td>
-                <td>{{ result.email}}</td>
-                <td>{{ result.years_worked}}</td>
+                <td>{{ result.email }}</td>
+                <td>{{ result.years_worked }}</td>
                 <td>{{ result.days_to_birthday }}</td>
                 <td>
-                  <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.user.id}}">
-                      <button id="{{result.user.id}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                    <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.user.id}}">
+                        <button id="{{result.user.id}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
                       <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
                     </button>
-                      <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.user.id}}-update-button">
-                          <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Modal</sup></li>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.user.id}}-update-button">
+                            <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Modal</sup></li>
                           <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Form</a></li>
-                      </ul>
-                  </div>
-                  <button ng-click="$ctrl.delete(result.user.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+                        </ul>
+                    </div>
+                    <button ng-click="$ctrl.delete(result.user.id)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
                 </td>
             </tr>
 
