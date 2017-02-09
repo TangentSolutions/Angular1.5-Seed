@@ -2,7 +2,7 @@ import EmployeeService from './employee.service';
 
 describe('Class EmployeeService', () => {
 
-<<<<<<< HEAD
+
   beforeEach(angular.mock.module('app'));
 
   var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, employeeService, $scope;
@@ -500,8 +500,7 @@ describe('Class EmployeeService', () => {
       expect(employeeService.$cookies.get).toHaveBeenCalledWith('token');
     });
   })
-});
-=======
+});=
     beforeEach(angular.mock.module('app'));
 
     var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, employeeService, $scope;
