@@ -1,5 +1,4 @@
 import EmployeeModalController from './employee-modal.controller';
-<<<<<<< HEAD
 
 describe('Employee Crud Controller', () => {
 
@@ -456,5 +455,3 @@ describe('Employee Crud Controller', () => {
     });
 
 });
-=======
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30

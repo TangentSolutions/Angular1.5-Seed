@@ -1,5 +1,4 @@
 <div class="col-md-12">
-<<<<<<< HEAD
   <h4>Employee Form</h4>
 
   <form name="$ctrl.form">
@@ -104,110 +103,6 @@
   <p class="input-group">
     <input type="text" class="form-control" ng-model="$ctrl.employee.birthday" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.birthday.opened" close-text="Close" />
     <span class="input-group-btn">
-=======
-    <h4>Employee Form</h4>
-
-    <form name="$ctrl.form">
-        <div>
-
-
-            <loader active="$ctrl.loading">
-                <form>
-                    <label>Employee</label>
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
-                        <label class="control-label">ID</label>
-                        <input class="form-control" ng-model="$ctrl.employee.id" />
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.username}]">
-                        <label class="control-label">Username</label>
-                        <input class="form-control" ng-model="$ctrl.employee.username" />
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.username">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.email}]">
-                        <label class="control-label">Email</label>
-                        <input class="form-control" ng-model="$ctrl.employee.email" />
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.email">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.first_name}]">
-                        <label class="control-label">FirstName</label>
-                        <input class="form-control" ng-model="$ctrl.employee.first_name" />
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.first_name">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.last_name}]">
-                        <label class="control-label">LastName</label>
-                        <input class="form-control" ng-model="$ctrl.employee.last_name" />
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.last_name">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.is_active}]">
-                        <label class="control-label">Active</label>
-                        <div class="input-group">
-                            <div class="btn-group">
-                                <label class="btn btn-default" ng-model="$ctrl.employee.is_active" uib-btn-radio="false">False</label>
-                                <label class="btn btn-default" ng-model="$ctrl.employee.is_active" uib-btn-radio="true">True</label>
-                            </div>
-                        </div>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.is_active">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.staff}]">
-                        <label class="control-label">Staff</label>
-                        <div class="input-group">
-                            <div class="btn-group">
-                                <label class="btn btn-default" ng-model="$ctrl.employee.staff" uib-btn-radio="false">False</label>
-                                <label class="btn btn-default" ng-model="$ctrl.employee.staff" uib-btn-radio="true">True</label>
-                            </div>
-
-                        </div>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.staff">{{ error }}</span>
-                    </div>
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.id_number}]">
-                        <label class="control-label">ID Number</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.id_number"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.id_number">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.number}]">
-                        <label class="control-label">Number</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.number"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.number">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.address}]">
-                        <label class="control-label">Addressr</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.address"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.address">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.tax_number}]">
-                        <label class="control-label">Tax Number</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.tax_number"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.tax_number">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.personal_email}]">
-                        <label class="control-label">Personel Email</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.personal_email"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.personal_email">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.github_name}]">
-                        <label class="control-label">GitHub Name</label>
-                        <textarea class="form-control" ng-model="$ctrl.employee.github_name"></textarea>
-                        <span class="help-block" ng-repeat="error in $ctrl.validation.github_name">{{ error }}</span>
-                    </div>
-
-                    <div ng-class="['form-group', {'has-error': $ctrl.validation.birthday}]">
-                        <label class="control-label">Birthday</label>
-                        <p class="input-group">
-                            <input type="text" class="form-control" ng-model="$ctrl.employee.birthday" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.birthday.opened" close-text="Close" />
-                            <span class="input-group-btn">
->>>>>>> 67220708939220e423df7c74db2ec0d5c03dcb30
       <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.birthday.open()"><i class="glyphicon glyphicon-calendar"></i></button>
     </span>
                         </p>
