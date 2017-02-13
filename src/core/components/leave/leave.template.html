@@ -1,0 +1,25 @@
+<div class="col-md-12">
+    <h1>Leave<h1>
+
+      <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
+          <label class="control-label">Start Date</label>
+          <p class="input-group">
+              <input type="text" class="form-control" ng-model="$ctrl.employee.start_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.startDate.opened" close-text="Close" />
+              <span class="input-group-btn">
+<button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.startDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+</span>
+          </p>
+          <span class="help-block" ng-repeat="error in $ctrl.validation.start_date">{{ error }}</span>
+      </div>
+
+      <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
+          <label class="control-label">End Date</label>
+          <p class="input-group">
+              <input type="text" class="form-control" ng-model="$ctrl.employee.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
+              <span class="input-group-btn">
+<button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.endDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+</span>
+          </p>
+          <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
+      </div>
+</div>
