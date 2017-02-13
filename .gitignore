@@ -8,3 +8,11 @@
 .npmignore
 /test/e2e/screenshots
 npm-debug.log
+_BASE_*.lock
+_LOCAL_*.lock
+_BACKUP_*.lock
+_REMOTE_*.lock
+_BASE_*.html
+_LOCAL_*.html
+_BACKUP_*.html
+_REMOTE_*.html
