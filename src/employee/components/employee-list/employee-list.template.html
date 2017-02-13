@@ -3,7 +3,7 @@
     <h4>Employees</h4>
     <table class="table table-bordered table-striped">
         <thead>
-            <tr>
+            <tr ng-if="$ctrl.isSuperUser">
                 <th>
                     Name
                     <a ng-class="$ctrl.searchQuery.ordering === 'name' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('name')">

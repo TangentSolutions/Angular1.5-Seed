@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <h1>Leave<h1>
-
+          <button ui-sref="state-a" class="btn btn-primary">Back</button>
       <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
           <label class="control-label">Start Date</label>
           <p class="input-group">
@@ -30,14 +30,17 @@
         <div class="input-group">
             <div class="btn-group">
                 <select>
-<option value="B" ng-model="$ctrl.validation.Race">Sick Leave</option>
-<option value="C" ng-model="$ctrl.validation.Race">Family</option>
-<option value="I" ng-model="$ctrl.validation.Race">Annual</option>
-<option value="W" ng-model="$ctrl.validation.Race"></option>
+<option value="A" ng-model="$ctrl.validation.Race">Sick Leave</option>
+<option value="B" ng-model="$ctrl.validation.Race">Family</option>
+<option value="C" ng-model="$ctrl.validation.Race">Annual</option>
 </select>
             </div>
         </div>
         <span class="help-block" ng-repeat="error in $ctrl.validation.Race">{{ error }}</span>
+        <hr>
+        <hr>
+        <button class="btn btn-primary btn-block" ng-click="$ctrl.save()">Submit</button>
+        <button class="btn btn-primary btn-block" ui-sref="leave:list">Return</button>
     </div>
 
 </div>

@@ -1,41 +1,41 @@
 <div class="col-md-12">
     <button ui-sref="state-a" class="btn btn-primary">Back</button>
-    <h4>Leaves</h4>
+    <h4 ng-if="$ctrl.isSuperUser">Leaves</h4>
     <table class="table table-bordered table-striped">
         <thead>
-        <tr>
-          <th >
+        <tr ng-if="!$ctrl.isSuperUser">
+          <th ng-if="!$ctrl.isSuperUser">
               ID
               <a ng-class="$ctrl.searchQuery.ordering === 'id' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('id')">
                   <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'id') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
               </a>
           </th>
-            <th >
+            <th ng-if="!$ctrl.isSuperUser">
                 Start Date
                 <a ng-class="$ctrl.searchQuery.ordering === 'start_date' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('start_date')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'start_date') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
             </th>
-            <th >
+            <th ng-if="!$ctrl.isSuperUser">
                 End Date
                 <a ng-class="$ctrl.searchQuery.ordering === 'end_date' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('end_date')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'end_date') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
-            </th>
+            </th ng-if="!$ctrl.isSuperUser">
                 </a>
-            <th >
+            <th  ng-if="!$ctrl.isSuperUser">
                 Status
                 <a ng-class="$ctrl.searchQuery.ordering === 'status' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('status')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'status') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
             </th>
-            <th >
+            <th ng-if="!$ctrl.isSuperUser">
                 Leave day's
                 <a ng-class="$ctrl.searchQuery.ordering === 'leave_days' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('leave_days')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'leave_days') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
             </th>
-            <th >
+            <th ng-if="!$ctrl.isSuperUser">
                 Employee id
                 <a ng-class="$ctrl.searchQuery.ordering === 'employee' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('employee')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'employee') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
@@ -65,7 +65,6 @@
                         <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.pk}}-update-button">
-                        <li role="menuitem"><a ng-click="$ctrl.update(result.pk)">In Modal</a></li>
                         <li role="menuitem"><a ui-sref="leave:update({id: result.pk})">In Form</a></li>
                       </ul>
                     </div>
