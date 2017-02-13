@@ -19,10 +19,12 @@ import rx from 'rx-angular';
 
 import CoreModule from './core/core.module';
 import EmployeeModule from './employee/employee.module';
+import LeaveModule from './leave/leave.module';
 
 angular.module('app', [
     CoreModule.name,
     EmployeeModule.name,
+    LeaveModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',

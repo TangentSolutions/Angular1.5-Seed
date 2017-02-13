@@ -1,5 +1,5 @@
-import LeaveModalTemplate from '../leave-crud/leave-crud.template.html';
-import LeaveModalController from '../leave-crud/leave-crud.controller';
+import LeaveModalTemplate from '../leave-modal/leave-modal.template.html';
+import LeaveModalController from '../leave-modal/leave-modal.controller';
 
 class LeaveListController {
 
@@ -16,6 +16,7 @@ class LeaveListController {
 
     $onInit() {
         this.get();
+        this.isSuperUser = this.leaveService.isSuperUser();
     }
 
     order($orderBy) {
@@ -61,13 +62,13 @@ class LeaveListController {
         var $ctrl = this;
         this.$uibModal.open({
             animation: true,
-            ariaLabelledBy: 'crud-title',
-            ariaDescribedBy: 'crud-body',
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
             template: LeaveModalTemplate,
             controller: LeaveModalController,
             controllerAs: '$ctrl',
             size: 'lg',
-            resolve: this.crudResolve(leaveId)
+            resolve: this.modalResolve(leaveId)
         });
     }
 
@@ -75,7 +76,7 @@ class LeaveListController {
         this.loading = $value;
     }
 
-    crudResolve(leaveId) {
+    modalResolve(leaveId) {
         return {
             leaveId: () => {
                 return leaveId;
