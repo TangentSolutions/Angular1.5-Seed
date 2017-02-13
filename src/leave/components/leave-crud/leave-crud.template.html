@@ -22,4 +22,22 @@
           </p>
           <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
       </div>
+
+    </div>
+
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.Race}]">
+        <label class="control-label">Type of Leave</label>
+        <div class="input-group">
+            <div class="btn-group">
+                <select>
+<option value="B" ng-model="$ctrl.validation.Race">Sick Leave</option>
+<option value="C" ng-model="$ctrl.validation.Race">Family</option>
+<option value="I" ng-model="$ctrl.validation.Race">Annual</option>
+<option value="W" ng-model="$ctrl.validation.Race"></option>
+</select>
+            </div>
+        </div>
+        <span class="help-block" ng-repeat="error in $ctrl.validation.Race">{{ error }}</span>
+    </div>
+
 </div>

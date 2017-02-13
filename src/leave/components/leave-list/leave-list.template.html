@@ -43,12 +43,11 @@
             </th>
             <th>
                 <div class="btn-group" uib-dropdown is-open="status.isopen">
-                    <button id="new-employee-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
-                <i class="glyphicon glyphicon-plus"></i> New <span class="caret"></span>
+                    <button id="new-levae-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
+                <i class="glyphicon glyphicon-plus"></i> Apply <span class="caret"></span>
               </button>
-                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="new-employee-button">
-                        <li role="menuitem"><a ng-click="$ctrl.create()">In Modal</a></li>
-                        <li role="menuitem"><a ui-sref="employee:create">In Form</a></li>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="new-leave-button">
+                        <li role="menuitem"><a ui-sref="leave:create">In Form</a></li>
                     </ul>
                 </div>
             </th>
