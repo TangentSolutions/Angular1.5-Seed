@@ -1,10 +1,14 @@
-import {
-    autorun
-} from 'mobx';
-
 class LeaveController {
-    constructor(MobxServiceExample) {
-        'ngInject';
+  constructor(mobx) {
+      'ngInject';
+
+      this.toastr = toastr;
+      this.validation = {};
+      this.$state = $state;
+      this.$q = $q;
+
+
+  }
 
     }
 

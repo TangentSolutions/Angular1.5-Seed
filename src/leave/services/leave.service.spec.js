@@ -5,13 +5,13 @@ describe('Class LeaveService', () => {
 
   beforeEach(angular.mock.module('app'));
 
-  var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, leaveService, $scope;
+  var $http, $httpBackend, LEAVE_SERVICE_BASE_URI, $q, $cookies, $filter, leaveService, $scope;
 
-  beforeEach(angular.mock.inject(( _$http_, _$httpBackend_, _PROJECT_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
+  beforeEach(angular.mock.inject(( _$http_, _$httpBackend_, _LEAVE_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
     $httpBackend = _$httpBackend_;
     $http = _$http_;
     $scope = _$rootScope_.$new();
-    PROJECT_SERVICE_BASE_URI = _PROJECT_SERVICE_BASE_URI_;
+    LEAVE_SERVICE_BASE_URI = _LEAVE_SERVICE_BASE_URI_;
     $q = _$q_;
     $cookies = _$cookies_;
     $filter = _$filter_;
@@ -27,8 +27,8 @@ describe('Class LeaveService', () => {
     return Math.random().toString(36).substring(10);
   }
 
-  function createService(_$http = $http, _PROJECT_SERVICE_BASE_URI = PROJECT_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
-    let service = new LeaveService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
+  function createService(_$http = $http, _LEAVE_SERVICE_BASE_URI = LEAVE_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
+    let service = new LeaveService(_$http, _LEAVE_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
     return service;
   }
 
@@ -61,14 +61,14 @@ describe('Class LeaveService', () => {
     });
 
     it('should return a promise', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200);
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200);
       let response = leaveService.get();
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200);
       leaveService.get();
@@ -78,7 +78,7 @@ describe('Class LeaveService', () => {
     it('should use cookie token aith authentication headers', () => {
       let token = getRandomToken();
       leaveService.$cookies.put('token', token);
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200);
       leaveService.get();
@@ -86,7 +86,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should return full response when promise resolves', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
       leaveService.get()
       .then((response) => {
         expect(response.data).toEqual([{pk: 1, title: 'test title 1'},{pk: 2, title: 'test title 2'}]);
@@ -97,7 +97,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should return full response when promise rejects', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(500, 'server error');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(500, 'server error');
       leaveService.get()
       .then(() => {
         fail()
@@ -109,7 +109,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should loop objects for passing to _dateStringsToObjects', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
       spyOn(angular, 'forEach');
       leaveService.get();
       $httpBackend.flush();
@@ -117,7 +117,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
       spyOn(leaveService, '_dateStringsToObjects');
       leaveService.get();
       $httpBackend.flush();
@@ -127,14 +127,14 @@ describe('Class LeaveService', () => {
 
   describe('fetch()', () => {
     it('should return a promise', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200);
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200);
       let response = leaveService.fetch(2);
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should use authentication headers', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200, '');
       leaveService.fetch(2);
@@ -144,7 +144,7 @@ describe('Class LeaveService', () => {
     it('should use cookie token in authentication header', () => {
       let token = getRandomToken();
       leaveService.$cookies.put('token', token);
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200, '');
       leaveService.fetch(2);
@@ -152,7 +152,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should return full response on success', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
       leaveService.fetch(2)
       .then((response) => {
         expect(response.status).toBe(200);
@@ -164,7 +164,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should return full HTTP response on failure', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(500, 'failure on server');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(500, 'failure on server');
       leaveService.fetch(2)
       .then(() => {
         fail();
@@ -176,7 +176,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
+      $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
       spyOn(leaveService, '_dateStringsToObjects');
       leaveService.fetch(2);
       $httpBackend.flush();
@@ -186,14 +186,14 @@ describe('Class LeaveService', () => {
 
   describe('update()', () => {
     it('should return a promise', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 3, "title": "test title"}');
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 3, "title": "test title"}');
       let response = leaveService.update(2, {title: 'test title'});
       expect(response.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should use authentication headers', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
         return typeof headers['Authorization'] !== 'undefined';
       }).respond(200, '{"pk": 3, "title": "test title"}');
       leaveService.update(2, {title: 'test title'});
@@ -203,7 +203,7 @@ describe('Class LeaveService', () => {
     it('should use token cookie in authentication headers', () => {
       let token = Math.random().toString(36).substring(7);
       leaveService.$cookies.put('token', token);
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
         return headers['Authorization'] === 'Token ' + token;
       }).respond(200, '{"pk": 3, "title": "test title"}');
       leaveService.update(2, {title: 'test title'});
@@ -211,7 +211,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should resolve and return full response on 2xx http response', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
       leaveService.update(2, {title: "test title"})
       .then((response) => {
         expect(response.status).toBe(200);
@@ -223,7 +223,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should reject and return full response on 4xx http response', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'not found');
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'not found');
       leaveService.update(2, {title: "test title"})
       .then(() => {
         fail();
@@ -235,7 +235,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
       spyOn(leaveService, '_dateStringsToObjects');
       leaveService.update(2, {title: 'test title'});
       $httpBackend.flush();
@@ -244,7 +244,7 @@ describe('Class LeaveService', () => {
 
     it('should convert date objects to strings before http request ', () => {
       spyOn(leaveService, '_dateObjectsToStrings');
-      $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
       leaveService.update(2, {start_date: new Date('2015-05-20')});
       expect(leaveService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
       $httpBackend.flush();
@@ -253,14 +253,14 @@ describe('Class LeaveService', () => {
 
   describe('create()', () => {
     it('returns a promise', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200);
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200);
       let promise = leaveService.create({title: 'the title'});
       expect(promise.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return typeof headers['Authorization'] !== 'undefined';
@@ -272,7 +272,7 @@ describe('Class LeaveService', () => {
     it('should use cookie token in auth header', () => {
       let token = Math.random().toString(36).substring(7);
       leaveService.$cookies.put('token', token);
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return headers['Authorization'] === 'Token ' + token;
@@ -282,7 +282,7 @@ describe('Class LeaveService', () => {
     });
 
     it('resolves if 201 status is returned', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(201, '{"pk": 3,"title": "test title"}');
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(201, '{"pk": 3,"title": "test title"}');
       leaveService.create({title: "test title"})
       .then((response) => {
         expect(response.status).toBe(201);
@@ -294,7 +294,7 @@ describe('Class LeaveService', () => {
     });
 
     it('rejects if 500 status is returned', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(500, 'erronous create');
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(500, 'erronous create');
       leaveService.create({title: "test title"})
       .then(() => {
         fail();
@@ -306,7 +306,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should call date conversion before resolve()', () => {
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
       spyOn(leaveService, '_dateStringsToObjects');
       leaveService.create({title: 'test title'});
       $httpBackend.flush();
@@ -315,7 +315,7 @@ describe('Class LeaveService', () => {
 
     it('should convert date objects to strings before http request ', () => {
       spyOn(leaveService, '_dateObjectsToStrings');
-      $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+      $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
       leaveService.create({start_date: new Date('2015-05-20')});
       expect(leaveService._dateObjectsToStrings).toHaveBeenCalledWith({start_date: new Date('2015-05-20')});
       $httpBackend.flush();
@@ -324,14 +324,14 @@ describe('Class LeaveService', () => {
 
   describe('delete()', () => {
     it('returns a promise', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200);
+      $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200);
       let promise = leaveService.delete(2);
       expect(promise.constructor.name).toBe('Promise');
       $httpBackend.flush();
     });
 
     it('should pass authentication header', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
+      $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return typeof headers['Authorization'] !== 'undefined';
@@ -343,7 +343,7 @@ describe('Class LeaveService', () => {
     it('should use cookie token in auth header', () => {
       let token = Math.random().toString(36).substring(7);
       leaveService.$cookies.put('token', token);
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
+      $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
         // check if the header was sent, if it wasn't the expectation won't
         // match the request and the test will fail
         return headers['Authorization'] === 'Token ' + token;
@@ -353,7 +353,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should do a request to delete route', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, 'created response');
+      $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, 'created response');
       leaveService.delete(2).then((response) => {
         expect(response.status).toBe(200);
         expect(response.data).toBe('created response');
@@ -364,7 +364,7 @@ describe('Class LeaveService', () => {
     });
 
     it('should reject on 400 statusses', () => {
-      $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'failed response');
+      $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'failed response');
       leaveService.delete(2).then(() => {
         fail();
       }, (response) => {
@@ -504,13 +504,13 @@ describe('Class LeaveService', () => {
 
     beforeEach(angular.mock.module('app'));
 
-    var $http, $httpBackend, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, leaveService, $scope;
+    var $http, $httpBackend, LEAVE_SERVICE_BASE_URI, $q, $cookies, $filter, leaveService, $scope;
 
-    beforeEach(angular.mock.inject((_$http_, _$httpBackend_, _PROJECT_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
+    beforeEach(angular.mock.inject((_$http_, _$httpBackend_, _LEAVE_SERVICE_BASE_URI_, _$q_, _$cookies_, _$filter_, _$rootScope_) => {
         $httpBackend = _$httpBackend_;
         $http = _$http_;
         $scope = _$rootScope_.$new();
-        PROJECT_SERVICE_BASE_URI = _PROJECT_SERVICE_BASE_URI_;
+        LEAVE_SERVICE_BASE_URI = _LEAVE_SERVICE_BASE_URI_;
         $q = _$q_;
         $cookies = _$cookies_;
         $filter = _$filter_;
@@ -526,8 +526,8 @@ describe('Class LeaveService', () => {
         return Math.random().toString(36).substring(10);
     }
 
-    function createService(_$http = $http, _PROJECT_SERVICE_BASE_URI = PROJECT_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
-        let service = new LeaveService(_$http, _PROJECT_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
+    function createService(_$http = $http, _LEAVE_SERVICE_BASE_URI = LEAVE_SERVICE_BASE_URI, _$q = $q, _$cookies = $cookies, _$filter = $filter) {
+        let service = new LeaveService(_$http, _LEAVE_SERVICE_BASE_URI, _$q, _$cookies, _$filter);
         return service;
     }
 
@@ -564,14 +564,14 @@ describe('Class LeaveService', () => {
         });
 
         it('should return a promise', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200);
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200);
             let response = leaveService.get();
             expect(response.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200);
             leaveService.get();
@@ -581,7 +581,7 @@ describe('Class LeaveService', () => {
         it('should use cookie token aith authentication headers', () => {
             let token = getRandomToken();
             leaveService.$cookies.put('token', token);
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200);
             leaveService.get();
@@ -589,7 +589,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should return full response when promise resolves', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 1, "title": "test title 1"},{"pk": 2, "title": "test title 2"}]');
             leaveService.get()
                 .then((response) => {
                     expect(response.data).toEqual([{
@@ -606,7 +606,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should return full response when promise rejects', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(500, 'server error');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(500, 'server error');
             leaveService.get()
                 .then(() => {
                     fail()
@@ -618,7 +618,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should loop objects for passing to _dateStringsToObjects', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
             spyOn(angular, 'forEach');
             leaveService.get();
             $httpBackend.flush();
@@ -626,7 +626,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '[{"pk": 3,"start_date": "2015-05-20"}]');
             spyOn(leaveService, '_dateStringsToObjects');
             leaveService.get();
             $httpBackend.flush();
@@ -639,14 +639,14 @@ describe('Class LeaveService', () => {
 
     describe('fetch()', () => {
         it('should return a promise', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200);
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200);
             let response = leaveService.fetch(2);
             expect(response.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should use authentication headers', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200, '');
             leaveService.fetch(2);
@@ -656,7 +656,7 @@ describe('Class LeaveService', () => {
         it('should use cookie token in authentication header', () => {
             let token = getRandomToken();
             leaveService.$cookies.put('token', token);
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200, '');
             leaveService.fetch(2);
@@ -664,7 +664,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should return full response on success', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
             leaveService.fetch(2)
                 .then((response) => {
                     expect(response.status).toBe(200);
@@ -679,7 +679,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should return full HTTP response on failure', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(500, 'failure on server');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(500, 'failure on server');
             leaveService.fetch(2)
                 .then(() => {
                     fail();
@@ -691,7 +691,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectGET(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
+            $httpBackend.expectGET(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2,"start_date": "2015-05-20"}');
             spyOn(leaveService, '_dateStringsToObjects');
             leaveService.fetch(2);
             $httpBackend.flush();
@@ -704,7 +704,7 @@ describe('Class LeaveService', () => {
 
     describe('update()', () => {
         it('should return a promise', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 3, "title": "test title"}');
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 3, "title": "test title"}');
             let response = leaveService.update(2, {
                 title: 'test title'
             });
@@ -713,7 +713,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should use authentication headers', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
                 return typeof headers['Authorization'] !== 'undefined';
             }).respond(200, '{"pk": 3, "title": "test title"}');
             leaveService.update(2, {
@@ -725,7 +725,7 @@ describe('Class LeaveService', () => {
         it('should use token cookie in authentication headers', () => {
             let token = Math.random().toString(36).substring(7);
             leaveService.$cookies.put('token', token);
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, (headers) => {
                 return headers['Authorization'] === 'Token ' + token;
             }).respond(200, '{"pk": 3, "title": "test title"}');
             leaveService.update(2, {
@@ -735,7 +735,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should resolve and return full response on 2xx http response', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "title": "test title"}');
             leaveService.update(2, {
                     title: "test title"
                 })
@@ -752,7 +752,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should reject and return full response on 4xx http response', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'not found');
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'not found');
             leaveService.update(2, {
                     title: "test title"
                 })
@@ -766,7 +766,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
             spyOn(leaveService, '_dateStringsToObjects');
             leaveService.update(2, {
                 title: 'test title'
@@ -780,7 +780,7 @@ describe('Class LeaveService', () => {
 
         it('should convert date objects to strings before http request ', () => {
             spyOn(leaveService, '_dateObjectsToStrings');
-            $httpBackend.expectPUT(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            $httpBackend.expectPUT(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
             leaveService.update(2, {
                 start_date: new Date('2015-05-20')
             });
@@ -793,7 +793,7 @@ describe('Class LeaveService', () => {
 
     describe('create()', () => {
         it('returns a promise', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200);
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200);
             let promise = leaveService.create({
                 title: 'the title'
             });
@@ -802,7 +802,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return typeof headers['Authorization'] !== 'undefined';
@@ -816,7 +816,7 @@ describe('Class LeaveService', () => {
         it('should use cookie token in auth header', () => {
             let token = Math.random().toString(36).substring(7);
             leaveService.$cookies.put('token', token);
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return headers['Authorization'] === 'Token ' + token;
@@ -828,7 +828,7 @@ describe('Class LeaveService', () => {
         });
 
         it('resolves if 201 status is returned', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(201, '{"pk": 3,"title": "test title"}');
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(201, '{"pk": 3,"title": "test title"}');
             leaveService.create({
                     title: "test title"
                 })
@@ -845,7 +845,7 @@ describe('Class LeaveService', () => {
         });
 
         it('rejects if 500 status is returned', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(500, 'erronous create');
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(500, 'erronous create');
             leaveService.create({
                     title: "test title"
                 })
@@ -859,7 +859,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should call date conversion before resolve()', () => {
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
             spyOn(leaveService, '_dateStringsToObjects');
             leaveService.create({
                 title: 'test title'
@@ -873,7 +873,7 @@ describe('Class LeaveService', () => {
 
         it('should convert date objects to strings before http request ', () => {
             spyOn(leaveService, '_dateObjectsToStrings');
-            $httpBackend.expectPOST(PROJECT_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
+            $httpBackend.expectPOST(LEAVE_SERVICE_BASE_URI + 'leaves/').respond(200, '{"pk": 2, "start_date": "2015-05-20"}');
             leaveService.create({
                 start_date: new Date('2015-05-20')
             });
@@ -886,14 +886,14 @@ describe('Class LeaveService', () => {
 
     describe('delete()', () => {
         it('returns a promise', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200);
+            $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200);
             let promise = leaveService.delete(2);
             expect(promise.constructor.name).toBe('Promise');
             $httpBackend.flush();
         });
 
         it('should pass authentication header', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
+            $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return typeof headers['Authorization'] !== 'undefined';
@@ -905,7 +905,7 @@ describe('Class LeaveService', () => {
         it('should use cookie token in auth header', () => {
             let token = Math.random().toString(36).substring(7);
             leaveService.$cookies.put('token', token);
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
+            $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/', undefined, function(headers) {
                 // check if the header was sent, if it wasn't the expectation won't
                 // match the request and the test will fail
                 return headers['Authorization'] === 'Token ' + token;
@@ -915,7 +915,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should do a request to delete route', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(200, 'created response');
+            $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(200, 'created response');
             leaveService.delete(2).then((response) => {
                 expect(response.status).toBe(200);
                 expect(response.data).toBe('created response');
@@ -926,7 +926,7 @@ describe('Class LeaveService', () => {
         });
 
         it('should reject on 400 statusses', () => {
-            $httpBackend.expectDELETE(PROJECT_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'failed response');
+            $httpBackend.expectDELETE(LEAVE_SERVICE_BASE_URI + 'leaves/2/').respond(404, 'failed response');
             leaveService.delete(2).then(() => {
                 fail();
             }, (response) => {

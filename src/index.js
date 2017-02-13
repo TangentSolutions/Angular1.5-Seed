@@ -95,8 +95,21 @@ angular.module('app', [
             template: '<employee-crud></employee-crud>'
         })
         .state('leave:list', {
+<<<<<<< HEAD
           url: '/leave',
           template: '<leave-list></leave-list>'
+=======
+            url: '/leave',
+            template: '<leave-list></leave-list>'
+        })
+        .state('leave:update', {
+            url: '/leave/update/',
+            template: '<leave-crud></leave-crud>'
+        })
+        .state('leave:create', {
+            url: '/leave/create',
+            template: '<leave-crud></leave-crud>'
+>>>>>>> 27755fb56daeba80ae6c03af0a03cc3841816dcc
         });
 });
 

@@ -1,9 +1,9 @@
 class LeaveService {
-    constructor($http, PROJECT_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
+    constructor($http, LEAVE_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = PROJECT_SERVICE_BASE_URI + 'leaves/';
+        this.BASE_URI = LEAVE_SERVICE_BASE_URI + 'leaves/';
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;

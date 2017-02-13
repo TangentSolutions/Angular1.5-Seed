@@ -1,12 +1,12 @@
 <div class="col-md-12">
-    <button ui-sref="state-a" class="btn btn-primary">Original Screen</button>
+    <button ui-sref="state-a" class="btn btn-primary">Back</button>
     <h4>Leaves</h4>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>#</th>
             <th>
-                Title <a ng-class="$ctrl.searchQuery.ordering === 'title' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('title')">
+                ID <a ng-class="$ctrl.searchQuery.ordering === 'id' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('id')">
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'title') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
             </th>
@@ -66,10 +66,10 @@
             </tr>
             <tr ng-if="!$ctrl.loading" ng-repeat="result in $ctrl.results" id="result_row_{{result.pk}}">
                 <td>{{ result.pk }}</td>
-                <td>{{ result.title }}</td>
-                <td>{{ result.description }}</td>
+                <td>{{ result.id }}</td>
                 <td>{{ result.start_date | date : 'yyyy-MM-dd' }}</td>
                 <td>{{ result.end_date | date : 'yyyy-MM-dd' }}</td>
+                <td>{{ result.leave_days}}</td>
                 <td><i class="glyphicon ng-class: result.is_active ? 'glyphicon-ok text-success' : 'glyphicon-remove text-danger';"></i></td>
                 <td><i class="glyphicon" ng-class="{'glyphicon-ok text-success': result.is_billable, 'glyphicon-remove  text-danger': !result.is_billable}"></i></td>
                 <td>
