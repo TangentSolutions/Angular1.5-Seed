@@ -93,6 +93,18 @@ angular.module('app', [
         .state('employee:create', {
             url: '/employees/create',
             template: '<employee-crud></employee-crud>'
+        })
+        .state('leave:list', {
+            url: '/leave',
+            template: '<leave-list></leave-list>'
+        })
+        .state('leave:update', {
+            url: '/leave/update/',
+            template: '<leave-crud></leave-crud>'
+        })
+        .state('leave:create', {
+            url: '/leave/create',
+            template: '<leave-crud></leave-crud>'
         });
 });
 
