@@ -1,16 +1,19 @@
-class LeaveCreateController {
+class LeaveModalController {
 
-    constructor(LeaveService, toastr, $q, $state, $stateParams) {
+    constructor($uibModalInstance, leaveId, $q, refreshGrid, LeaveService, toastr) {
         'ngInject';
 
-        this.leaveService = LeaveService;
+        // The modal instance opened from Leave List
+        this.modal = $uibModalInstance;
         this.toastr = toastr;
-        this.validation = {};
-        this.$state = $state;
-        this.$q = $q;
+        this.leaveService = LeaveService;
 
-        let leaveId = $stateParams.id;
+        // refreshGrid -> LeaveListController.get()
+        this.refreshGrid = refreshGrid;
+        this.$q = $q;
         this._setLoading(true);
+
+        // Load the leave referenced into local variables
         this.loadLeave(leaveId);
     }
 
@@ -26,46 +29,33 @@ class LeaveCreateController {
             open: () => {
                 this.datePickers.endDate.opened = true;
             }
-        },
-        birthday: {
-            opened: false,
-            open: () => {
-                this.datePickers.birthday.opened = true;
-            }
-        },
-        next_review: {
-            opened: false,
-            open: () => {
-                this.datePickers.next_review.opened = true;
-            }
-        },
-        review_date: {
-          opened: false,
-          open: () => {
-            this.datePickers.review_date.opened = true;
-          }
-
         }
-      }
+    }
+
+    cancel() {
+        this.modal.dismiss('cancel');
+    }
 
     save() {
         this._setLoading(true);
-        // Create a clone of the current leave as to not mess with user input
+        // Create a clone of current leave as to not mess with user input.
         let leave = angular.copy(this._getCurrentLeave());
 
         if(typeof leave.pk === 'undefined') {
             this._create(leave)
                 .then(() => {
-                    this._setLoading(false);
                     this.toastr.success('Leave Created');
-                    this.$state.go('leave:list');
+                    this.modal.close();
+                    this.refreshGrid();
+                    this._setLoading(false);
                 });
         } else {
             this._update(leave)
                 .then(() => {
-                    this._setLoading(false);
                     this.toastr.success('Leave Updated');
-                    this.$state.go('leave:list');
+                    this.modal.close();
+                    this.refreshGrid();
+                    this._setLoading(false);
                 });
         }
     }
@@ -74,19 +64,24 @@ class LeaveCreateController {
         this._setLoading(true);
         // If there is a primary key, Fetch from database
         if(leaveId) {
+            // Set Preliminary Modal Title
+            this._setModalTitle('Update Leave : ...');
+
             this._fetchLeave(leaveId)
                 // Set Leave and Modal Title
                 .then((leave) => {
+                    this._setModalTitle(`Update Leave : ${leave.title}`);
                     this._setCurrentLeave(leave);
                     this._setLoading(false);
                 },() => {
+                    this.toastr.error('We where unable to load this leave at the current time');
+                    this.modal.dismiss('error');
                     this._setLoading(false);
-                    this.toastr.error('Failed to load Leave');
-                    this.$state.go('leave:list');
                 });
         }
         // Otherwise create a new instance
         else {
+            this._setModalTitle('New Leave ...');
             this._newLeave()
                 .then((response) => {
                     this._setCurrentLeave(response);
@@ -95,12 +90,16 @@ class LeaveCreateController {
         }
     }
 
-    _getCurrentLeave() {
+    _getCurrentLeave(leave) {
         return this.leave;
     }
 
     _setCurrentLeave(leave) {
         this.leave = leave;
+    }
+
+    _setModalTitle(title) {
+        this.modalTitle = title;
     }
 
     _newLeave() {
@@ -119,7 +118,8 @@ class LeaveCreateController {
 
         this.leaveService.fetch(leaveId)
             .then((response) => {
-                defer.resolve(response.data);
+                let leave = response.data;
+                defer.resolve(leave);
             }, () => {
                 defer.reject();
             });
@@ -155,6 +155,10 @@ class LeaveCreateController {
         return defer.promise;
     }
 
+    _setLoading($value) {
+        this.loading = $value;
+    }
+
     _setValidation(fieldErrors) {
         this.validation = {};
         if( fieldErrors instanceof Array === false) {
@@ -166,11 +170,6 @@ class LeaveCreateController {
             });
         }
     }
-
-    _setLoading($value) {
-        this.loading = $value;
-    }
-
 }
 
-export default LeaveCreateController;
+export default LeaveModalController;

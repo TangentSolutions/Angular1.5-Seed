@@ -105,10 +105,10 @@
                 <td ng-if="$ctrl.isSuperUser">
                   {{result.latest_salary}}
                 </td>
-                <td>
+                <td ng-if="$ctrl.isSuperUser">
                     <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.user.id}}">
                         <button id="{{result.user.id}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
-                      <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
+                      <i  class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
                     </button>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="{{result.user.id}}-update-button">
                             <li role="menuitem"><a ui-sref="employee:update({id: result.user.id})">In Modal</sup></li>

@@ -1,14 +1,14 @@
 class LeaveService {
-    constructor($http, LEAVE_SERVICE_BASE_URI, $q, $cookies, $filter, $timeout) {
+    constructor($http, $q, $cookies, $filter, $timeout, LEAVE_SERVICE_BASE_URI) {
         'ngInject';
 
         this.$http = $http;
-        this.BASE_URI = LEAVE_SERVICE_BASE_URI + 'leaves/';
         this.$q = $q;
         this.$cookies = $cookies;
         this.$filter = $filter;
-
         this.$timeout = $timeout;
+
+        this.BASE_URI = LEAVE_SERVICE_BASE_URI;
 
         // Dates that need to be converted for API
         this.apiDates = [
@@ -54,16 +54,16 @@ class LeaveService {
             headers: this.__getHeaders(),
             params: query
         }).then((response) => {
-            let responseClone = angular.copy(response);
-            angular.forEach(responseClone.data, (leave, key) => {
-                responseClone[key] = this._dateStringsToObjects(leave);
-            });
-            defer.resolve(responseClone);
+            defer.resolve(response);
         }, (response) => {
             defer.reject(response);
         });
 
         return defer.promise;
+    }
+
+    isSuperUser(){
+        return this.$cookies.get('is_superuser') === 'true';
     }
 
     fetch(id) {
