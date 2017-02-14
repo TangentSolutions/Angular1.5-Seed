@@ -1,5 +1,6 @@
 <button ui-sref="state-a" class="btn btn-primary">Back</button>
 <div class="col-md-12">
+
     <h1 class="small">Leave <h1>
 
 
@@ -18,8 +19,9 @@
 <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.startDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
 </span>
           </p>
-          <span class="help-block" ng-repeat="error in $ctrl.validation.start_date">{{ error }}</span>
+          <span class="small help-block" ng-repeat="error in $ctrl.validation.start_date">{{ error }}</span>
       </div>
+
 
       <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
         <lable class="control-lable">End date</label>
@@ -34,13 +36,14 @@
         <div class="input-group">
             <div class="btn-group">
                 <select>
-                  <option value="B" ng-model="$ctrl.validation.Leave">Sick Leave</option>
-                  <option value="C" ng-model="$ctrl.validation.Leave">Family</option>
-                  <option value="I" ng-model="$ctrl.validation.Leave">Annual</option>
+                  <option value="B" ng-model="$ctrl.validation.Leave"><small>Sick Leave</small></option>
+                  <option value="C" ng-model="$ctrl.validation.Leave"><small>Family</small></option>
+                  <option value="I" ng-model="$ctrl.validation.Leave"><small>Annual</small></option>
                   <option value="W" ng-model="$ctrl.validation.Leave"></option>
                 </select>
             </div>
         </div>
+
     </div>
 
     <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">

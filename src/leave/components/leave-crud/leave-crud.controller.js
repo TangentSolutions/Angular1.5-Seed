@@ -180,6 +180,7 @@ class LeaveCreateController {
     _setLoading($value) {
         this.loading = $value;
     }
+
     //Image load and is loading in js
     function (Prevewi) {
     var preview = document.querySelector('img');
@@ -198,6 +199,7 @@ class LeaveCreateController {
   }
 
 
-}
+
+  }
 
 export default LeaveCreateController;
