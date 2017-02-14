@@ -27,33 +27,15 @@ class LeaveCreateController {
                 this.datePickers.endDate.opened = true;
             }
         },
-        birthday: {
-            opened: false,
-            open: () => {
-                this.datePickers.birthday.opened = true;
-            }
-        },
-        next_review: {
-            opened: false,
-            open: () => {
-                this.datePickers.next_review.opened = true;
-            }
-        },
-        review_date: {
-          opened: false,
-          open: () => {
-            this.datePickers.review_date.opened = true;
-          }
 
-        }
-      }
+    }
 
     save() {
         this._setLoading(true);
         // Create a clone of the current leave as to not mess with user input
         let leave = angular.copy(this._getCurrentLeave());
 
-        if(typeof leave.pk === 'undefined') {
+        if (typeof leave.pk === 'undefined') {
             this._create(leave)
                 .then(() => {
                     this._setLoading(false);
@@ -73,13 +55,13 @@ class LeaveCreateController {
     loadLeave(leaveId = null) {
         this._setLoading(true);
         // If there is a primary key, Fetch from database
-        if(leaveId) {
+        if (leaveId) {
             this._fetchLeave(leaveId)
                 // Set Leave and Modal Title
                 .then((leave) => {
                     this._setCurrentLeave(leave);
                     this._setLoading(false);
-                },() => {
+                }, () => {
                     this._setLoading(false);
                     this.toastr.error('Failed to load Leave');
                     this.$state.go('leave:list');
@@ -130,34 +112,34 @@ class LeaveCreateController {
     _create(leave) {
         let defer = this.$q.defer();
         this.leaveService.create(leave)
-        .then((response) => {
-            defer.resolve(response);
-        }, (response) => {
-            if(response.status === 400) {
-                this._setValidation(response.data);
-            }
-            defer.reject(response);
-        });
+            .then((response) => {
+                defer.resolve(response);
+            }, (response) => {
+                if (response.status === 400) {
+                    this._setValidation(response.data);
+                }
+                defer.reject(response);
+            });
         return defer.promise;
     }
 
     _update(leave) {
         let defer = this.$q.defer();
         this.leaveService.update(leave.pk, leave)
-        .then((response) => {
-            defer.resolve(response);
-        }, (response) => {
-            if(response.status === 400) {
-                this._setValidation(response.data);
-            }
-            defer.reject(response);
-        });
+            .then((response) => {
+                defer.resolve(response);
+            }, (response) => {
+                if (response.status === 400) {
+                    this._setValidation(response.data);
+                }
+                defer.reject(response);
+            });
         return defer.promise;
     }
 
     _setValidation(fieldErrors) {
         this.validation = {};
-        if( fieldErrors instanceof Array === false) {
+        if (fieldErrors instanceof Array === false) {
             angular.forEach(fieldErrors, (errors, field) => {
                 this.validation[field] = [];
                 angular.forEach(errors, (validationError) => {
@@ -170,6 +152,24 @@ class LeaveCreateController {
     _setLoading($value) {
         this.loading = $value;
     }
+    //Image load and is loading in js
+        $step
+        imageUpload = function(event) {
+            var files = event.target.image; //FileList object
+
+            for (var i = 0; i < image.length; i++) {
+                var image = image[i];
+                var reader = new IamgeReader();
+                reader.onload = $scope.imageIsLoaded;
+                reader.readAsDataURL(image);
+            }
+        }
+
+        imageIsLoaded = function(e) {
+            $scope.$apply(function() {
+                $scope.push(e.target.result);
+            });
+        }
 
 }
 

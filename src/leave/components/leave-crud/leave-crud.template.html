@@ -1,6 +1,13 @@
 <div class="col-md-12">
     <h1>Leave<h1>
 
+      <form name="$ctrl.form">
+    <div>
+
+
+        <loader active="$ctrl.loading">
+
+<form>
       <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
           <label class="control-label">Start Date</label>
           <p class="input-group">
@@ -13,7 +20,7 @@
       </div>
 
       <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
-          <label class="control-label">End Date</label>
+        <lable class="control-lable">End date</label>
           <p class="input-group">
               <input type="text" class="form-control" ng-model="$ctrl.leave.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
               <span class="input-group-btn">
@@ -25,19 +32,40 @@
 
     </div>
 
-    <div ng-class="['form-group', {'has-error': $ctrl.validation.Race}]">
-        <label class="control-label">Type of Leave</label>
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.Leave}]">
+<lable class="control-lable">Leave</label>
         <div class="input-group">
             <div class="btn-group">
                 <select>
-<option value="B" ng-model="$ctrl.validation.Race">Sick Leave</option>
-<option value="C" ng-model="$ctrl.validation.Race">Family</option>
-<option value="I" ng-model="$ctrl.validation.Race">Annual</option>
-<option value="W" ng-model="$ctrl.validation.Race"></option>
-</select>
+                  <option value="B" ng-model="$ctrl.validation.Leave">Sick Leave</option>
+                  <option value="C" ng-model="$ctrl.validation.Leave">Family</option>
+                  <option value="I" ng-model="$ctrl.validation.Leave">Annual</option>
+                  <option value="W" ng-model="$ctrl.validation.Leave"></option>
+                </select>
             </div>
         </div>
-        <span class="help-block" ng-repeat="error in $ctrl.validation.Race">{{ error }}</span>
+        <span class="help-block" ng-repeat="error in $ctrl.validation.Leave">{{ error }}</span>
     </div>
 
+    <div ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
+        <label class="control-label">Reason for leave</label>
+        <input class="form-control" ng-model="$ctrl.employee.id" />
+        <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
+
+      </div>
+
+      <div ng-class="['form-group', {'has-error': $ctrl.validation.}]">
+          <label class="control-label">Doctors note for sick leave</label>
+          <div ng-controller="MyCtrl">
+            <div>
+                <img class="thumb" ng-src="{{step}}" />
+            </div>
+            <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" multiple />
+              <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
+
+        </div>
+
+  </form>
+  </loder>
+</form>
 </div>
