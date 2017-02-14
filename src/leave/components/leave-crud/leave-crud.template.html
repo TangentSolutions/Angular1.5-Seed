@@ -1,5 +1,6 @@
 <div class="col-md-12">
     <h1>Leave<h1>
+<<<<<<< HEAD
 
       <form name="$ctrl.form">
     <div>
@@ -8,6 +9,9 @@
         <loader active="$ctrl.loading">
 
 <form>
+=======
+          <button ui-sref="state-a" class="btn btn-primary">Back</button>
+>>>>>>> 1965b7ddd665f2f824c0d8141da7133454977d5e
       <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
           <label class="control-label">Start Date</label>
           <p class="input-group">
@@ -29,7 +33,16 @@
           </p>
           <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
       </div>
-
+      <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
+          <label class="control-label">End Date</label>
+          <p class="input-group">
+              <input type="text" class="form-control" ng-model="$ctrl.leave.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
+              <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.endDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+          </p>
+          <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
+      </div>
     </div>
 
     <div ng-class="['form-group', {'has-error': $ctrl.validation.Leave}]">
@@ -44,7 +57,6 @@
                 </select>
             </div>
         </div>
-        <span class="help-block" ng-repeat="error in $ctrl.validation.Leave">{{ error }}</span>
     </div>
 
     <div ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
