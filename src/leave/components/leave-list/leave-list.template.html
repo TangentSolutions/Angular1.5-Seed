@@ -41,6 +41,18 @@
                     <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'employee') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                 </a>
             </th>
+            <th ng-if="!$ctrl.isSuperUser">
+                Leave type
+                <a ng-class="$ctrl.searchQuery.ordering === 'type' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('type')">
+                    <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'type') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                </a>
+            </th>
+            <th ng-if="!$ctrl.isSuperUser">
+                Doctersnote
+                <a ng-class="$ctrl.searchQuery.ordering === 'upload' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('upload')">
+                    <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'upload') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+                </a>
+            </th>
             <th>
                 <div class="btn-group" uib-dropdown is-open="status.isopen">
                     <button id="new-levae-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
@@ -58,9 +70,11 @@
                 <td>{{ result.end_date | date : 'yyyy-MM-dd' }}</td>
                 <td>{{ result.status }}</td>
                 <td>{{ result.leave_days }}</td>
-                <td>{{ result.employee}}
-                  <td>
-                      <div class="btn-group" uib-dropdown is-open="status.isopen_{{result.pk}}">
+                <td>{{ result.employee}}</td>
+                <td>{{ result.type }}</td>
+                <td>{{ result.upload }}</td>
+                        <td>
+                      <div ng-if="$ctrl.isSuperUser" class="btn-group" uib-dropdown is-open="status.isopen_{{result.pk}}">
                       <button id="{{result.pk}}-update-button" type="button" class="btn btn-default btn-xs" uib-dropdown-toggle ng-disabled="disabled">
                         <i class="glyphicon glyphicon-pencil"></i> Edit <span class="caret"></span>
                       </button>
@@ -68,7 +82,6 @@
                         <li role="menuitem"><a ui-sref="leave:update({id: result.pk})">In Form</a></li>
                       </ul>
                     </div>
-                    <button ng-click="$ctrl.delete(result.pk)" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Delete</button>
                 </td>
             </tr>
         </tbody>

@@ -8,6 +8,8 @@ class LeaveCreateController {
         this.validation = {};
         this.$state = $state;
         this.$q = $q;
+        this.searchQuery = {};
+
 
         let leaveId = $stateParams.id;
         this._setLoading(true);
@@ -28,6 +30,32 @@ class LeaveCreateController {
             }
         },
 
+    }
+
+    $onInit() {
+        this.get();
+        this.isSuperUser = this.leaveService.isSuperUser();
+    }
+
+    order($orderBy) {
+        this.searchQuery.ordering = $orderBy;
+        this.get();
+    }
+
+    get() {
+        this._setLoading(true);
+        this.leaveService.get(this.searchQuery)
+        .then((response) => {
+            this._setLoading(false);
+            this.result = response.data;
+        }, () => {
+            this._setLoading(false);
+            this.toastr.error("There was an error while trying to retrieve Leaves");
+        });
+    }
+
+    _setLoading($value) {
+        this.loading = $value;
     }
 
     save() {
@@ -153,23 +181,22 @@ class LeaveCreateController {
         this.loading = $value;
     }
     //Image load and is loading in js
-        $step
-        imageUpload = function(event) {
-            var files = event.target.image; //FileList object
+    function (Prevewi) {
+    var preview = document.querySelector('img');
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
 
-            for (var i = 0; i < image.length; i++) {
-                var image = image[i];
-                var reader = new IamgeReader();
-                reader.onload = $scope.imageIsLoaded;
-                reader.readAsDataURL(image);
-            }
-        }
+    reader.onloadend = function () {
+      preview.src = reader.result;
+    }
 
-        imageIsLoaded = function(e) {
-            $scope.$apply(function() {
-                $scope.push(e.target.result);
-            });
-        }
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
+  }
+
 
 }
 

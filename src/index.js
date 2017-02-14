@@ -20,11 +20,13 @@ import rx from 'rx-angular';
 import CoreModule from './core/core.module';
 import EmployeeModule from './employee/employee.module';
 import LeaveModule from './leave/leave.module';
+import InventoryModule from './inventory/inventory.module';
 
 angular.module('app', [
     CoreModule.name,
     EmployeeModule.name,
     LeaveModule.name,
+    InventoryModule.name,
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -107,6 +109,18 @@ angular.module('app', [
         .state('leave:create', {
             url: '/leave/create',
             template: '<leave-crud></leave-crud>'
+        })
+        .state('inventory:list', {
+            url: '/inventory/create',
+            template: '<inventory-list></inventory-list>'
+        })
+        .state('inventory:update', {
+            url: '/inventory/create',
+            template: '<inventory-crud></inventory-crud>'
+        })
+        .state('inventory:create', {
+            url: '/inventory/create',
+            template: '<inventory-crud></inventory-crud>'
         });
 });
 

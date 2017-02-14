@@ -1,6 +1,7 @@
+<button ui-sref="state-a" class="btn btn-primary">Back</button>
 <div class="col-md-12">
-    <h1>Leave<h1>
-<<<<<<< HEAD
+    <h1 class="small">Leave <h1>
+
 
       <form name="$ctrl.form">
     <div>
@@ -9,10 +10,7 @@
         <loader active="$ctrl.loading">
 
 <form>
-=======
-          <button ui-sref="state-a" class="btn btn-primary">Back</button>
->>>>>>> 1965b7ddd665f2f824c0d8141da7133454977d5e
-      <div ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
+      <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.start_date}]">
           <label class="control-label">Start Date</label>
           <p class="input-group">
               <input type="text" class="form-control" ng-model="$ctrl.leave.start_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.startDate.opened" close-text="Close" />
@@ -23,7 +21,7 @@
           <span class="help-block" ng-repeat="error in $ctrl.validation.start_date">{{ error }}</span>
       </div>
 
-      <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
+      <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
         <lable class="control-lable">End date</label>
           <p class="input-group">
               <input type="text" class="form-control" ng-model="$ctrl.leave.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
@@ -31,21 +29,7 @@
 <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.endDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
 </span>
           </p>
-          <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
-      </div>
-      <div ng-class="['form-group', {'has-error': $ctrl.validation.end_date}]">
-          <label class="control-label">End Date</label>
-          <p class="input-group">
-              <input type="text" class="form-control" ng-model="$ctrl.leave.end_date" alt-input-formats="['yyyy-MM-dd']" uib-datepicker-popup="yyyy-MM-dd" is-open="$ctrl.datePickers.endDate.opened" close-text="Close" />
-              <span class="input-group-btn">
-      <button type="button" class="btn btn-default" ng-click="$ctrl.datePickers.endDate.open()"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-          </p>
-          <span class="help-block" ng-repeat="error in $ctrl.validation.end_date">{{ error }}</span>
-      </div>
-    </div>
-
-    <div ng-class="['form-group', {'has-error': $ctrl.validation.Leave}]">
+    <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.Leave}]">
 <lable class="control-lable">Leave</label>
         <div class="input-group">
             <div class="btn-group">
@@ -59,25 +43,33 @@
         </div>
     </div>
 
-    <div ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
+    <div class="small" ng-class="['form-group', {'has-error': $ctrl.validation.pid}]">
         <label class="control-label">Reason for leave</label>
         <input class="form-control" ng-model="$ctrl.employee.id" />
         <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
 
       </div>
 
-      <div ng-class="['form-group', {'has-error': $ctrl.validation.}]">
+      <div class="small"ng-class="['form-group', {'has-error': $ctrl.validation.}]">
           <label class="control-label">Doctors note for sick leave</label>
-          <div ng-controller="MyCtrl">
-            <div>
-                <img class="thumb" ng-src="{{step}}" />
-            </div>
-            <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" multiple />
+          <input ng-onClick="myCrtl" img class="thumb" type="file" id="files" name="files[i]" multiple />
+            <output id="list"></output>
               <span class="help-block" ng-repeat="error in $ctrl.validation.id">{{ error }}</span>
 
         </div>
 
+        <div ng-if="!$ctrl.isSuperUser">
+            Employee id
+            <a ng-class="$ctrl.searchQuery.ordering === 'employee' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('employee')">
+                <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'employee') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
+            </a>
+        </div>
+
+        <div ng-if="!$ctrl.loading" ng-repeat="result in $ctrl.result" id="result_row_{{result.pk}}">
+            <div>{{ result.employee }}</div>
+          </div>
+
   </form>
-  </loder>
+</loader>
 </form>
 </div>
