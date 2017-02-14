@@ -152,25 +152,7 @@ class LeaveCreateController {
     _setLoading($value) {
         this.loading = $value;
     }
-    //Image load and is loading in js
-        $step
-        imageUpload = function(event) {
-            var files = event.target.image; //FileList object
 
-            for (var i = 0; i < image.length; i++) {
-                var image = image[i];
-                var reader = new IamgeReader();
-                reader.onload = $scope.imageIsLoaded;
-                reader.readAsDataURL(image);
-            }
-        }
-
-        imageIsLoaded = function(e) {
-            $scope.$apply(function() {
-                $scope.push(e.target.result);
-            });
-        }
-
-}
+  }
 
 export default LeaveCreateController;

@@ -3,7 +3,7 @@
     <h4>Employees</h4>
     <table class="table table-bordered table-striped">
         <thead>
-            <tr ng-if="$ctrl.isSuperUser">
+            <tr>
                 <th>
                     Name
                     <a ng-class="$ctrl.searchQuery.ordering === 'name' ? 'text-primary' : 'text-muted'" ng-click="$ctrl.order('name')">
@@ -52,7 +52,7 @@
                         <i class="glyphicon ng-class: ($ctrl.searchQuery.ordering === 'latest_salary') ? glyphicon-arrow-down : glyphicon-arrow-up;"></i>
                     </a>
                 </th>
-                <th>
+                <th ng-if="$ctrl.isSuperUser">
                     <div class="btn-group" uib-dropdown is-open="status.isopen">
                         <button id="new-employee-button" type="button" class="btn btn-success btn-xs" uib-dropdown-toggle ng-disabled="disabled">
                     <i class="glyphicon glyphicon-plus"></i> New <span class="caret"></span>
